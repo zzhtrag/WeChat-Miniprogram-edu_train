@@ -1,0 +1,138 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-section">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索班级名称/课程" value="{{keyword}}" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch"/>
+      <text class="clear-icon" wx:if="{{keyword}}" bindtap="clearSearch">✕</text>
+    </view>
+    <view class="filter-btn" bindtap="showFilter">
+      <text>筛选</text>
+      <text class="filter-icon">▼</text>
+    </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-section">
+    <view class="stats-card">
+      <view class="stats-item">
+        <view class="stats-number">{{classStats.total}}</view>
+        <view class="stats-label">全部班级</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-number active">{{classStats.active}}</view>
+        <view class="stats-label">进行中</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-number inactive">{{classStats.inactive}}</view>
+        <view class="stats-label">已结束</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 班级列表 -->
+  <view class="class-list">
+    <view class="class-card" wx:for="{{classes}}" wx:key="id">
+      <view class="class-main interactive-item interactive-admin" bindtap="viewClassDetail" data-id="{{item.id}}">
+        <view class="class-header">
+          <view class="class-icon-bg">
+            <text class="class-icon">📚</text>
+          </view>
+          <view class="class-info">
+            <view class="class-name-row">
+              <text class="class-name">{{item.name}}</text>
+              <text class="class-status {{item.status}}">{{item.status === 'active' ? '进行中' : '已结束'}}</text>
+            </view>
+            <view class="class-course">{{item.course_name}}</view>
+          </view>
+        </view>
+        <view class="class-details">
+          <view class="detail-item">
+            <text class="detail-icon">👨‍🏫</text>
+            <text class="detail-text">{{item.teacher_name}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-icon">📍</text>
+            <text class="detail-text">{{item.room}}</text>
+          </view>
+        </view>
+        <view class="class-footer">
+          <view class="footer-item">
+            <text class="footer-icon">👥</text>
+            <text class="footer-text">{{item.current_students || 0}}/{{item.capacity}}人</text>
+          </view>
+          <view class="footer-item">
+            <text class="footer-icon">📅</text>
+            <text class="footer-text">{{item.start_date}} ~ {{item.end_date}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="class-actions">
+        <text class="action-btn" bindtap="showActions" data-id="{{item.id}}">···</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{classes.length === 0}}">
+    <view class="empty-icon">📚</view>
+    <view class="empty-text">暂无班级数据</view>
+    <view class="empty-subtext">点击右下角添加班级</view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="fab-btn" bindtap="addClass">
+    <text class="fab-icon">+</text>
+  </view>
+</view>
+
+<!-- 筛选弹窗 -->
+<view class="filter-modal" wx:if="{{showFilterModal}}">
+  <view class="modal-mask" bindtap="hideFilter"></view>
+  <view class="modal-content">
+    <view class="modal-header">
+      <text class="modal-title">筛选条件</text>
+      <text class="modal-close" bindtap="hideFilter">✕</text>
+    </view>
+    <view class="modal-body">
+      <view class="filter-section">
+        <view class="filter-label">班级状态</view>
+        <view class="filter-options">
+          <view class="filter-option {{filterStatus === '' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="">全部</view>
+          <view class="filter-option {{filterStatus === 'active' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="active">进行中</view>
+          <view class="filter-option {{filterStatus === 'inactive' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="inactive">已结束</view>
+        </view>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <button class="btn-reset" bindtap="resetFilter">重置</button>
+      <button class="btn-confirm" bindtap="confirmFilter">确定</button>
+    </view>
+  </view>
+</view>
+
+<!-- 操作菜单 -->
+<view class="action-sheet" wx:if="{{showActionSheet}}">
+  <view class="action-mask" bindtap="hideActionSheet"></view>
+  <view class="action-content">
+    <view class="action-header">
+      <text class="action-title">{{currentClass.name}}</text>
+      <text class="action-subtitle">{{currentClass.course_name}}</text>
+    </view>
+    <view class="action-list">
+      <view class="action-item" bindtap="editClass">
+        <text class="action-icon">✏️</text>
+        <text class="action-text">编辑班级信息</text>
+      </view>
+      <view class="action-item" bindtap="toggleClassStatus">
+        <text class="action-icon">{{currentClass.status === 'active' ? '⏸️' : '▶️'}}</text>
+        <text class="action-text">{{currentClass.status === 'active' ? '设为已结束' : '设为进行中'}}</text>
+      </view>
+      <view class="action-item delete" bindtap="deleteClass">
+        <text class="action-icon">🗑️</text>
+        <text class="action-text">删除班级</text>
+      </view>
+    </view>
+    <view class="action-cancel" bindtap="hideActionSheet">取消</view>
+  </view>
+</view>

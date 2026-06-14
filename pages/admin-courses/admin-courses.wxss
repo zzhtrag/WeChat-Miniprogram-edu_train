@@ -1,0 +1,494 @@
+/* Admin Courses Page - Soft UI Style */
+
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #EDE9FE 0%, #F3F0FE 20%, #F8FAFC 45%);
+  padding: 20rpx 24rpx 120rpx;
+}
+
+/* ============================================
+   SEARCH SECTION
+   ============================================ */
+.search-section {
+  margin-bottom: 20rpx;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 20rpx 24rpx;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.08), 0 4px 12px -4px rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.search-icon-img {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 12rpx;
+  opacity: 0.5;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #0F172A;
+}
+
+.clear-icon {
+  font-size: 28rpx;
+  color: #94A3B8;
+  padding: 8rpx;
+  font-weight: 600;
+}
+
+/* ============================================
+   STATS SECTION
+   ============================================ */
+.stats-section {
+  margin-bottom: 20rpx;
+}
+
+.stats-card {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 28rpx 16rpx;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.08), 0 4px 12px -4px rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.stats-item {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-icon-wrapper {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12rpx;
+}
+
+.icon-image-sm {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.stats-number {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+}
+
+.stats-number.active { color: #059669; }
+.stats-number.inactive { color: #94A3B8; }
+
+.stats-label {
+  font-size: 22rpx;
+  color: #94A3B8;
+  margin-top: 6rpx;
+  font-weight: 500;
+}
+
+/* ============================================
+   FILTER TABS
+   ============================================ */
+.filter-section {
+  margin-bottom: 20rpx;
+}
+
+.filter-tabs {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 8rpx;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.08), 0 4px 12px -4px rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.filter-tab {
+  flex: 1;
+  text-align: center;
+  padding: 18rpx 0;
+  font-size: 26rpx;
+  color: #64748B;
+  border-radius: 16rpx;
+  font-weight: 500;
+  transition: all 200ms ease;
+}
+
+.filter-tab.active {
+  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.3);
+}
+
+/* ============================================
+   COURSE LIST
+   ============================================ */
+.course-list {
+  margin-bottom: 20rpx;
+}
+
+.course-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  margin-bottom: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.08), 0 4px 12px -4px rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  transition: all 200ms ease;
+}
+
+.course-card:active {
+  transform: scale(0.98);
+  background: rgba(124, 58, 237, 0.02);
+}
+
+.course-main {
+  padding: 24rpx;
+}
+
+.course-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.course-icon-bg {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.15), 0 4px 8px -4px rgba(124, 58, 237, 0.08);
+}
+
+.icon-image {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.course-info { flex: 1; }
+
+.course-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.course-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+}
+
+.course-status {
+  font-size: 22rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+  font-weight: 600;
+}
+
+.course-status.active {
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+}
+
+.course-status.inactive {
+  background: rgba(148, 163, 184, 0.1);
+  color: #94A3B8;
+}
+
+.course-subject {
+  font-size: 24rpx;
+  color: #94A3B8;
+  margin-top: 6rpx;
+  font-weight: 500;
+}
+
+.course-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #64748B;
+}
+
+.detail-icon-box {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8rpx;
+}
+
+.detail-icon-text {
+  font-size: 20rpx;
+}
+
+.detail-text {
+  font-weight: 500;
+}
+
+.course-actions {
+  border-top: 1px solid #F1F5F9;
+  padding: 16rpx 24rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F8FAFC;
+  transition: all 200ms ease;
+}
+
+.action-btn:active {
+  background: #F1F5F9;
+  transform: scale(0.95);
+}
+
+.action-icon {
+  width: 28rpx;
+  height: 28rpx;
+  opacity: 0.5;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.empty-state {
+  text-align: center;
+  padding: 120rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-icon-box {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.15), 0 4px 8px -4px rgba(124, 58, 237, 0.08);
+}
+
+.empty-icon-img {
+  width: 48rpx;
+  height: 48rpx;
+  opacity: 0.7;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.empty-subtext {
+  font-size: 24rpx;
+  color: #CBD5E1;
+  margin-top: 10rpx;
+}
+
+/* ============================================
+   FAB BUTTON
+   ============================================ */
+.fab-btn {
+  position: fixed;
+  right: 40rpx;
+  bottom: 60rpx;
+  width: 112rpx;
+  height: 112rpx;
+  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(124, 58, 237, 0.4);
+  transition: all 200ms ease;
+}
+
+.fab-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 4rpx 12rpx rgba(124, 58, 237, 0.3);
+}
+
+.fab-icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+/* ============================================
+   ACTION SHEET
+   ============================================ */
+.action-sheet {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.action-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.action-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 20rpx 24rpx 40rpx;
+  box-shadow: 0 -8rpx 32rpx rgba(15, 23, 42, 0.15);
+}
+
+.action-header {
+  padding: 20rpx 20rpx 24rpx;
+  text-align: center;
+}
+
+.action-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+}
+
+.action-subtitle {
+  display: block;
+  font-size: 24rpx;
+  color: #94A3B8;
+  margin-top: 6rpx;
+  font-weight: 500;
+}
+
+.action-list {
+  padding: 0;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 20rpx;
+  border-radius: 20rpx;
+  transition: all 200ms ease;
+}
+
+.action-item:active {
+  background: #F8FAFC;
+}
+
+.action-icon-box {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+
+.action-icon-text {
+  font-size: 28rpx;
+}
+
+.action-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #0F172A;
+  font-weight: 500;
+}
+
+.action-arrow {
+  font-size: 32rpx;
+  color: #CBD5E1;
+}
+
+.action-item.delete .action-text { color: #DC2626; }
+
+.action-cancel {
+  text-align: center;
+  padding: 28rpx;
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  color: #64748B;
+  background: #F8FAFC;
+  border-radius: 20rpx;
+  font-weight: 500;
+  transition: all 200ms ease;
+}
+
+.action-cancel:active {
+  background: #F1F5F9;
+}
+
+/* ============================================
+   ICON BOX COLORS
+   ============================================ */
+.icon-box-primary {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+}
+
+.icon-box-secondary {
+  background: linear-gradient(135deg, rgba(100, 116, 139, 0.1) 0%, rgba(148, 163, 184, 0.1) 100%);
+}
+
+.icon-box-success {
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+}
+
+.icon-box-warning {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+}
+
+.icon-box-danger {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+}
+
+/* ============================================
+   STAGGER ANIMATION DELAYS
+   ============================================ */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }

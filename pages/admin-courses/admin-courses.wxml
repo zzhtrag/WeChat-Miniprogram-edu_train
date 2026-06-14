@@ -1,0 +1,134 @@
+<view class="page-container">
+  <!-- 搜索区域 -->
+  <view class="search-section stagger-1">
+    <view class="search-box">
+      <image class="search-icon-img" src="/svg/icon-manage.svg" mode="aspectFit"/>
+      <input class="search-input" placeholder="搜索课程名称/科目" value="{{keyword}}" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch"/>
+      <text class="clear-icon" wx:if="{{keyword}}" bindtap="clearSearch">✕</text>
+    </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-section stagger-2">
+    <view class="stats-card">
+      <view class="stats-item">
+        <view class="stat-icon-wrapper icon-box-primary">
+          <image class="icon-image-sm" src="/svg/icon-course.svg" mode="aspectFit"/>
+        </view>
+        <view class="stats-number">{{courseStats.total}}</view>
+        <view class="stats-label">全部课程</view>
+      </view>
+      <view class="stats-item">
+        <view class="stat-icon-wrapper icon-box-success">
+          <image class="icon-image-sm" src="/svg/icon-course.svg" mode="aspectFit"/>
+        </view>
+        <view class="stats-number active">{{courseStats.active}}</view>
+        <view class="stats-label">招生中</view>
+      </view>
+      <view class="stats-item">
+        <view class="stat-icon-wrapper icon-box-warning">
+          <image class="icon-image-sm" src="/svg/icon-course.svg" mode="aspectFit"/>
+        </view>
+        <view class="stats-number inactive">{{courseStats.inactive}}</view>
+        <view class="stats-label">已停招</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 筛选标签 -->
+  <view class="filter-section stagger-3">
+    <view class="filter-tabs">
+      <view class="filter-tab {{filterStatus === '' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="">全部</view>
+      <view class="filter-tab {{filterStatus === 'active' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="active">招生中</view>
+      <view class="filter-tab {{filterStatus === 'inactive' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="inactive">已停招</view>
+    </view>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="course-list stagger-4">
+    <view class="course-card interactive-item" wx:for="{{courses}}" wx:key="id">
+      <view class="course-main">
+        <view class="course-header">
+          <view class="course-icon-bg icon-box-primary">
+            <image class="icon-image" src="/svg/icon-course.svg" mode="aspectFit"/>
+          </view>
+          <view class="course-info">
+            <view class="course-name-row">
+              <text class="course-name">{{item.name}}</text>
+              <text class="course-status {{item.status}}">{{item.status === 'active' ? '招生中' : '已停招'}}</text>
+            </view>
+            <view class="course-subject">{{item.subject}}</view>
+          </view>
+        </view>
+        <view class="course-details">
+          <view class="detail-item" wx:if="{{item.textbook}}">
+            <view class="detail-icon-box icon-box-secondary">
+              <text class="detail-icon-text">📕</text>
+            </view>
+            <text class="detail-text">{{item.textbook}}</text>
+          </view>
+          <view class="detail-item" wx:if="{{item.capacity}}">
+            <view class="detail-icon-box icon-box-secondary">
+              <text class="detail-icon-text">👥</text>
+            </view>
+            <text class="detail-text">{{item.capacity}}人</text>
+          </view>
+        </view>
+      </view>
+      <view class="course-actions">
+        <view class="action-btn" bindtap="showActions" data-id="{{item.id}}">
+          <image class="action-icon" src="/svg/icon-manage.svg" mode="aspectFit"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state stagger-4" wx:if="{{courses.length === 0}}">
+    <view class="empty-icon-box icon-box-primary">
+      <image class="empty-icon-img" src="/svg/icon-course.svg" mode="aspectFit"/>
+    </view>
+    <view class="empty-text">暂无课程数据</view>
+    <view class="empty-subtext">点击右下角添加课程</view>
+  </view>
+
+  <!-- 浮动按钮 -->
+  <view class="fab-btn" bindtap="addCourse">
+    <image class="fab-icon" src="/svg/icon-manage.svg" mode="aspectFit"/>
+  </view>
+</view>
+
+<!-- 操作面板 -->
+<view class="action-sheet" wx:if="{{showActionSheet}}">
+  <view class="action-mask" bindtap="hideActionSheet"></view>
+  <view class="action-content">
+    <view class="action-header">
+      <text class="action-title">{{currentCourse.name}}</text>
+      <text class="action-subtitle">{{currentCourse.subject}}</text>
+    </view>
+    <view class="action-list">
+      <view class="action-item" bindtap="editCourse">
+        <view class="action-icon-box icon-box-primary">
+          <text class="action-icon-text">✏️</text>
+        </view>
+        <text class="action-text">编辑课程信息</text>
+        <text class="action-arrow">›</text>
+      </view>
+      <view class="action-item" bindtap="toggleCourseStatus">
+        <view class="action-icon-box icon-box-warning">
+          <text class="action-icon-text">{{currentCourse.status === 'active' ? '⏸️' : '▶️'}}</text>
+        </view>
+        <text class="action-text">{{currentCourse.status === 'active' ? '设为已停招' : '设为招生中'}}</text>
+        <text class="action-arrow">›</text>
+      </view>
+      <view class="action-item delete" bindtap="deleteCourse">
+        <view class="action-icon-box icon-box-danger">
+          <text class="action-icon-text">🗑️</text>
+        </view>
+        <text class="action-text">删除课程</text>
+        <text class="action-arrow">›</text>
+      </view>
+    </view>
+    <view class="action-cancel" bindtap="hideActionSheet">取消</view>
+  </view>
+</view>

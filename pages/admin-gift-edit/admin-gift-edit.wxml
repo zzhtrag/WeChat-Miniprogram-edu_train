@@ -1,0 +1,71 @@
+<view class="container">
+  <view wx:if="{{loading}}" class="loading-state">
+    <text>加载中...</text>
+  </view>
+
+  <block wx:else>
+    <!-- 图片上传 -->
+    <view class="form-section">
+      <view class="section-label">礼品图片</view>
+      <view class="image-upload-area" bindtap="onChooseImage" wx:if="{{!formData.image}}">
+        <text class="upload-icon">📷</text>
+        <text class="upload-text">点击上传图片</text>
+      </view>
+      <view class="image-preview" wx:else>
+        <image class="preview-img" src="{{formData.image}}" mode="aspectFill"/>
+        <view class="remove-btn" bindtap="removeImage">✕</view>
+      </view>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-label">基本信息</view>
+
+      <view class="form-group">
+        <view class="form-label">礼品名称 <text class="required">*</text></view>
+        <input class="form-input" placeholder="请输入礼品名称" value="{{formData.name}}" bindinput="onNameInput"/>
+        <text class="error-text" wx:if="{{errors.name}}">{{errors.name}}</text>
+      </view>
+
+      <view class="form-group">
+        <view class="form-label">礼品描述</view>
+        <textarea class="form-textarea" placeholder="请输入礼品描述" value="{{formData.description}}" bindinput="onDescriptionInput" maxlength="200"></textarea>
+      </view>
+    </view>
+
+    <!-- 兑换设置 -->
+    <view class="form-section">
+      <view class="section-label">兑换设置</view>
+
+      <view class="form-group">
+        <view class="form-label">库存数量 <text class="required">*</text></view>
+        <input class="form-input" type="number" placeholder="请输入库存数量" value="{{formData.stock}}" bindinput="onStockInput"/>
+        <text class="error-text" wx:if="{{errors.stock}}">{{errors.stock}}</text>
+      </view>
+
+      <view class="form-group">
+        <view class="form-label">兑换积分 <text class="required">*</text></view>
+        <input class="form-input" type="number" placeholder="请输入所需积分" value="{{formData.required_points}}" bindinput="onPointsInput"/>
+        <text class="error-text" wx:if="{{errors.required_points}}">{{errors.required_points}}</text>
+      </view>
+
+      <view class="form-group">
+        <view class="form-label">上架状态</view>
+        <picker mode="selector" range="{{['上架', '下架']}}" value="{{formData.status === 'on_shelf' ? 0 : 1}}" bindchange="onStatusChange">
+          <view class="form-picker">
+            <text>{{formData.status === 'on_shelf' ? '上架' : '下架'}}</text>
+            <text class="picker-arrow">›</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="form-actions">
+      <view class="btn-primary {{submitting ? 'btn-disabled' : ''}}" bindtap="{{submitting ? '' : 'onSubmit'}}">
+        {{submitting ? '提交中...' : '保存'}}
+      </view>
+      <view class="btn-danger" wx:if="{{isEdit}}" bindtap="onDelete">删除礼品</view>
+    </view>
+  </block>
+</view>

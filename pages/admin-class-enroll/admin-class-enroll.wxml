@@ -1,0 +1,61 @@
+<view class="container">
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <block wx:if="{{!loading}}">
+    <!-- 班级信息 -->
+    <view class="info-card">
+      <view class="class-name">{{classInfo.name}}</view>
+      <view class="class-meta">
+        <text>当前学员：{{currentStudentCount}} / {{classInfo.capacity || '不限'}}</text>
+      </view>
+    </view>
+
+    <!-- 搜索 -->
+    <view class="search-bar">
+      <input class="search-input" placeholder="搜索学员姓名或学号" value="{{keyword}}" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch"/>
+    </view>
+
+    <!-- 已在班级的学员 -->
+    <view class="section" wx:if="{{existingStudents.length > 0}}">
+      <view class="section-title">已在班级（{{existingStudents.length}}人）</view>
+      <view class="student-list">
+        <view class="student-item disabled" wx:for="{{existingStudents}}" wx:key="id">
+          <view class="student-avatar">{{item.name.charAt(0)}}</view>
+          <view class="student-info">
+            <text class="student-name">{{item.name}}</text>
+            <text class="student-no">{{item.student_no}}</text>
+          </view>
+          <text class="student-status enrolled">已加入</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 可添加的学员 -->
+    <view class="section">
+      <view class="section-title">可添加学员</view>
+      <view class="empty-tips" wx:if="{{filteredAvailable.length === 0}}">
+        <text>{{keyword ? '未找到匹配学员' : '暂无可添加学员'}}</text>
+      </view>
+      <view class="student-list" wx:else>
+        <view class="student-item" wx:for="{{filteredAvailable}}" wx:key="id" bindtap="toggleSelect" data-id="{{item.id}}">
+          <view class="student-avatar">{{item.name.charAt(0)}}</view>
+          <view class="student-info">
+            <text class="student-name">{{item.name}}</text>
+            <text class="student-no">{{item.student_no}} · {{item.grade || ''}}</text>
+          </view>
+          <view class="checkbox {{selectedIds.indexOf(item.id) >= 0 ? 'checked' : ''}}">
+            <text wx:if="{{selectedIds.indexOf(item.id) >= 0}}">✓</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部操作 -->
+    <view class="bottom-bar" wx:if="{{selectedIds.length > 0}}">
+      <text class="selected-count">已选 {{selectedIds.length}} 人</text>
+      <view class="confirm-btn" bindtap="confirmAdd">确认添加</view>
+    </view>
+  </block>
+</view>

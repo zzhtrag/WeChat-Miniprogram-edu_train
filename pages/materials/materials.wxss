@@ -1,0 +1,110 @@
+.page-container {
+  min-height: 100vh;
+  background: #F8FAFC;
+  padding: 24rpx;
+}
+
+.material-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.material-card {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  gap: 20rpx;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.material-card:active {
+  transform: scale(0.98);
+}
+
+.material-icon-wrap {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 16rpx;
+  background: #F3F4F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.material-type-icon {
+  font-size: 36rpx;
+}
+
+.material-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.material-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1F2937;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.material-meta {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+  gap: 8rpx;
+}
+
+.meta-tag {
+  font-size: 22rpx;
+  color: #059669;
+  background: #ECFDF5;
+  padding: 2rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.meta-dot {
+  color: #D1D5DB;
+  font-size: 22rpx;
+}
+
+.meta-text {
+  font-size: 22rpx;
+  color: #9CA3AF;
+}
+
+.material-size {
+  font-size: 22rpx;
+  color: #9CA3AF;
+  margin-top: 6rpx;
+  display: block;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon {
+  font-size: 100rpx;
+  opacity: 0.4;
+  margin-bottom: 20rpx;
+}
+
+.empty-title {
+  font-size: 30rpx;
+  color: #6B7280;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.empty-desc {
+  font-size: 24rpx;
+  color: #9CA3AF;
+}

@@ -1,0 +1,136 @@
+<!--pages/admin-announcement-edit/admin-announcement-edit.wxml-->
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-state">
+    <text>加载中...</text>
+  </view>
+
+  <block wx:else>
+    <!-- 标题 -->
+    <view class="form-section">
+      <view class="form-label required">公告标题</view>
+      <input
+        class="form-input {{errors.title ? 'error' : ''}}"
+        placeholder="请输入公告标题"
+        value="{{formData.title}}"
+        bindinput="onTitleInput"
+        maxlength="50"
+      />
+      <view wx:if="{{errors.title}}" class="error-text">{{errors.title}}</view>
+    </view>
+
+    <!-- 类型 -->
+    <view class="form-section">
+      <view class="form-label required">公告类型</view>
+      <picker
+        mode="selector"
+        range="{{['系统通知', '家长通知', '教师通知']}}"
+        bindchange="onTypeChange"
+        value="{{formData.type === 'system' ? 0 : formData.type === 'parent' ? 1 : 2}}"
+      >
+        <view class="form-picker">
+          <text class="{{formData.type ? '' : 'placeholder'}}">
+            {{formData.type === 'system' ? '系统通知' : formData.type === 'parent' ? '家长通知' : '教师通知'}}
+          </text>
+          <text class="iconfont icon-right"></text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 内容 -->
+    <view class="form-section">
+      <view class="form-label required">公告内容</view>
+      <textarea
+        class="form-textarea {{errors.content ? 'error' : ''}}"
+        placeholder="请输入公告内容"
+        value="{{formData.content}}"
+        bindinput="onContentInput"
+        maxlength="2000"
+        auto-height
+      ></textarea>
+      <view wx:if="{{errors.content}}" class="error-text">{{errors.content}}</view>
+      <view class="char-count">{{formData.content.length || 0}}/2000</view>
+    </view>
+
+    <!-- 过期时间 -->
+    <view class="form-section">
+      <view class="form-label">有效期至</view>
+      <picker
+        mode="date"
+        value="{{formData.expire_time}}"
+        bindchange="onExpireTimeChange"
+        start="{{today}}"
+      >
+        <view class="form-picker">
+          <text class="{{formData.expire_time ? '' : 'placeholder'}}">
+            {{formData.expire_time || '请选择过期时间'}}
+          </text>
+          <text class="iconfont icon-right"></text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 置顶 -->
+    <view class="form-section">
+      <view class="form-label">置顶设置</view>
+      <switch
+        checked="{{formData.is_pinned}}"
+        bindchange="onPinnedChange"
+        color="#1890ff"
+      />
+      <text class="switch-label {{formData.is_pinned ? 'active' : ''}}">
+        {{formData.is_pinned ? '已置顶' : '未置顶'}}
+      </text>
+    </view>
+
+    <!-- 状态（编辑时显示） -->
+    <view wx:if="{{isEdit}}" class="form-section">
+      <view class="form-label">发布状态</view>
+      <picker
+        mode="selector"
+        range="{{['草稿', '已发布']}}"
+        bindchange="onStatusChange"
+        value="{{formData.status === 'draft' ? 0 : 1}}"
+      >
+        <view class="form-picker">
+          <text class="{{formData.status ? '' : 'placeholder'}}">
+            {{formData.status === 'draft' ? '草稿' : '已发布'}}
+          </text>
+          <text class="iconfont icon-right"></text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 发布信息（编辑时显示） -->
+    <view wx:if="{{isEdit && originalData}}" class="form-section">
+      <view class="form-label">发布信息</view>
+      <view class="info-item">
+        <text class="info-label">创建时间：</text>
+        <text class="info-value">{{originalData.created_at}}</text>
+      </view>
+      <view wx:if="{{originalData.publisher_id}}" class="info-item">
+        <text class="info-label">发布人：</text>
+        <text class="info-value">管理员</text>
+      </view>
+    </view>
+
+    <!-- 底部操作按钮 -->
+    <view class="bottom-actions">
+      <button
+        class="btn btn-draft"
+        bindtap="onSaveDraft"
+        loading="{{submitting}}"
+      >保存草稿</button>
+      <button
+        class="btn btn-publish"
+        bindtap="onPublish"
+        loading="{{submitting}}"
+      >发布</button>
+    </view>
+
+    <!-- 删除按钮（编辑模式） -->
+    <view wx:if="{{isEdit}}" class="delete-action">
+      <button class="btn-delete" bindtap="onDelete">删除公告</button>
+    </view>
+  </block>
+</view>

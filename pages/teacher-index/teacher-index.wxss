@@ -1,0 +1,503 @@
+/* Teacher Index Page v3 - Soft UI Evolution */
+
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #D1FAE5 0%, #E8FAF0 20%, #F8FAFC 45%);
+  padding: 24rpx 24rpx 40rpx;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  margin-bottom: 20rpx;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  box-shadow: 0 2px 8px -2px rgba(5, 150, 105, 0.08), 0 4px 12px -4px rgba(5, 150, 105, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.user-card:active {
+  transform: scale(0.98);
+}
+
+.avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 700;
+  margin-right: 20rpx;
+  letter-spacing: -0.02em;
+}
+
+.avatar-teacher-gradient {
+  background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+  box-shadow: 0 2px 8px -2px rgba(5, 150, 105, 0.3);
+}
+
+.user-info {
+  flex: 1;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 6rpx;
+  letter-spacing: -0.02em;
+  display: block;
+}
+
+.detail {
+  font-size: 24rpx;
+  color: #94A3B8;
+  display: block;
+}
+
+.arrow {
+  font-size: 32rpx;
+  color: #CBD5E1;
+  line-height: 1;
+}
+
+/* ============================================
+   STATS - Card with icons
+   ============================================ */
+.stats-grid {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 24rpx 16rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2px 8px -2px rgba(5, 150, 105, 0.08), 0 4px 12px -4px rgba(5, 150, 105, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  padding: 8rpx 0;
+}
+
+.stat-icon-box {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12rpx;
+}
+
+.stat-value {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 6rpx;
+  letter-spacing: -0.02em;
+  display: block;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: #94A3B8;
+  font-weight: 500;
+  display: block;
+}
+
+/* ============================================
+   TODAY SECTION - Timeline style
+   ============================================ */
+.today-section {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2px 8px -2px rgba(5, 150, 105, 0.08), 0 4px 12px -4px rgba(5, 150, 105, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.today-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.today-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.today-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+}
+
+.today-date {
+  font-size: 22rpx;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.today-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.today-item {
+  display: flex;
+  align-items: flex-start;
+  min-height: 88rpx;
+}
+
+.today-time-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80rpx;
+  padding-top: 4rpx;
+}
+
+.today-time {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #059669;
+  letter-spacing: -0.01em;
+}
+
+.today-time-end {
+  font-size: 20rpx;
+  color: #94A3B8;
+  margin-top: 4rpx;
+}
+
+.today-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32rpx;
+  margin-right: 20rpx;
+}
+
+.timeline-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8rpx;
+}
+
+.timeline-dot-upcoming {
+  background: #4F46E5;
+  box-shadow: 0 0 0 4rpx rgba(79, 70, 229, 0.15);
+}
+
+.timeline-dot-ongoing {
+  background: #059669;
+  box-shadow: 0 0 0 4rpx rgba(5, 150, 105, 0.15);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.timeline-dot-completed {
+  background: #CBD5E1;
+}
+
+.timeline-line {
+  width: 2rpx;
+  flex: 1;
+  background: #F1F5F9;
+  min-height: 24rpx;
+}
+
+.today-content {
+  flex: 1;
+  padding-bottom: 24rpx;
+  padding-top: 2rpx;
+}
+
+.today-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 4rpx;
+  display: block;
+}
+
+.today-meta {
+  font-size: 22rpx;
+  color: #94A3B8;
+  display: block;
+}
+
+.today-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 14rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 4rpx;
+}
+
+.today-status.tag-success {
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+}
+
+.today-status.tag-primary {
+  background: rgba(79, 70, 229, 0.1);
+  color: #4F46E5;
+}
+
+.today-status.tag-muted {
+  background: rgba(203, 213, 225, 0.3);
+  color: #94A3B8;
+}
+
+/* Today empty */
+.today-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 24rpx;
+}
+
+.today-empty .empty-state-icon {
+  margin-bottom: 16rpx;
+}
+
+.empty-state-title {
+  font-size: 24rpx;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+/* ============================================
+   QUICK MENU - SVG icons
+   ============================================ */
+.quick-section {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2px 8px -2px rgba(5, 150, 105, 0.08), 0 4px 12px -4px rgba(5, 150, 105, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28rpx 16rpx;
+}
+
+.quick-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 200ms ease;
+}
+
+.quick-item:active {
+  transform: scale(0.94);
+}
+
+.quick-icon-box {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12rpx;
+  box-shadow: 0 2px 8px -2px rgba(5, 150, 105, 0.15), 0 4px 8px -4px rgba(5, 150, 105, 0.08);
+}
+
+.quick-label {
+  font-size: 24rpx;
+  color: #0F172A;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ============================================
+   SECTION COMMON
+   ============================================ */
+.section {
+  margin-bottom: 20rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+  padding: 0 4rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+}
+
+.section-more {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(5, 150, 105, 0.08);
+}
+
+.more-text {
+  font-size: 22rpx;
+  color: #059669;
+  font-weight: 600;
+}
+
+.more-arrow {
+  font-size: 26rpx;
+  color: #059669;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* ============================================
+   HOMEWORK LIST
+   ============================================ */
+.homework-list {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.homework-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  border-bottom: 1px solid #F1F5F9;
+  transition: all 200ms ease;
+}
+
+.homework-card:last-child {
+  border-bottom: none;
+}
+
+.homework-card:active {
+  background: rgba(5, 150, 105, 0.03);
+}
+
+.homework-left {
+  flex: 1;
+  margin-right: 16rpx;
+}
+
+.homework-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 6rpx;
+  display: block;
+}
+
+.homework-meta {
+  font-size: 22rpx;
+  color: #94A3B8;
+  display: block;
+}
+
+.homework-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.tag-warning {
+  background: rgba(217, 119, 6, 0.1);
+  color: #D97706;
+}
+
+/* ============================================
+   EMPTY TIP
+   ============================================ */
+.empty-tip {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 36rpx 32rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.empty-tip-icon {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-tip-text {
+  font-size: 24rpx;
+  color: #94A3B8;
+}
+
+/* ============================================
+   LOGOUT
+   ============================================ */
+.logout-section {
+  margin-top: 24rpx;
+}
+
+.logout-btn {
+  background: #FFFFFF;
+  color: #94A3B8;
+  padding: 26rpx;
+  border-radius: 16rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 500;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  transition: all 200ms ease;
+}
+
+.logout-btn:active {
+  background: #F8FAFC;
+  transform: scale(0.98);
+}

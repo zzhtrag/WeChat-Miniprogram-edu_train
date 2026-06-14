@@ -1,0 +1,252 @@
+.page-container {
+  min-height: 100vh;
+  background: #F8FAFC;
+  padding-bottom: 140rpx;
+}
+
+/* 图片区 */
+.image-section {
+  background: #FFFFFF;
+  text-align: center;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.main-image {
+  width: 100%;
+  border-radius: 16rpx;
+}
+
+.image-hint {
+  font-size: 24rpx;
+  color: #9CA3AF;
+  margin-top: 12rpx;
+}
+
+.no-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx;
+  background: #FFFFFF;
+  margin-bottom: 16rpx;
+}
+
+.no-image-icon {
+  font-size: 80rpx;
+  margin-bottom: 12rpx;
+}
+
+.no-image-text {
+  font-size: 26rpx;
+  color: #9CA3AF;
+}
+
+/* 信息卡片 */
+.info-card {
+  background: #FFFFFF;
+  padding: 28rpx 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.info-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1F2937;
+  flex: 1;
+  margin-right: 16rpx;
+}
+
+.info-badges {
+  display: flex;
+  gap: 8rpx;
+}
+
+.badge {
+  font-size: 22rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 16rpx;
+  font-weight: 600;
+}
+
+.badge.featured {
+  background: #EDE9FE;
+  color: #7C3AED;
+}
+
+.badge.excellent {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.info-meta {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.meta-chip {
+  font-size: 24rpx;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+.info-desc {
+  font-size: 28rpx;
+  color: #6B7280;
+  line-height: 1.6;
+}
+
+/* 学生信息 */
+.student-card {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  gap: 16rpx;
+}
+
+.student-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.student-info {
+  flex: 1;
+}
+
+.student-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1F2937;
+  display: block;
+}
+
+.student-class {
+  font-size: 24rpx;
+  color: #9CA3AF;
+  margin-top: 4rpx;
+  display: block;
+}
+
+/* 教师点评 */
+.comment-card {
+  background: #FFFFFF;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.card-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.comment-text {
+  font-size: 28rpx;
+  color: #059669;
+  line-height: 1.6;
+  padding: 20rpx;
+  background: #ECFDF5;
+  border-radius: 12rpx;
+  border-left: 6rpx solid #10B981;
+}
+
+/* 标签 */
+.tags-card {
+  background: #FFFFFF;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.tag-item {
+  font-size: 24rpx;
+  color: #6B7280;
+  background: #F3F4F6;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+/* 详情 */
+.detail-card {
+  background: #FFFFFF;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 26rpx;
+  color: #9CA3AF;
+}
+
+.detail-value {
+  font-size: 26rpx;
+  color: #374151;
+}
+
+/* 操作栏 */
+.action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 12rpx;
+  padding: 20rpx 24rpx;
+  background: #FFFFFF;
+  border-top: 1px solid #F1F5F9;
+  z-index: 10;
+}
+
+.action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 22rpx;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.action-btn.toggle {
+  background: #EDE9FE;
+  color: #7C3AED;
+}
+
+.action-btn.toggle.excellent {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.action-btn.delete {
+  background: #FEF2F2;
+  color: #EF4444;
+}

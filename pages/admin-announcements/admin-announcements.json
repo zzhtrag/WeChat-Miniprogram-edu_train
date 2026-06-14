@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "公告管理",
+  "enablePullDownRefresh": true,
+  "navigationBarBackgroundColor": "#7C3AED",
+  "navigationBarTextStyle": "white"
+}

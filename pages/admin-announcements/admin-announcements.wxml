@@ -1,0 +1,170 @@
+<!--pages/admin-announcements/admin-announcements.wxml-->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <icon type="search" size="16" color="#999"></icon>
+      <input
+        class="search-input"
+        placeholder="搜索公告标题"
+        value="{{keyword}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearch"
+      />
+    </view>
+    <button class="search-btn" bindtap="onSearch">搜索</button>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-cards">
+    <view class="stat-card">
+      <view class="stat-num">{{stats.total}}</view>
+      <view class="stat-label">全部公告</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-num published">{{stats.published}}</view>
+      <view class="stat-label">已发布</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-num draft">{{stats.draft}}</view>
+      <view class="stat-label">草稿</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-num expired">{{stats.expired}}</view>
+      <view class="stat-label">已过期</view>
+    </view>
+  </view>
+
+  <!-- 筛选标签 -->
+  <view class="filter-tabs">
+    <view class="filter-section">
+      <text class="filter-label">类型：</text>
+      <view class="filter-tags">
+        <view
+          class="filter-tag {{filterType === 'all' ? 'active' : ''}}"
+          data-type="all"
+          bindtap="onFilterType"
+        >全部</view>
+        <view
+          class="filter-tag {{filterType === 'system' ? 'active' : ''}}"
+          data-type="system"
+          bindtap="onFilterType"
+        >系统通知</view>
+        <view
+          class="filter-tag {{filterType === 'parent' ? 'active' : ''}}"
+          data-type="parent"
+          bindtap="onFilterType"
+        >家长通知</view>
+        <view
+          class="filter-tag {{filterType === 'teacher' ? 'active' : ''}}"
+          data-type="teacher"
+          bindtap="onFilterType"
+        >教师通知</view>
+      </view>
+    </view>
+    <view class="filter-section">
+      <text class="filter-label">状态：</text>
+      <view class="filter-tags">
+        <view
+          class="filter-tag {{filterStatus === 'all' ? 'active' : ''}}"
+          data-status="all"
+          bindtap="onFilterStatus"
+        >全部</view>
+        <view
+          class="filter-tag {{filterStatus === 'published' ? 'active' : ''}}"
+          data-status="published"
+          bindtap="onFilterStatus"
+        >已发布</view>
+        <view
+          class="filter-tag {{filterStatus === 'draft' ? 'active' : ''}}"
+          data-status="draft"
+          bindtap="onFilterStatus"
+        >草稿</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 公告列表 -->
+  <scroll-view
+    class="list-container"
+    scroll-y
+    enable-back-to-top
+  >
+    <!-- 空状态 -->
+    <view wx:if="{{isEmpty}}" class="empty-state">
+      <image class="empty-icon" src="/images/empty.png" mode="aspectFit" />
+      <text class="empty-text">暂无公告</text>
+      <button class="empty-btn" bindtap="onAddAnnouncement">新建公告</button>
+    </view>
+
+    <!-- 公告列表 -->
+    <view wx:else class="announcement-list">
+      <view
+        wx:for="{{announcements}}"
+        wx:key="id"
+        class="announcement-item interactive-item interactive-admin {{item.is_pinned ? 'pinned' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="onViewDetail"
+      >
+        <!-- 置顶标识 -->
+        <view wx:if="{{item.is_pinned}}" class="pin-badge">
+          <text class="iconfont icon-pin"></text>
+          置顶
+        </view>
+
+        <!-- 类型标签 -->
+        <view class="type-tag type-{{item.type}}">
+          {{item.type === 'system' ? '系统' : item.type === 'parent' ? '家长' : '教师'}}
+        </view>
+
+        <!-- 内容区 -->
+        <view class="item-content">
+          <view class="item-header">
+            <text class="item-title">{{item.title}}</text>
+            <view class="status-tag status-{{item.status}}">
+              {{item.status === 'published' ? '已发布' : item.status === 'draft' ? '草稿' : '已过期'}}
+            </view>
+          </view>
+          <view class="item-preview">{{item.content}}</view>
+          <view class="item-meta">
+            <text class="meta-time">{{item.created_at}}</text>
+            <text wx:if="{{item.expire_time}}" class="meta-expire">有效期至：{{item.expire_time}}</text>
+          </view>
+        </view>
+
+        <!-- 操作菜单 -->
+        <view class="item-actions" catchtap="noop">
+          <view
+            class="action-btn"
+            data-id="{{item.id}}"
+            data-pinned="{{item.is_pinned}}"
+            bindtap="onTogglePin"
+          >
+            {{item.is_pinned ? '取消置顶' : '置顶'}}
+          </view>
+          <view
+            class="action-btn"
+            data-id="{{item.id}}"
+            data-status="{{item.status}}"
+            bindtap="onTogglePublish"
+          >
+            {{item.status === 'published' ? '撤回' : '发布'}}
+          </view>
+          <view
+            class="action-btn delete"
+            data-id="{{item.id}}"
+            data-title="{{item.title}}"
+            bindtap="onDelete"
+          >
+            删除
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 新建按钮 -->
+  <view class="fab" bindtap="onAddAnnouncement">
+    <text class="fab-icon">+</text>
+  </view>
+</view>

@@ -1,0 +1,124 @@
+<view class="page-container">
+  <view class="header">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="logo-area" bindtap="onLogoTap">
+        <view class="logo-icon">
+          <image class="logo-image" src="/svg/logo.svg" mode="aspectFit"/>
+        </view>
+        <view class="logo-text">
+          <text class="header-title">报名查询</text>
+          <text class="header-desc">输入手机号查询报名状态</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="search-card">
+    <view class="search-row">
+      <text class="search-prefix">+86</text>
+      <view class="search-divider"></view>
+      <input class="search-input" type="number" placeholder="请输入手机号" maxlength="11" value="{{phone}}" bindinput="onPhoneInput" bindconfirm="search"/>
+      <view class="search-btn {{loading ? 'search-btn-disabled' : ''}}" bindtap="search">
+        <text class="search-btn-text">{{loading ? '查询中' : '查询'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Results -->
+  <view class="results" wx:if="{{searched}}">
+    <view class="result-title-bar">
+      <text class="result-title">查询结果</text>
+      <view class="result-count-badge">
+        <text class="result-count-text">{{list.length}} 条记录</text>
+      </view>
+    </view>
+
+    <view class="reg-card" wx:for="{{list}}" wx:key="id">
+      <!-- Card header: code + status -->
+      <view class="reg-header">
+        <view class="reg-code-area">
+          <view class="reg-code-badge">
+            <text class="reg-code-text">{{item.code}}</text>
+          </view>
+          <text class="reg-subject-tag">{{item.subject}}</text>
+        </view>
+        <view class="status-badge status-{{item.status}}">
+          <view class="status-dot"></view>
+          <text class="status-badge-text">{{item.status === 'enrolled' ? '已报名' : item.status === 'paid' ? '已缴费' : '已入学'}}</text>
+        </view>
+      </view>
+
+      <!-- Student info -->
+      <view class="reg-body">
+        <view class="student-row">
+          <view class="student-avatar avatar-{{item.gender === 'female' ? 'female' : 'male'}}">
+            <text class="avatar-letter">{{item.student_name.charAt(0)}}</text>
+          </view>
+          <view class="student-info">
+            <text class="student-name">{{item.student_name}}</text>
+            <text class="student-meta">{{item.age}}岁 · {{item.gender === 'male' ? '男' : '女'}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- Detail rows -->
+      <view class="reg-details">
+        <view class="detail-row">
+          <text class="detail-label">家长</text>
+          <text class="detail-value">{{item.parent_name}} {{item.parent_phone}}</text>
+        </view>
+        <view class="detail-row" wx:if="{{item.class_name}}">
+          <text class="detail-label">班级</text>
+          <text class="detail-value highlight">{{item.class_name}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="detail-label">报名</text>
+          <text class="detail-value">{{item.created_at}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="detail-label">有效期</text>
+          <text class="detail-value {{item.is_expired ? 'expired' : 'valid'}}">{{item.expire_time}}</text>
+        </view>
+      </view>
+
+      <!-- Status flow -->
+      <view class="flow-bar">
+        <view class="flow-step {{item.status === 'enrolled' || item.status === 'paid' || item.status === 'admitted' ? 'active' : ''}}">
+          <view class="flow-dot">
+            <view class="flow-dot-inner"></view>
+          </view>
+          <text class="flow-label">已报名</text>
+        </view>
+        <view class="flow-line {{item.status === 'paid' || item.status === 'admitted' ? 'active' : ''}}"></view>
+        <view class="flow-step {{item.status === 'paid' || item.status === 'admitted' ? 'active' : ''}}">
+          <view class="flow-dot">
+            <view class="flow-dot-inner"></view>
+          </view>
+          <text class="flow-label">已缴费</text>
+        </view>
+        <view class="flow-line {{item.status === 'admitted' ? 'active' : ''}}"></view>
+        <view class="flow-step {{item.status === 'admitted' ? 'active' : ''}}">
+          <view class="flow-dot">
+            <view class="flow-dot-inner"></view>
+          </view>
+          <text class="flow-label">已入学</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Empty state - no emoji -->
+    <view class="empty" wx:if="{{list.length === 0}}">
+      <view class="empty-icon-wrapper">
+        <view class="empty-circle">
+          <text class="empty-q">?</text>
+        </view>
+      </view>
+      <text class="empty-text">未找到相关报名记录</text>
+      <text class="empty-hint">请确认手机号是否正确</text>
+      <view class="empty-action" bindtap="goToEnrollment">
+        <text class="empty-action-text">去报名</text>
+      </view>
+    </view>
+  </view>
+</view>

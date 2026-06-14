@@ -1,0 +1,89 @@
+<view class="page-container">
+  <!-- 文件选择 -->
+  <view class="file-section" bindtap="chooseFile">
+    <view class="file-pick-area" wx:if="{{!selectedFileName}}">
+      <text class="file-pick-icon">📎</text>
+      <text class="file-pick-text">点击选择文件</text>
+      <text class="file-pick-hint">支持 PPT/Word/PDF/图片等格式</text>
+    </view>
+    <view class="file-selected" wx:else>
+      <view class="file-preview" wx:if="{{selectedFileThumb}}">
+        <image class="file-thumb" src="{{selectedFileThumb}}" mode="aspectFill" />
+      </view>
+      <view class="file-preview file-preview-icon" wx:else style="background: {{selectedFileType === 'pdf' ? '#FEE2E2' : selectedFileType === 'pptx' ? '#FEF3C7' : '#DBEAFE'}}">
+        <text class="file-type-icon">{{selectedFileType === 'pdf' ? '📕' : selectedFileType === 'pptx' || selectedFileType === 'ppt' ? '📊' : '📄'}}</text>
+      </view>
+      <view class="file-info">
+        <text class="file-name">{{selectedFileName}}</text>
+        <text class="file-size">{{selectedFileSizeStr}}</text>
+      </view>
+      <view class="file-remove" catchtap="removeFile">✕</view>
+    </view>
+  </view>
+
+  <!-- 表单 -->
+  <view class="form-section">
+    <view class="form-item">
+      <view class="form-label">标题 <text class="required">*</text></view>
+      <input class="form-input" placeholder="请输入资料标题" value="{{title}}" bindinput="onTitleInput" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">分类</text>
+      <picker range="{{categoryOptions}}" range-key="label" value="{{categoryIndex}}" bindchange="onCategoryChange">
+        <view class="form-picker">
+          <text class="picker-text">{{categoryOptions[categoryIndex].label}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item" wx:if="{{subjectOptions.length > 0}}">
+      <text class="form-label">学科</text>
+      <picker range="{{subjectOptions}}" value="{{subjectIndex}}" bindchange="onSubjectChange">
+        <view class="form-picker">
+          <text class="picker-text">{{subjectOptions[subjectIndex]}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">文件夹</text>
+      <picker range="{{folderOptions}}" range-key="name" value="{{folderIndex}}" bindchange="onFolderChange">
+        <view class="form-picker">
+          <text class="picker-text">{{folderOptions[folderIndex].name}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">描述</text>
+      <textarea class="form-textarea" placeholder="请输入资料描述" value="{{description}}" bindinput="onDescriptionInput" maxlength="200"></textarea>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">标签</text>
+      <input class="form-input" placeholder="用逗号或顿号分隔，如：高考、重点" value="{{tagsInput}}" bindinput="onTagsInput" />
+    </view>
+  </view>
+
+  <!-- 分享班级 -->
+  <view class="share-section" wx:if="{{classOptions.length > 0}}">
+    <text class="section-label">分享到班级</text>
+    <view class="class-list">
+      <view class="class-check-item" wx:for="{{classOptions}}" wx:key="id" bindtap="toggleClass" data-id="{{item.id}}">
+        <view class="checkbox {{selectedClassIds.indexOf(item.id) >= 0 ? 'checked' : ''}}">{{selectedClassIds.indexOf(item.id) >= 0 ? '✓' : ''}}</view>
+        <text class="class-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <view class="submit-btn {{submitting ? 'disabled' : ''}}" bindtap="{{submitting ? '' : 'submit'}}">
+      {{isEdit ? '保存修改' : '上传资料'}}
+    </view>
+  </view>
+</view>

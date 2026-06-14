@@ -1,0 +1,136 @@
+<view class="container">
+  <block wx:if="{{!loading && classInfo}}">
+    <!-- 基本信息卡片 -->
+    <view class="info-card">
+      <view class="class-header">
+        <view class="class-icon-bg">
+          <text class="class-icon">📚</text>
+        </view>
+        <view class="class-main-info">
+          <view class="name-row">
+            <text class="name">{{classInfo.name}}</text>
+            <text class="status-tag {{classInfo.status}}">{{classInfo.status === 'active' ? '进行中' : '已结束'}}</text>
+          </view>
+          <view class="class-course">{{courseInfo.name}}</view>
+        </view>
+        <view class="more-btn" bindtap="showMoreActions">···</view>
+      </view>
+    </view>
+
+    <!-- 班级详情 -->
+    <view class="detail-card">
+      <view class="detail-title">基本信息</view>
+      <view class="detail-grid">
+        <view class="detail-item">
+          <text class="detail-label">上课地点</text>
+          <text class="detail-value">{{classInfo.room}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">班级容量</text>
+          <text class="detail-value">{{classInfo.capacity}}人</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">当前人数</text>
+          <text class="detail-value">{{students.length}}人</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">课程教材</text>
+          <text class="detail-value">{{courseInfo.textbook}}</text>
+        </view>
+        <view class="detail-item full-width">
+          <text class="detail-label">开课时间</text>
+          <text class="detail-value">{{classInfo.start_date}} ~ {{classInfo.end_date}}</text>
+        </view>
+        <view class="detail-item full-width">
+          <text class="detail-label">备注</text>
+          <text class="detail-value">{{classInfo.remarks || '暂无备注'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 任课教师 -->
+    <view class="detail-card">
+      <view class="detail-title">任课教师</view>
+      <view class="teacher-info interactive-item interactive-admin" wx:if="{{teacherInfo}}" bindtap="viewTeacherDetail">
+        <view class="teacher-avatar">
+          <image src="{{teacherInfo.avatar}}" mode="aspectFill"/>
+        </view>
+        <view class="teacher-details">
+          <view class="teacher-name">{{teacherInfo.name}}</view>
+          <view class="teacher-meta">
+            <text class="meta-item">{{teacherInfo.employee_no}}</text>
+            <text class="meta-item">任教：{{teacherInfo.subjectsLabel}}</text>
+          </view>
+        </view>
+        <text class="interactive-arrow">></text>
+      </view>
+      <view class="empty-info" wx:else>
+        <text class="empty-text">暂无任课教师</text>
+      </view>
+    </view>
+
+    <!-- 课程简介 -->
+    <view class="detail-card">
+      <view class="detail-title">课程简介</view>
+      <view class="course-desc">
+        <text>{{courseInfo.description}}</text>
+      </view>
+    </view>
+
+    <!-- 班级学员 -->
+    <view class="detail-card">
+      <view class="detail-title">
+        <text>班级学员</text>
+        <text class="title-count">({{students.length}}人)</text>
+      </view>
+      <view class="student-list" wx:if="{{students.length > 0}}">
+        <view class="student-item interactive-item interactive-admin" wx:for="{{students}}" wx:key="id" bindtap="viewStudentDetail" data-id="{{item.id}}">
+          <view class="student-avatar-placeholder">
+            <text class="avatar-text">{{item.name}}</text>
+          </view>
+          <view class="student-details">
+            <view class="student-name">{{item.name}}</view>
+            <view class="student-no">{{item.student_no}}</view>
+          </view>
+          <text class="interactive-arrow">></text>
+        </view>
+      </view>
+      <view class="empty-info" wx:else>
+        <text class="empty-text">暂无学员</text>
+      </view>
+    </view>
+
+    <!-- 课程安排 -->
+    <view class="detail-card">
+      <view class="detail-title">课程安排</view>
+      <view class="schedule-list" wx:if="{{schedules.length > 0}}">
+        <view class="schedule-item" wx:for="{{schedules}}" wx:key="id">
+          <view class="schedule-date">
+            <text class="day-text">{{item.dayOfWeek}}</text>
+            <text class="date-text">{{item.date}}</text>
+          </view>
+          <view class="schedule-time">
+            <text class="time-range">{{item.start_time}} - {{item.end_time}}</text>
+            <text class="duration-text">{{item.duration}}课时</text>
+          </view>
+          <view class="schedule-status {{item.status}}">
+            {{item.status === 'scheduled' ? '已排课' : item.status === 'completed' ? '已完成' : '已取消'}}
+          </view>
+        </view>
+      </view>
+      <view class="empty-info" wx:else>
+        <text class="empty-text">暂无课程安排</text>
+      </view>
+    </view>
+
+    <!-- 编辑按钮 -->
+    <view class="bottom-actions">
+      <button class="btn-edit" bindtap="editClass">编辑班级信息</button>
+    </view>
+  </block>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

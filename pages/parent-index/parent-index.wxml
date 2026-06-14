@@ -1,0 +1,144 @@
+<view class="page-container">
+  <!-- 未绑定学生 -->
+  <view class="empty-bind stagger-1" wx:if="{{!currentStudent}}">
+    <view class="empty-bind-card">
+      <view class="empty-bind-icon icon-box icon-box-primary">
+        <image class="icon-image-lg" src="/svg/icon-students.svg" mode="aspectFit"/>
+      </view>
+      <text class="empty-bind-title">尚未关联学生</text>
+      <text class="empty-bind-desc">请先绑定学生信息以查看学习数据</text>
+      <view class="empty-bind-btn btn-primary" bindtap="goToMenu" data-url="/pages/enrollment/enrollment">去绑定</view>
+    </view>
+  </view>
+
+  <block wx:if="{{currentStudent}}">
+    <!-- 家长头部 -->
+    <view class="header stagger-1">
+      <view class="user-card" bindtap="goToProfile">
+        <view class="avatar avatar-gradient">{{userInfo.name ? userInfo.name.charAt(0) : 'P'}}</view>
+        <view class="user-info">
+          <text class="name">{{userInfo.name || '家长'}}</text>
+          <text class="detail">{{currentStudent.name}} · {{currentStudent.grade || ''}}</text>
+        </view>
+        <view class="header-right">
+          <text class="arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 统计 -->
+    <view class="stats-grid stagger-2">
+      <view class="stat-item stat-display">
+        <view class="stat-icon-box icon-box-primary">
+          <image class="icon-image-sm" src="/svg/icon-class.svg" mode="aspectFit"/>
+        </view>
+        <text class="stat-value">{{stats.courseCount}}</text>
+        <text class="stat-label">在修课程</text>
+      </view>
+      <view class="stat-item stat-display">
+        <view class="stat-icon-box icon-box-success">
+          <image class="icon-image-sm" src="/svg/icon-schedule.svg" mode="aspectFit"/>
+        </view>
+        <text class="stat-value">{{stats.monthHours}}</text>
+        <text class="stat-label">本月课时</text>
+      </view>
+      <view class="stat-item stat-display">
+        <view class="stat-icon-box icon-box-warning">
+          <image class="icon-image-sm" src="/svg/icon-progress.svg" mode="aspectFit"/>
+        </view>
+        <text class="stat-value">{{stats.attendanceRate}}%</text>
+        <text class="stat-label">出勤率</text>
+      </view>
+    </view>
+
+    <!-- 今日课程 -->
+    <view class="today-section stagger-3">
+      <view class="today-header">
+        <view class="today-title-group">
+          <text class="today-title">今日课程</text>
+          <view class="status-dot active" wx:if="{{todaySchedules.length > 0}}"></view>
+        </view>
+        <text class="today-date">{{todayDate}}</text>
+      </view>
+
+      <view class="today-list" wx:if="{{todaySchedules.length > 0}}">
+        <view class="today-item" wx:for="{{todaySchedules}}" wx:key="id" bindtap="goToMenu" data-url="/pages/course-detail/course-detail?id={{item.class_id}}">
+          <view class="today-time-col">
+            <text class="today-time">{{item.startTime}}</text>
+            <text class="today-time-end">{{item.endTime}}</text>
+          </view>
+          <view class="today-timeline">
+            <view class="timeline-dot timeline-dot-upcoming"></view>
+            <view class="timeline-line" wx:if="{{index < todaySchedules.length - 1}}"></view>
+          </view>
+          <view class="today-content">
+            <text class="today-name">{{item.courseName}}</text>
+            <text class="today-meta">{{item.className}} · {{item.teacherName}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="today-empty" wx:else>
+        <view class="empty-state-icon icon-box icon-box-primary">
+          <image class="icon-image" src="/svg/icon-calendar.svg" mode="aspectFit"/>
+        </view>
+        <text class="empty-state-title">今日暂无课程安排</text>
+      </view>
+    </view>
+
+    <!-- 快捷菜单 -->
+    <view class="quick-section stagger-4">
+      <view class="quick-grid">
+        <view class="quick-item" wx:for="{{quickMenus}}" wx:key="label" bindtap="goToMenu" data-url="{{item.url}}">
+          <view class="quick-icon-box icon-box-primary menu-icon-elevated">
+            <image class="icon-image" src="/svg/icon-{{item.iconFile}}.svg" mode="aspectFit"/>
+            <view class="menu-badge" wx:if="{{item.badge > 0}}">{{item.badge}}</view>
+          </view>
+          <text class="quick-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 积分卡片 -->
+    <view class="points-card stagger-5" bindtap="goToMenu" data-url="/pages/gift-shop/gift-shop">
+      <view class="points-info">
+        <view class="points-icon-box">
+          <image class="icon-image-sm" src="/svg/icon-gift.svg" mode="aspectFit"/>
+        </view>
+        <text class="points-label">我的积分</text>
+        <text class="points-value">{{pointsBalance}}</text>
+      </view>
+      <view class="points-action tag tag-primary">去兑换 ›</view>
+    </view>
+
+    <!-- 待完成作业 -->
+    <view class="section stagger-5" wx:if="{{pendingHomework.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">待完成作业</text>
+        <view class="section-more" bindtap="goToMenu" data-url="/pages/homework/homework">
+          <text class="more-text">查看全部</text>
+          <text class="more-arrow">›</text>
+        </view>
+      </view>
+
+      <view class="homework-list">
+        <view class="homework-card interactive-item interactive-primary" wx:for="{{pendingHomework}}" wx:key="id"
+              bindtap="viewHomework" data-id="{{item.id}}">
+          <view class="homework-left">
+            <text class="homework-title">{{item.title}}</text>
+            <text class="homework-meta">{{item.course_name}} · 截止 {{item.deadline}}</text>
+          </view>
+          <view class="homework-tag tag-{{item.submit_status === 'pending' ? 'danger' : 'warning'}}">
+            {{item.submit_status === 'pending' ? '未提交' : '待批改'}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </block>
+
+  <!-- 退出登录 -->
+  <view class="logout-section stagger-6">
+    <view class="logout-btn" bindtap="logout">退出登录</view>
+  </view>
+</view>

@@ -1,0 +1,86 @@
+<view class="page-container">
+  <!-- 管理员头部 -->
+  <view class="header stagger-1">
+    <view class="user-card" bindtap="goToProfile">
+      <view class="avatar avatar-admin-gradient">{{userInfo.name ? userInfo.name.charAt(0) : 'A'}}</view>
+      <view class="user-info">
+        <text class="name">{{userInfo.name || '管理员'}}</text>
+        <text class="role">超级管理员</text>
+      </view>
+      <view class="header-right">
+        <view class="logout-chip" bindtap="logout">退出</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计 -->
+  <view class="stats-grid stagger-2">
+    <view class="stat-item stat-display">
+      <view class="stat-icon-wrapper icon-box-admin">
+        <image class="icon-image-sm" src="/svg/icon-teacher.svg" mode="aspectFit"/>
+      </view>
+      <text class="stat-value">{{stats.teacherCount || 0}}</text>
+      <text class="stat-label">教师数</text>
+    </view>
+    <view class="stat-item stat-display">
+      <view class="stat-icon-wrapper icon-box-success">
+        <image class="icon-image-sm" src="/svg/icon-students.svg" mode="aspectFit"/>
+      </view>
+      <text class="stat-value">{{stats.studentCount || 0}}</text>
+      <text class="stat-label">学员数</text>
+    </view>
+    <view class="stat-item stat-display">
+      <view class="stat-icon-wrapper icon-box-primary">
+        <image class="icon-image-sm" src="/svg/icon-class.svg" mode="aspectFit"/>
+      </view>
+      <text class="stat-value">{{stats.classCount || 0}}</text>
+      <text class="stat-label">班级数</text>
+    </view>
+    <view class="stat-item stat-display">
+      <view class="stat-icon-wrapper icon-box-warning">
+        <image class="icon-image-sm" src="/svg/icon-enrollment.svg" mode="aspectFit"/>
+      </view>
+      <text class="stat-value">{{regStats.enrolled || 0}}</text>
+      <text class="stat-label">待处理报名</text>
+    </view>
+  </view>
+
+  <!-- 菜单 -->
+  <view class="menu-section stagger-3">
+    <view class="menu-grid">
+      <view class="menu-item" wx:for="{{quickMenus}}" wx:key="label" bindtap="goToMenu" data-url="{{item.url}}">
+        <view class="menu-icon-box icon-box-admin menu-icon-elevated">
+          <image class="icon-image" src="/svg/icon-{{item.iconFile}}.svg" mode="aspectFit"/>
+        </view>
+        <text class="menu-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最近公告 -->
+  <view class="section stagger-4">
+    <view class="section-header">
+      <text class="section-title">最近公告</text>
+    </view>
+
+    <view class="notice-list" wx:if="{{recentNotices.length > 0}}">
+      <view class="notice-card interactive-item interactive-admin" wx:for="{{recentNotices}}" wx:key="id" bindtap="viewNotice" data-id="{{item.id}}">
+        <view class="notice-type-tag tag-{{item.type === 'system' ? 'danger' : item.type === 'parent' ? 'primary' : 'success'}}">
+          {{item.type === 'system' ? '系统' : item.type === 'parent' ? '家长' : '教师'}}
+        </view>
+        <view class="notice-content">
+          <text class="notice-title">{{item.title}}</text>
+          <text class="notice-time">{{item.created_at}}</text>
+        </view>
+        <text class="interactive-arrow">›</text>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{recentNotices.length === 0}}">
+      <view class="empty-tip-icon icon-box icon-box-admin">
+        <image class="icon-image-sm" src="/svg/icon-announce.svg" mode="aspectFit"/>
+      </view>
+      <text class="empty-tip-text">暂无公告</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,71 @@
+<view class="container">
+  <!-- 未选择学生 -->
+  <view class="no-student" wx:if="{{!currentStudent}}">
+    <text class="no-student-text">暂无关联学生</text>
+  </view>
+
+  <block wx:else>
+    <!-- 整体统计 -->
+    <view class="stats-section">
+      <view class="stats-card">
+        <view class="stat-main">
+          <view class="stat-score">{{overallStats.avgScore}}</view>
+          <view class="stat-label">平均分</view>
+        </view>
+        <view class="stat-grid">
+          <view class="stat-item">
+            <view class="stat-value">{{overallStats.totalExams}}</view>
+            <view class="stat-label">考试次数</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-value high">{{overallStats.highest}}</view>
+            <view class="stat-label">最高分</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-value low">{{overallStats.lowest}}</view>
+            <view class="stat-label">最低分</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 课程平均分 -->
+    <view class="section" wx:if="{{courseAvgScores.length > 0}}">
+      <view class="section-title">各科平均分</view>
+      <view class="course-scores">
+        <view class="course-score-item" wx:for="{{courseAvgScores}}" wx:key="courseName">
+          <view class="course-name">{{item.courseName}}</view>
+          <view class="score-bar">
+            <view class="score-progress" style="{{getProgressStyle(item.avgScore)}}"></view>
+          </view>
+          <view class="score-value {{getScoreLevel(item.avgScore)}}">{{item.avgScore}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 成绩列表 -->
+    <view class="section">
+      <view class="section-title">考试记录</view>
+      <view class="grade-list" wx:if="{{grades.length > 0}}">
+        <view class="grade-card" wx:for="{{grades}}" wx:key="id">
+          <view class="grade-header">
+            <view class="course-name">{{item.courseName}}</view>
+            <view class="score {{getScoreLevel(item.score)}}">{{item.score}}分</view>
+          </view>
+          <view class="grade-info">
+            <text class="info-text">{{item.examType}}</text>
+            <text class="info-divider">|</text>
+            <text class="info-text">满分{{item.maxScore}}</text>
+            <text class="info-divider">|</text>
+            <text class="info-text">{{item.gradedAt}}</text>
+          </view>
+          <view class="grade-comment" wx:if="{{item.comment}}">{{item.comment}}</view>
+        </view>
+      </view>
+      <view class="empty-state" wx:else>
+        <text class="empty-icon">📝</text>
+        <text class="empty-text">暂无考试记录</text>
+      </view>
+    </view>
+  </block>
+</view>

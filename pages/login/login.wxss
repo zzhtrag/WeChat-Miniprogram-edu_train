@@ -1,0 +1,753 @@
+/* Login Page v3 - Soft UI Evolution */
+
+.page-container {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   HEADER - Gradient brand area
+   ============================================ */
+.login-header {
+  position: relative;
+  padding: 100rpx 48rpx 60rpx;
+  overflow: hidden;
+}
+
+.header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #818CF8 100%);
+  border-radius: 0 0 48rpx 48rpx;
+}
+
+.header-bg::after {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.header-bg::before {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.logo-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  animation: fadeInUp 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.logo-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.logo-image {
+  width: 76rpx;
+  height: 76rpx;
+  flex-shrink: 0;
+}
+
+.logo-letter {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.04em;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-name {
+  font-size: 37rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  margin-bottom: 4rpx;
+}
+
+.app-desc {
+  font-size: 25rpx;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+/* ============================================
+   LOGIN CARD
+   ============================================ */
+.login-card {
+  margin: -24rpx 32rpx 0;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx;
+  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.1), 0 8px 24px -8px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  animation: fadeInUp 500ms cubic-bezier(0.16, 1, 0.3, 1) 100ms both;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================
+   TAB BAR - Underline indicator
+   ============================================ */
+.tab-bar {
+  display: flex;
+  margin-bottom: 40rpx;
+  border-bottom: 2rpx solid #F1F5F9;
+  padding: 0 16rpx;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0 24rpx;
+  position: relative;
+  transition: all 200ms ease;
+}
+
+.tab-text {
+  font-size: 28rpx;
+  color: #94A3B8;
+  font-weight: 500;
+  transition: all 200ms ease;
+}
+
+.tab-item.active .tab-text {
+  color: #0F172A;
+  font-weight: 600;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: linear-gradient(90deg, #4F46E5, #6366F1);
+  animation: scaleIn 250ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ============================================
+   FORM
+   ============================================ */
+.form-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-item {
+  margin-bottom: 32rpx;
+}
+
+.input-wrapper {
+  background: #F8FAFC;
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  height: 96rpx;
+  border: 2rpx solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.input-wrapper:focus-within {
+  border-color: #4F46E5;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4rpx rgba(79, 70, 229, 0.08);
+}
+
+.input-prefix {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #475569;
+  margin-right: 16rpx;
+}
+
+.input-divider {
+  width: 2rpx;
+  height: 32rpx;
+  background: #E2E8F0;
+  margin-right: 20rpx;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #0F172A;
+  background: transparent;
+  height: 96rpx;
+}
+
+.form-input::placeholder {
+  color: #CBD5E1;
+}
+
+.input-suffix {
+  padding: 12rpx 16rpx;
+  border-radius: 10rpx;
+  background: rgba(79, 70, 229, 0.08);
+}
+
+.suffix-text {
+  font-size: 24rpx;
+  color: #4F46E5;
+  font-weight: 600;
+}
+
+.code-btn {
+  padding: 16rpx 24rpx;
+  border-radius: 12rpx;
+  background: linear-gradient(135deg, #4F46E5, #6366F1);
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.code-btn:active {
+  transform: scale(0.96);
+}
+
+.code-btn-disabled {
+  background: #E2E8F0;
+  pointer-events: none;
+}
+
+.code-text {
+  font-size: 24rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.code-btn-disabled .code-text {
+  color: #94A3B8;
+}
+
+/* ============================================
+   FORM ACTIONS
+   ============================================ */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36rpx;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.checkbox {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 10rpx;
+  border: 2rpx solid #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+}
+
+.checkbox-checked {
+  background: #4F46E5;
+  border-color: #4F46E5;
+}
+
+.checkbox-icon {
+  font-size: 20rpx;
+  color: #FFFFFF;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.checkbox-sm {
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 8rpx;
+}
+
+.checkbox-icon-sm {
+  font-size: 16rpx;
+}
+
+.remember-text {
+  font-size: 26rpx;
+  color: #64748B;
+}
+
+.forgot-link {
+  font-size: 26rpx;
+  color: #4F46E5;
+  font-weight: 600;
+}
+
+/* ============================================
+   LOGIN BUTTON
+   ============================================ */
+.login-btn {
+  background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+  color: #FFFFFF;
+  border-radius: 16rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32rpx;
+  box-shadow: 0 4px 16px -4px rgba(79, 70, 229, 0.4);
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  padding: 0;
+  line-height: 1;
+}
+
+.login-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.3);
+}
+
+.login-btn-text {
+  font-size: 32rpx;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.login-btn.btn-disabled {
+  background: #D6DCE4 !important;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.login-btn[disabled] {
+  background: #D6DCE4 !important;
+  box-shadow: none;
+  color: #94A3B8;
+}
+
+.login-btn.btn-disabled .login-btn-text {
+  color: #94A3B8;
+}
+
+.login-btn[disabled] .login-btn-text {
+  color: #94A3B8 !important;
+}
+
+/* ============================================
+   AGREEMENT
+   ============================================ */
+.agreement {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4rpx;
+}
+
+.agreement-text {
+  font-size: 22rpx;
+  color: #94A3B8;
+  line-height: 1.6;
+}
+
+.agreement-link {
+  font-size: 22rpx;
+  color: #4F46E5;
+  font-weight: 600;
+}
+
+/* ============================================
+   ROLE BOTTOM SHEET
+   ============================================ */
+.role-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.role-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 200ms ease both;
+}
+
+.role-sheet {
+  position: relative;
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 16rpx 32rpx;
+  padding-bottom: calc(48rpx + env(safe-area-inset-bottom));
+  animation: slideUp 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.role-sheet-handle {
+  width: 48rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: #E2E8F0;
+  margin: 0 auto 28rpx;
+}
+
+.role-sheet-header {
+  margin-bottom: 24rpx;
+}
+
+.role-sheet-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+}
+
+.role-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-bottom: 32rpx;
+}
+
+/* Role cards with colored left borders */
+.role-card {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background: #F8FAFC;
+  border: 2rpx solid transparent;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.role-card:active {
+  transform: scale(0.98);
+}
+
+.role-card-active {
+  background: #FFFFFF;
+}
+
+.role-card-admin.role-card-active {
+  border-color: #7C3AED;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.15);
+}
+
+.role-card-teacher.role-card-active {
+  border-color: #059669;
+  box-shadow: 0 2px 8px -2px rgba(5, 150, 105, 0.15);
+}
+
+.role-card-parent.role-card-active {
+  border-color: #4F46E5;
+  box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.15);
+}
+
+.role-icon-wrapper {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+
+.role-icon-admin {
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.role-icon-teacher {
+  background: rgba(5, 150, 105, 0.1);
+}
+
+.role-icon-parent {
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.role-icon-text {
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.role-icon-admin .role-icon-text {
+  color: #7C3AED;
+}
+
+.role-icon-teacher .role-icon-text {
+  color: #059669;
+}
+
+.role-icon-parent .role-icon-text {
+  color: #4F46E5;
+}
+
+.role-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.role-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 4rpx;
+}
+
+.role-desc {
+  font-size: 22rpx;
+  color: #94A3B8;
+}
+
+.role-check {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleIn 200ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.role-card-admin .role-check {
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.role-card-teacher .role-check {
+  background: rgba(5, 150, 105, 0.1);
+}
+
+.role-card-parent .role-check {
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.role-check-icon {
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.role-card-admin .role-check-icon {
+  color: #7C3AED;
+}
+
+.role-card-teacher .role-check-icon {
+  color: #059669;
+}
+
+.role-card-parent .role-check-icon {
+  color: #4F46E5;
+}
+
+/* Confirm button adapts to selected role */
+.confirm-btn {
+  width: 100%;
+  border-radius: 16rpx;
+  padding: 28rpx;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.04em;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  line-height: 1;
+}
+
+.confirm-btn-admin {
+  background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+  box-shadow: 0 4px 16px -4px rgba(124, 58, 237, 0.4);
+}
+
+.confirm-btn-teacher {
+  background: linear-gradient(135deg, #059669, #10B981);
+  box-shadow: 0 4px 16px -4px rgba(5, 150, 105, 0.4);
+}
+
+.confirm-btn-parent {
+  background: linear-gradient(135deg, #4F46E5, #6366F1);
+  box-shadow: 0 4px 16px -4px rgba(79, 70, 229, 0.4);
+}
+
+.confirm-btn:active {
+  transform: scale(0.97);
+}
+
+/* ============================================
+   BOTTOM LINKS - Enrollment entries
+   ============================================ */
+.bottom-links {
+  margin: 40rpx 32rpx 40rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 8rpx 0;
+  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  animation: fadeInUp 500ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+  transition: all 200ms ease;
+}
+
+.link-item:active {
+  background: rgba(79, 70, 229, 0.03);
+}
+
+.link-icon-wrapper {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.link-icon-enrollment {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.link-icon-status {
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.link-icon-svg {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.link-icon-enrollment .link-icon-svg {
+  opacity: 0.85;
+}
+
+.link-icon-status .link-icon-svg {
+  opacity: 0.85;
+}
+
+.link-text-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.link-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 4rpx;
+}
+
+.link-desc {
+  font-size: 22rpx;
+  color: #94A3B8;
+}
+
+.link-arrow {
+  font-size: 32rpx;
+  color: #CBD5E1;
+  margin-left: 8rpx;
+}
+
+.link-divider {
+  height: 1px;
+  background: #F1F5F9;
+  margin: 0 32rpx;
+}
+
+/* ============================================
+   WECHAT QUICK LOGIN
+   ============================================ */
+.divider-section {
+  display: flex;
+  align-items: center;
+  margin: 36rpx 0 28rpx;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: #E2E8F0;
+}
+
+.divider-text {
+  padding: 0 20rpx;
+  font-size: 22rpx;
+  color: #94A3B8;
+  white-space: nowrap;
+}
+
+.wx-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 2rpx solid #E2E8F0;
+  border-radius: 16rpx;
+  height: 88rpx;
+  padding: 0;
+  line-height: 1;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wx-login-btn:active {
+  transform: scale(0.97);
+  background: #F8FAFC;
+}
+
+.wx-login-btn[disabled] {
+  background: #F8FAFC;
+  opacity: 0.6;
+}
+
+.wx-login-icon {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 12rpx;
+}
+
+.wx-login-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #07C160;
+}

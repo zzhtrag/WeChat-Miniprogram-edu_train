@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="form-section">
+    <view class="form-group">
+      <text class="form-label">头像</text>
+      <view class="avatar-wrapper" bindtap="chooseAvatar">
+        <image class="avatar" src="{{formData.avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+        <view class="avatar-edit-icon">✏️</view>
+      </view>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">姓名</text>
+      <input class="form-input" value="{{formData.name}}" bindinput="onNameInput" placeholder="请输入姓名" />
+    </view>
+  </view>
+
+  <view class="btn-section">
+    <button class="submit-btn" bindtap="submit" disabled="{{submitting}}" loading="{{submitting}}">
+      保存
+    </button>
+  </view>
+</view>

@@ -1,0 +1,76 @@
+<view class="container">
+  <!-- Loading state -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <view class="loading-text">加载中...</view>
+  </view>
+
+  <block wx:if="{{!loading && student}}">
+    <!-- Student info header -->
+    <view class="student-header">
+      <view class="student-avatar-placeholder">
+        <text class="avatar-text">{{student.name[0]}}</text>
+      </view>
+      <view class="student-info">
+        <view class="student-name">{{student.name}}</view>
+        <view class="student-no">{{student.student_no}}</view>
+      </view>
+    </view>
+
+    <!-- Assignment title -->
+    <view class="info-card">
+      <view class="assignment-label">作业</view>
+      <view class="assignment-title">{{assignment.title}}</view>
+    </view>
+
+    <!-- Submitted content -->
+    <view class="info-card" wx:if="{{submission}}">
+      <view class="section-title">提交内容</view>
+      <view class="content-text" wx:if="{{submission.content}}">{{submission.content}}</view>
+      <view class="no-content" wx:else>无文字内容</view>
+
+      <!-- Submitted images -->
+      <view class="image-section" wx:if="{{submission.attachments && submission.attachments.length > 0}}">
+        <view class="image-label">附件图片</view>
+        <view class="image-list">
+          <image class="submit-image" wx:for="{{submission.attachments}}" wx:key="*this" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-url="{{item}}" />
+        </view>
+      </view>
+
+      <!-- Submit time -->
+      <view class="submit-time-row">
+        <text class="time-label">提交时间</text>
+        <text class="time-value">{{submission.submit_time}}</text>
+      </view>
+    </view>
+
+    <!-- No submission state -->
+    <view class="info-card" wx:if="{{!submission}}">
+      <view class="no-submission">
+        <text class="no-submission-text">该学生尚未提交作业</text>
+      </view>
+    </view>
+
+    <!-- Grading form -->
+    <view class="info-card" wx:if="{{submission}}">
+      <view class="section-title">评分</view>
+      <view class="form-item">
+        <view class="form-label">分数</view>
+        <input class="form-input" type="digit" placeholder="请输入分数（0-100）" value="{{score}}" bindinput="onScoreInput" maxlength="5" />
+      </view>
+      <view class="form-item">
+        <view class="form-label">评语</view>
+        <textarea class="form-textarea" placeholder="请输入评语（选填）" value="{{comment}}" bindinput="onCommentInput" maxlength="500"></textarea>
+      </view>
+    </view>
+
+    <!-- Grade button -->
+    <view class="bottom-action" wx:if="{{submission}}">
+      <view class="grade-btn" bindtap="submitGrade">提交评分</view>
+    </view>
+  </block>
+
+  <!-- Not found state -->
+  <view class="empty-state" wx:if="{{!loading && !student}}">
+    <view class="empty-text">学生信息不存在</view>
+  </view>
+</view>

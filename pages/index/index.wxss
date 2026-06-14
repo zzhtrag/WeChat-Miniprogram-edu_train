@@ -1,0 +1,307 @@
+.container {
+  padding: 0;
+  padding-bottom: 40rpx;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f0faf8 0%, #f8f8f8 25%);
+}
+
+/* 顶部渐变区域 */
+.header-section {
+  position: relative;
+  padding: 40rpx 30rpx 60rpx;
+  min-height: 300rpx;
+}
+
+.header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400rpx;
+  background: linear-gradient(135deg, #e0f7f7 0%, #f0f9f0 100%);
+  border-bottom-left-radius: 60rpx;
+  border-bottom-right-radius: 60rpx;
+}
+
+/* 用户信息卡片 */
+.user-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 32rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.06);
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+  background: #f0f0f0;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.user-phone {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.switch-btn {
+  padding: 10rpx;
+}
+
+.switch-icon {
+  font-size: 36rpx;
+}
+
+/* 快捷入口 */
+.quick-section {
+  position: relative;
+  z-index: 2;
+  margin-top: -40rpx;
+  padding: 0 30rpx;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.quick-grid.second-row {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.quick-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quick-icon-circle {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12rpx;
+}
+
+.quick-icon-circle .icon {
+  font-size: 44rpx;
+}
+
+.quick-label {
+  font-size: 26rpx;
+  color: #333;
+}
+
+/* 公告栏 */
+.notice-banner {
+  display: flex;
+  align-items: center;
+  background: #fff7e6;
+  margin: 20rpx 30rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 12rpx;
+}
+
+.notice-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.notice-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #ff9900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.notice-arrow {
+  font-size: 32rpx;
+  color: #ff9900;
+  font-weight: bold;
+}
+
+/* 通用区域 */
+.section {
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.section-title-with-line {
+  position: relative;
+  padding-left: 20rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.section-title-with-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8rpx;
+  height: 36rpx;
+  background: #00cccc;
+  border-radius: 4rpx;
+}
+
+.section-count {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.section-more {
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* 今日课表 */
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.course-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.course-info {
+  flex: 1;
+}
+
+.course-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.course-time {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.course-arrow {
+  font-size: 36rpx;
+  color: #ccc;
+  font-weight: bold;
+}
+
+.empty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 80rpx 30rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.4;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #ccc;
+}
+
+/* 我的课程 */
+.my-course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.my-course-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.my-course-info {
+  flex: 1;
+}
+
+.my-course-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.my-course-progress {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.my-course-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.my-course-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.stats-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+}
+
+.progress-bar {
+  width: 200rpx;
+  height: 16rpx;
+  background: #f0f0f0;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00cccc, #66d9d9);
+  border-radius: 8rpx;
+}

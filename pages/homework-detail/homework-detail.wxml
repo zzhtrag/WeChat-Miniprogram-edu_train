@@ -1,0 +1,125 @@
+<view class="container">
+  <!-- Loading -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- Empty -->
+  <view class="empty-state" wx:if="{{!loading && !assignment}}">
+    <view class="empty-state-icon icon-box icon-box-primary">
+      <image class="icon-image-lg" src="/svg/icon-homework.svg" mode="aspectFit"/>
+    </view>
+    <text class="empty-state-title">作业不存在</text>
+    <text class="empty-state-text">请返回重试</text>
+  </view>
+
+  <!-- Detail Content -->
+  <view class="detail-content" wx:if="{{!loading && assignment}}">
+    <!-- Header Card -->
+    <view class="header-card stagger-1">
+      <view class="header-top">
+        <view class="header-icon icon-box icon-box-primary">
+          <image class="icon-image" src="/svg/icon-homework.svg" mode="aspectFit"/>
+        </view>
+        <view class="header-info">
+          <text class="header-title">{{assignment.title}}</text>
+          <view class="header-meta">
+            <text class="header-course" wx:if="{{course}}">{{course.name}}</text>
+            <text class="header-teacher" wx:if="{{teacher}}">{{teacher.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Info Card -->
+    <view class="info-card stagger-2">
+      <view class="info-row">
+        <view class="info-label-wrap">
+          <text class="info-icon-text">📅</text>
+          <text class="info-label">截止时间</text>
+        </view>
+        <text class="info-value">{{deadlineText}}</text>
+      </view>
+      <view class="info-divider"></view>
+      <view class="info-row">
+        <view class="info-label-wrap">
+          <text class="info-icon-text">📋</text>
+          <text class="info-label">提交状态</text>
+        </view>
+        <view class="status-badge status-{{statusType}}">{{statusText}}</view>
+      </view>
+      <view class="info-divider" wx:if="{{submission && submission.score !== null}}"></view>
+      <view class="info-row" wx:if="{{submission && submission.score !== null}}">
+        <view class="info-label-wrap">
+          <text class="info-icon-text">🏆</text>
+          <text class="info-label">得分</text>
+        </view>
+        <text class="score-value">{{submission.score}}分</text>
+      </view>
+    </view>
+
+    <!-- Requirements Section -->
+    <view class="section-card stagger-3">
+      <view class="section-header">
+        <view class="section-icon icon-box-sm icon-box-primary">
+          <text class="section-icon-emoji">📝</text>
+        </view>
+        <text class="section-title">作业要求</text>
+      </view>
+      <text class="section-content">{{assignment.content}}</text>
+      <view class="attachment-list" wx:if="{{assignment.attachments && assignment.attachments.length > 0}}">
+        <view class="attachment-item" wx:for="{{assignment.attachments}}" wx:key="*this">
+          <text class="attachment-icon">📎</text>
+          <text class="attachment-name">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Submission Section -->
+    <view class="section-card stagger-4" wx:if="{{submission}}">
+      <view class="section-header">
+        <view class="section-icon icon-box-sm icon-box-{{statusType === 'success' ? 'success' : 'warning'}}">
+          <text class="section-icon-emoji">{{statusType === 'success' ? '✅' : '📤'}}</text>
+        </view>
+        <text class="section-title">我的提交</text>
+      </view>
+      <text class="section-content" wx:if="{{submission.content}}">{{submission.content}}</text>
+
+      <!-- Submitted Images -->
+      <view class="submit-images" wx:if="{{submission.attachments && submission.attachments.length > 0}}">
+        <view class="image-grid">
+          <image class="submit-image"
+            wx:for="{{submission.attachments}}"
+            wx:key="*this"
+            src="{{item}}"
+            mode="aspectFill"
+            bindtap="onPreviewImage"
+            data-url="{{item}}"
+            data-urls="{{submission.attachments}}"
+          />
+        </view>
+      </view>
+
+      <!-- Submit time -->
+      <view class="submit-meta">
+        <text class="submit-time">提交时间：{{submission.submit_time}}</text>
+      </view>
+
+      <!-- Teacher Comment -->
+      <view class="comment-section" wx:if="{{submission.status === 'graded'}}">
+        <view class="comment-divider"></view>
+        <view class="comment-header">
+          <text class="comment-icon">💬</text>
+          <text class="comment-title">教师评语</text>
+        </view>
+        <text class="comment-content">{{submission.feedback || '暂无评语'}}</text>
+        <text class="comment-time" wx:if="{{submission.grade_time}}">批改时间：{{submission.grade_time}}</text>
+      </view>
+    </view>
+
+    <!-- Submit Button (only if not submitted) -->
+    <view class="bottom-action stagger-5" wx:if="{{!submission}}">
+      <button class="btn-primary btn-submit" bindtap="onSubmit">提交作业</button>
+    </view>
+  </view>
+</view>

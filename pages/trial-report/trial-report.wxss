@@ -1,0 +1,455 @@
+.page-container {
+  min-height: 100vh;
+  background: var(--bg);
+  padding-bottom: 200rpx;
+}
+
+/* 报告头部 */
+.report-header {
+  padding: 48rpx 32rpx;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.report-header::after {
+  content: '';
+  position: absolute;
+  bottom: -60rpx;
+  left: -20rpx;
+  right: -20rpx;
+  height: 120rpx;
+  background: var(--bg);
+  border-radius: 50% 50% 0 0;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.header-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.header-student {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8rpx;
+}
+
+.header-meta {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* 通用 section */
+.section {
+  padding: 0 24rpx;
+  margin-bottom: 28rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.section-icon text {
+  font-size: 28rpx;
+}
+
+/* 课堂表现 - 评分环 */
+.performance-card {
+  display: flex;
+  align-items: center;
+  gap: 32rpx;
+  padding: 32rpx;
+}
+
+.score-ring {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-primary);
+}
+
+.ring-value {
+  text-align: center;
+}
+
+.ring-num {
+  display: block;
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.ring-label {
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.performance-details {
+  flex: 1;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  width: 80rpx;
+  flex-shrink: 0;
+}
+
+.detail-bar-track {
+  flex: 1;
+  height: 12rpx;
+  background: var(--border-light);
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.detail-bar-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  transition: width 600ms var(--ease-out);
+}
+
+.detail-value {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  width: 56rpx;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* 兴趣评估 */
+.interest-card {
+  padding: 28rpx;
+}
+
+.interest-level {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.level-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.level-dots {
+  display: flex;
+  gap: 12rpx;
+}
+
+.level-dot {
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 50%;
+  background: var(--border-light);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.level-dot.active {
+  background: #F59E0B;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.level-text {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #D97706;
+}
+
+.interest-desc {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  padding: 16rpx;
+  background: var(--warning-soft);
+  border-radius: var(--radius-md);
+}
+
+/* 能力分析 */
+.ability-card {
+  padding: 24rpx;
+}
+
+.ability-item {
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ability-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.ability-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.ability-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ability-level {
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.ability-bar-track {
+  height: 10rpx;
+  background: var(--border-light);
+  border-radius: 5rpx;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+}
+
+.ability-bar-fill {
+  height: 100%;
+  border-radius: 5rpx;
+  transition: width 600ms var(--ease-out);
+}
+
+.ability-desc {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* 推荐课程 */
+.recommend-card {
+  padding: 28rpx;
+}
+
+.recommend-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.recommend-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.recommend-match {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--primary);
+  padding: 4rpx 16rpx;
+  background: var(--primary-soft);
+  border-radius: var(--radius-pill);
+}
+
+.recommend-desc {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16rpx;
+}
+
+.recommend-details {
+  display: flex;
+  gap: 24rpx;
+}
+
+.recommend-detail {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+/* 限时优惠 */
+.discount-card {
+  padding: 28rpx;
+  border: 2rpx solid #F59E0B;
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+}
+
+.discount-badge {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-bottom: 12rpx;
+}
+
+.discount-icon {
+  font-size: 28rpx;
+}
+
+.discount-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #D97706;
+}
+
+.discount-text {
+  font-size: 26rpx;
+  color: #92400E;
+  line-height: 1.6;
+  margin-bottom: 16rpx;
+}
+
+.discount-deadline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.deadline-label {
+  font-size: 24rpx;
+  color: #92400E;
+}
+
+.deadline-value {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #DC2626;
+}
+
+.discount-countdown {
+  margin-top: 12rpx;
+  text-align: center;
+  padding: 12rpx;
+  background: rgba(220, 38, 38, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.countdown-text {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #DC2626;
+}
+
+/* 教师评语 */
+.comment-card {
+  position: relative;
+  padding: 32rpx;
+}
+
+.comment-quote {
+  font-size: 72rpx;
+  color: var(--primary-light);
+  line-height: 1;
+  position: absolute;
+  top: 12rpx;
+  left: 20rpx;
+  opacity: 0.3;
+}
+
+.comment-quote.end {
+  top: auto;
+  left: auto;
+  bottom: 48rpx;
+  right: 20rpx;
+}
+
+.comment-text {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  line-height: 1.8;
+  padding: 0 16rpx;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.comment-author {
+  display: block;
+  text-align: right;
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+/* 操作按钮 */
+.action-section {
+  padding: 32rpx 24rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.confirm-btn {
+  text-align: center;
+  line-height: 96rpx;
+  font-size: 34rpx;
+}
+
+.share-btn {
+  text-align: center;
+  line-height: 80rpx;
+}
+
+.confirmed-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 32rpx;
+  background: var(--success-soft);
+  border-radius: var(--radius-lg);
+}
+
+.confirmed-icon {
+  font-size: 36rpx;
+}
+
+.confirmed-text {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--success);
+}
+
+.action-section.expired {
+  text-align: center;
+}
+
+.expired-text {
+  display: block;
+  font-size: 26rpx;
+  color: var(--text-muted);
+  margin-bottom: 16rpx;
+}
+
+.contact-btn {
+  text-align: center;
+  line-height: 80rpx;
+}

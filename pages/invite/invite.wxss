@@ -1,0 +1,346 @@
+.page-container {
+  min-height: 100vh;
+  background: var(--bg);
+  padding-bottom: 40rpx;
+}
+
+/* 推荐头部 */
+.invite-header {
+  padding: 48rpx 32rpx;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.invite-header::after {
+  content: '';
+  position: absolute;
+  bottom: -60rpx;
+  left: -20rpx;
+  right: -20rpx;
+  height: 120rpx;
+  background: var(--bg);
+  border-radius: 50% 50% 0 0;
+}
+
+.header-content {
+  margin-bottom: 24rpx;
+}
+
+.header-title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8rpx;
+}
+
+.header-subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.header-reward {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 16rpx 32rpx;
+  backdrop-filter: blur(10px);
+}
+
+.reward-text {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.reward-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FCD34D;
+}
+
+/* 推荐码卡片 */
+.referral-card {
+  margin: -20rpx 24rpx 24rpx;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 36rpx;
+}
+
+.referral-label {
+  margin-bottom: 16rpx;
+}
+
+.label-text {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.referral-code-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.referral-code {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+}
+
+.copy-btn {
+  flex-shrink: 0;
+}
+
+.referral-desc {
+  padding: 0 16rpx;
+}
+
+.desc-text {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* 分享方式 */
+.share-section {
+  padding: 0 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.share-methods {
+  display: flex;
+  gap: 16rpx;
+}
+
+.share-method {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  padding: 28rpx 16rpx;
+  margin-bottom: 0;
+  background: var(--surface);
+  border: none;
+  line-height: 1.4;
+}
+
+.share-method::after {
+  border: none;
+}
+
+.method-icon {
+  margin-bottom: 4rpx;
+}
+
+.method-icon text {
+  font-size: 32rpx;
+}
+
+.method-label {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* 推荐统计 */
+.stats-section {
+  padding: 0 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12rpx;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 24rpx 8rpx;
+  margin-bottom: 0;
+}
+
+.stat-num {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8rpx;
+}
+
+.stat-desc {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+/* 推荐记录 */
+.records-section {
+  padding: 0 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.record-item {
+  padding: 24rpx;
+  margin-bottom: 0;
+}
+
+.record-info {
+  flex: 1;
+}
+
+.record-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 8rpx;
+}
+
+.record-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.record-date {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+.record-reward {
+  flex-shrink: 0;
+}
+
+.reward-claimed {
+  font-size: 22rpx;
+  color: var(--success);
+  font-weight: 600;
+  padding: 6rpx 16rpx;
+  background: var(--success-soft);
+  border-radius: var(--radius-pill);
+}
+
+.reward-claim {
+  font-size: 22rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+  padding: 6rpx 16rpx;
+  background: var(--primary);
+  border-radius: var(--radius-pill);
+}
+
+.empty-records {
+  text-align: center;
+  padding: 48rpx 0;
+}
+
+.empty-text {
+  display: block;
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  margin-bottom: 8rpx;
+}
+
+.empty-hint {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+/* 规则说明 */
+.rules-section {
+  padding: 0 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.rules-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 24rpx;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.rules-label {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.rules-arrow {
+  font-size: 36rpx;
+  color: var(--text-muted);
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.rules-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+.rules-content {
+  padding: 20rpx 24rpx;
+  background: var(--surface);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  margin-top: -4rpx;
+}
+
+.rule-item {
+  display: block;
+  font-size: 24rpx;
+  color: var(--text-muted);
+  line-height: 2;
+}
+
+/* 积分区域 */
+.points-section {
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.points-card {
+  text-align: center;
+  padding: 30rpx;
+  position: relative;
+}
+
+.points-number {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: #4F46E5;
+  display: block;
+}
+
+.points-desc {
+  font-size: 24rpx;
+  color: #666666;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.points-action {
+  margin-top: 16rpx;
+  display: inline-block;
+}
+
+.points-hint {
+  display: block;
+  font-size: 22rpx;
+  color: #999999;
+  margin-top: 12rpx;
+  text-align: center;
+}

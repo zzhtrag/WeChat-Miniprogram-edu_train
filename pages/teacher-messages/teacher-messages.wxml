@@ -1,0 +1,55 @@
+<view class="container">
+  <!-- 顶部统计 -->
+  <view class="header">
+    <view class="stats">
+      <view class="stat-item">
+        <text class="stat-num">{{messages.length}}</text>
+        <text class="stat-label">全部消息</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-num unread">{{unreadCount}}</text>
+        <text class="stat-label">未读消息</text>
+      </view>
+    </view>
+    <view class="header-actions" wx:if="{{unreadCount > 0}}">
+      <text class="mark-read-btn" bindtap="markAllRead">全部已读</text>
+    </view>
+  </view>
+
+  <!-- 消息列表 -->
+  <view class="message-list" wx:if="{{messages.length > 0}}">
+    <view class="message-item interactive-item interactive-teacher {{item.is_read ? '' : 'unread'}}"
+          wx:for="{{messages}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="viewMessage">
+      <!-- 消息图标 -->
+      <view class="message-icon {{item.icon_class}}">
+        <text wx:if="{{item.type === 'system'}}">📢</text>
+        <text wx:elif="{{item.type === 'parent'}}">👨‍👩‍👧</text>
+        <text wx:elif="{{item.type === 'task'}}">📋</text>
+        <text wx:else>💬</text>
+      </view>
+      
+      <!-- 消息内容 -->
+      <view class="message-content">
+        <view class="message-header">
+          <text class="message-title">{{item.title}}</text>
+          <view class="unread-dot" wx:if="{{!item.is_read}}"></view>
+        </view>
+        <text class="message-desc">{{item.content}}</text>
+        <view class="message-footer">
+          <text class="message-sender">{{item.sender_name}}</text>
+          <text class="message-time">{{item.time_str}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">📭</text>
+    <text class="empty-text">暂无消息</text>
+  </view>
+</view>

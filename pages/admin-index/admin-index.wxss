@@ -1,0 +1,310 @@
+/* Admin Index Page v3 - Soft UI Evolution */
+
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #EDE9FE 0%, #F3F0FE 20%, #F8FAFC 45%);
+  padding: 24rpx 24rpx 40rpx;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  margin-bottom: 20rpx;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.08), 0 4px 12px -4px rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.user-card:active {
+  transform: scale(0.98);
+}
+
+.avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 700;
+  margin-right: 20rpx;
+  letter-spacing: -0.02em;
+}
+
+.avatar-admin-gradient {
+  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.3);
+}
+
+.user-info {
+  flex: 1;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 6rpx;
+  letter-spacing: -0.02em;
+  display: block;
+}
+
+.role {
+  font-size: 24rpx;
+  color: #94A3B8;
+  display: block;
+}
+
+.logout-chip {
+  font-size: 24rpx;
+  color: #94A3B8;
+  padding: 14rpx 24rpx;
+  background: #F8FAFC;
+  border-radius: 12rpx;
+  border: 1px solid #E2E8F0;
+  font-weight: 500;
+  transition: all 200ms ease;
+}
+
+.logout-chip:active {
+  background: #F1F5F9;
+  transform: scale(0.96);
+}
+
+/* ============================================
+   STATS GRID - With icons
+   ============================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 24rpx 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.08), 0 4px 12px -4px rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.stat-item {
+  text-align: center;
+  padding: 12rpx 0;
+}
+
+.stat-icon-wrapper {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12rpx;
+}
+
+.stat-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 6rpx;
+  letter-spacing: -0.02em;
+  display: block;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: #94A3B8;
+  font-weight: 500;
+  display: block;
+}
+
+/* ============================================
+   MENU SECTION
+   ============================================ */
+.menu-section {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.08), 0 4px 12px -4px rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28rpx 16rpx;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 200ms ease;
+}
+
+.menu-item:active {
+  transform: scale(0.94);
+}
+
+.menu-icon-box {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12rpx;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.15), 0 4px 8px -4px rgba(124, 58, 237, 0.08);
+}
+
+.menu-label {
+  font-size: 24rpx;
+  color: #0F172A;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ============================================
+   SECTION COMMON
+   ============================================ */
+.section {
+  margin-bottom: 20rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+  padding: 0 4rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================
+   NOTICE LIST
+   ============================================ */
+.notice-list {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.notice-card {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 1px solid #F1F5F9;
+  transition: all 200ms ease;
+}
+
+.notice-card:last-child {
+  border-bottom: none;
+}
+
+.notice-card:active {
+  background: rgba(124, 58, 237, 0.03);
+}
+
+.notice-type-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 14rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.tag-danger {
+  background: rgba(220, 38, 38, 0.1);
+  color: #DC2626;
+}
+
+.tag-primary {
+  background: rgba(79, 70, 229, 0.1);
+  color: #4F46E5;
+}
+
+.tag-success {
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+}
+
+.notice-content {
+  flex: 1;
+}
+
+.notice-title {
+  font-size: 26rpx;
+  color: #0F172A;
+  margin-bottom: 4rpx;
+  font-weight: 500;
+  display: block;
+}
+
+.notice-time {
+  font-size: 20rpx;
+  color: #CBD5E1;
+  display: block;
+}
+
+.notice-arrow {
+  font-size: 28rpx;
+  color: #CBD5E1;
+  line-height: 1;
+  margin-left: 8rpx;
+}
+
+/* ============================================
+   EMPTY TIP
+   ============================================ */
+.empty-tip {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 36rpx 32rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.empty-tip-icon {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-tip-text {
+  font-size: 24rpx;
+  color: #94A3B8;
+}

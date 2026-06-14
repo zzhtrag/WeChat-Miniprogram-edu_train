@@ -1,0 +1,39 @@
+<view class="container">
+  <!-- 积分余额横幅 -->
+  <view class="points-banner">
+    <view class="points-content">
+      <text class="points-label">我的积分</text>
+      <text class="points-value">{{pointsBalance}}</text>
+    </view>
+    <view class="points-hint">分享成长报告或机构主页，好友打开即可获得10积分</view>
+  </view>
+
+  <!-- 礼品列表 -->
+  <view class="section-title">可兑换礼品</view>
+
+  <view class="gift-grid" wx:if="{{gifts.length > 0}}">
+    <view class="gift-card" wx:for="{{gifts}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <image class="gift-image" src="{{item.image || '/svg/icon-gift.svg'}}" mode="aspectFill"/>
+      <view class="gift-card-info">
+        <text class="gift-card-name">{{item.name}}</text>
+        <view class="gift-card-bottom">
+          <text class="gift-card-points">{{item.required_points}} 积分</text>
+          <view class="exchange-btn {{pointsBalance >= item.required_points ? '' : 'disabled'}}">兑换</view>
+        </view>
+      </view>
+      <view class="stock-tag" wx:if="{{item.stock <= 5 && item.stock > 0}}">仅剩{{item.stock}}件</view>
+      <view class="sold-out-tag" wx:if="{{item.stock === 0}}">已兑完</view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{gifts.length === 0 && !loading}}">
+    <view class="empty-icon">🎁</view>
+    <view class="empty-text">暂无可兑换礼品</view>
+  </view>
+
+  <!-- 我的兑换入口 -->
+  <view class="my-exchanges-entry" bindtap="goToMyExchanges">
+    <text class="entry-text">我的兑换订单</text>
+    <text class="entry-arrow">›</text>
+  </view>
+</view>

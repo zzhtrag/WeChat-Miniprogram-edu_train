@@ -1,0 +1,14 @@
+.agreement-page {
+  min-height: 100vh;
+  background-color: #FFFFFF;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.agreement-content {
+  font-size: 28rpx;
+  color: #334155;
+  line-height: 1.8;
+}
+
+/* rich-text 内部元素样式通过行内 style 控制 */

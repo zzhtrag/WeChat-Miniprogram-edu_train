@@ -1,0 +1,132 @@
+<view class="container">
+  <view class="header-section">
+    <view class="user-card">
+      <image class="avatar" src="{{userInfo.avatar}}" mode="aspectFill" />
+      <view class="user-info">
+        <view class="user-name">{{userInfo.name}}</view>
+        <view class="user-class">
+          <text wx:if="{{userInfo.role === 'student'}}">{{userInfo.className}}</text>
+          <text wx:if="{{userInfo.role === 'teacher'}}">{{userInfo.subject}}老师</text>
+        </view>
+        <view class="role-tag {{userInfo.role}}">
+          {{userInfo.role === 'teacher' ? '教师' : '学生'}}
+        </view>
+      </view>
+      <view class="edit-btn" bindtap="editProfile">
+        <text class="edit-icon">✏️</text>
+      </view>
+    </view>
+    <view class="stats-card">
+      <view class="stat-item" bindtap="viewMyCourses" wx:if="{{userInfo.role === 'student'}}">
+        <view class="stat-value">12</view>
+        <view class="stat-label">我的课程</view>
+      </view>
+      <view class="stat-item" bindtap="viewMyCourses" wx:if="{{userInfo.role === 'teacher'}}">
+        <view class="stat-value">{{teacherStats.totalClasses}}</view>
+        <view class="stat-label">授课班级</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item" bindtap="viewMyHomework" wx:if="{{userInfo.role === 'student'}}">
+        <view class="stat-value">{{studyStats.completedHomework}}</view>
+        <view class="stat-label">完成作业</view>
+      </view>
+      <view class="stat-item" wx:if="{{userInfo.role === 'teacher'}}">
+        <view class="stat-value">{{teacherStats.totalStudents}}</view>
+        <view class="stat-label">学生总数</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item" bindtap="viewStudyHours" wx:if="{{userInfo.role === 'student'}}">
+        <view class="stat-value">{{studyStats.totalHours}}</view>
+        <view class="stat-label">学习小时</view>
+      </view>
+      <view class="stat-item" wx:if="{{userInfo.role === 'teacher'}}">
+        <view class="stat-value">{{teacherStats.pendingHomeworkCount}}</view>
+        <view class="stat-label">待批改</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-section">
+    <view class="menu-group" wx:if="{{userInfo.role === 'student'}}">
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/courses/courses">
+        <view class="menu-icon course">📚</view>
+        <view class="menu-title">我的课程</view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/homework/homework">
+        <view class="menu-icon homework">📝</view>
+        <view class="menu-title">我的作业</view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/materials/materials">
+        <view class="menu-icon material">📂</view>
+        <view class="menu-title">学习资料</view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/scores/scores">
+        <view class="menu-icon score">📊</view>
+        <view class="menu-title">成绩查询</view>
+        <view class="menu-arrow">›</view>
+      </view>
+    </view>
+
+    <view class="menu-group" wx:if="{{userInfo.role === 'teacher'}}">
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/teacher-index/teacher-index">
+        <view class="menu-icon course">🏠</view>
+        <view class="menu-title">工作台</view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/teacher-classes/teacher-classes">
+        <view class="menu-icon class">👥</view>
+        <view class="menu-title">班级管理</view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/teacher-homework/teacher-homework">
+        <view class="menu-icon homework">📝</view>
+        <view class="menu-title">作业管理</view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/teacher-scores/teacher-scores">
+        <view class="menu-icon score">📊</view>
+        <view class="menu-title">成绩管理</view>
+        <view class="menu-arrow">›</view>
+      </view>
+    </view>
+
+    <view class="menu-group">
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/messages/messages">
+        <view class="menu-icon message">💬</view>
+        <view class="menu-title">消息中心</view>
+        <view class="menu-badge" wx:if="{{unreadCount > 0}}">{{unreadCount}}</view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="menu-item" bindtap="viewMySchedule" wx:if="{{userInfo.role === 'student'}}">
+        <view class="menu-icon schedule">📅</view>
+        <view class="menu-title">我的课表</view>
+        <view class="menu-arrow">›</view>
+      </view>
+    </view>
+
+    <view class="menu-group">
+      <view class="menu-item" bindtap="goToSettings">
+        <view class="menu-icon settings">⚙️</view>
+        <view class="menu-title">设置</view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="menu-item" bindtap="viewHelp">
+        <view class="menu-icon help">❓</view>
+        <view class="menu-title">帮助与反馈</view>
+        <view class="menu-arrow">›</view>
+      </view>
+      <view class="menu-item" bindtap="aboutUs">
+        <view class="menu-icon about">ℹ️</view>
+        <view class="menu-title">关于我们</view>
+        <view class="menu-arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="logout-section">
+    <button class="logout-btn" bindtap="logout">退出登录</button>
+  </view>
+</view>

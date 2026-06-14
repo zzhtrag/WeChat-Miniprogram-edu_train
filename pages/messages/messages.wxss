@@ -1,0 +1,154 @@
+/* Messages Page - Redesigned with Taste Skill */
+
+.page-container {
+  min-height: 100vh;
+  background-color: #FAFAF9;
+  padding: 24rpx 24rpx 40rpx;
+}
+
+/* Message List */
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.message-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 4rpx solid transparent;
+}
+
+.message-card:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.message-card.unread {
+  border-left-color: #4F46E5;
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.card-left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.pin-icon {
+  font-size: 20rpx;
+  color: #EF4444;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 6rpx 12rpx;
+  border-radius: 100rpx;
+  font-weight: 600;
+}
+
+.type-tag {
+  padding: 6rpx 16rpx;
+  border-radius: 100rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.type-tag.system {
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+}
+
+.type-tag.parent {
+  background: rgba(79, 70, 229, 0.1);
+  color: #4F46E5;
+}
+
+.type-tag.teacher {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22C55E;
+}
+
+.publish-time {
+  font-size: 22rpx;
+  color: #A1A1AA;
+}
+
+/* Message Content */
+.message-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #18181B;
+  margin-bottom: 10rpx;
+  letter-spacing: -0.01em;
+}
+
+.message-content {
+  font-size: 26rpx;
+  color: #71717A;
+  line-height: 1.6;
+  margin-bottom: 16rpx;
+}
+
+/* Message Footer */
+.message-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16rpx;
+  border-top: 1px solid #E4E4E7;
+}
+
+.publisher {
+  font-size: 24rpx;
+  color: #71717A;
+}
+
+.read-status {
+  font-size: 24rpx;
+  color: #A1A1AA;
+}
+
+.read-status.read {
+  color: #71717A;
+}
+
+.read-status:not(.read) {
+  color: #4F46E5;
+  font-weight: 500;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 32rpx;
+}
+
+.empty-icon {
+  font-size: 72rpx;
+  margin-bottom: 24rpx;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #18181B;
+  margin-bottom: 10rpx;
+  letter-spacing: -0.02em;
+}
+
+.empty-text {
+  font-size: 26rpx;
+  color: #71717A;
+  text-align: center;
+}

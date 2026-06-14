@@ -1,0 +1,97 @@
+<view class="container">
+  <!-- Loading state -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <view class="loading-text">加载中...</view>
+  </view>
+
+  <block wx:if="{{!loading && assignment}}">
+    <!-- Header card -->
+    <view class="info-card">
+      <view class="header-row">
+        <view class="assignment-title">{{assignment.title}}</view>
+        <view class="status-badge" style="background: {{assignment.statusColor}}20; color: {{assignment.statusColor}};">{{assignment.statusText}}</view>
+      </view>
+      <view class="meta-row">
+        <view class="meta-item">
+          <text class="meta-label">课程</text>
+          <text class="meta-value">{{courseInfo.name || '-'}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-label">班级</text>
+          <text class="meta-value">{{classInfo.name || '-'}}</text>
+        </view>
+      </view>
+      <view class="meta-row">
+        <view class="meta-item">
+          <text class="meta-label">截止时间</text>
+          <text class="meta-value">{{assignment.deadlineStr}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Description/requirements section -->
+    <view class="info-card">
+      <view class="section-title">作业要求</view>
+      <view class="content-text">{{assignment.content || '暂无描述'}}</view>
+    </view>
+
+    <!-- Stats card -->
+    <view class="stats-card">
+      <view class="stat-item">
+        <view class="stat-value">{{totalStudents}}</view>
+        <view class="stat-label">总人数</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <view class="stat-value submitted">{{submittedCount}}</view>
+        <view class="stat-label">已提交</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <view class="stat-value graded">{{gradedCount}}</view>
+        <view class="stat-label">已批改</view>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <view class="stat-value pending">{{totalStudents - submittedCount}}</view>
+        <view class="stat-label">未提交</view>
+      </view>
+    </view>
+
+    <!-- Submission list -->
+    <view class="info-card">
+      <view class="section-title">学生提交</view>
+      <view class="submission-list" wx:if="{{submissionList.length > 0}}">
+        <view class="submission-item" wx:for="{{submissionList}}" wx:key="student_id" bindtap="viewSubmission" data-studentid="{{item.student_id}}" data-status="{{item.status}}">
+          <view class="submission-left">
+            <view class="student-avatar-placeholder">
+              <text class="avatar-text">{{item.student_name[0]}}</text>
+            </view>
+            <view class="student-detail">
+              <view class="student-name">{{item.student_name}}</view>
+              <view class="student-meta" wx:if="{{item.submitTime}}">{{item.submitTime}}</view>
+              <view class="student-meta" wx:else>尚未提交</view>
+            </view>
+          </view>
+          <view class="submission-right">
+            <view class="status-tag status-{{item.status}}">{{item.statusLabel}}</view>
+            <view class="score-display" wx:if="{{item.score !== null}}">{{item.score}}分</view>
+          </view>
+        </view>
+      </view>
+      <view class="empty-state" wx:else>
+        <view class="empty-text">暂无学生</view>
+      </view>
+    </view>
+
+    <!-- Grade all button -->
+    <view class="bottom-action" wx:if="{{submittedCount > gradedCount}}">
+      <view class="grade-all-btn" bindtap="gradeAll">批改全部作业</view>
+    </view>
+  </block>
+
+  <!-- Not found state -->
+  <view class="empty-state" wx:if="{{!loading && !assignment}}">
+    <view class="empty-text">作业不存在</view>
+  </view>
+</view>

@@ -1,0 +1,193 @@
+<view class="page-container">
+  <!-- 顶部切换 -->
+  <view class="period-tabs">
+    <view class="period-tab {{period === 'weekly' ? 'active' : ''}}" bindtap="switchPeriod" data-period="weekly">周报</view>
+    <view class="period-tab {{period === 'monthly' ? 'active' : ''}}" bindtap="switchPeriod" data-period="monthly">月报</view>
+  </view>
+
+  <!-- 加载态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="skeleton-card">
+      <view class="skeleton skeleton-title"></view>
+      <view class="skeleton skeleton-line"></view>
+      <view class="skeleton skeleton-line short"></view>
+    </view>
+  </view>
+
+  <block wx:elif="{{report}}">
+    <!-- 报告头部 -->
+    <view class="report-header stagger-1">
+      <view class="report-badge">
+        <text class="badge-icon">📋</text>
+        <text class="badge-text">{{period === 'weekly' ? '本周' : '本月'}}成长报告</text>
+      </view>
+      <text class="report-date">{{report.date_range}}</text>
+    </view>
+
+    <!-- 学生信息卡 -->
+    <view class="student-card card card-primary stagger-2">
+      <view class="student-row">
+        <view class="avatar avatar-gradient">{{report.student_name[0]}}</view>
+        <view class="student-detail">
+          <text class="student-name">{{report.student_name}}</text>
+          <text class="student-class">{{report.class_name}}</text>
+        </view>
+        <view class="overall-tag tag tag-primary">
+          <text>{{report.overall_level}}</text>
+        </view>
+      </view>
+      <view class="encouragement" wx:if="{{report.encouragement}}">
+        <text class="encouragement-text">{{report.encouragement}}</text>
+      </view>
+    </view>
+
+    <!-- 数据概览 -->
+    <view class="stats-grid stagger-3">
+      <view class="stat-card card">
+        <view class="stat-icon-box icon-box icon-box-primary">
+          <text class="stat-icon-text">📊</text>
+        </view>
+        <view class="stat-info">
+          <text class="stat-value">{{report.attendance_rate}}%</text>
+          <text class="stat-label">出勤率</text>
+        </view>
+        <view class="stat-trend {{report.attendance_trend >= 0 ? 'up' : 'down'}}" wx:if="{{report.attendance_trend !== 0}}">
+          <text>{{report.attendance_trend >= 0 ? '↑' : '↓'}}{{Math.abs(report.attendance_trend)}}%</text>
+        </view>
+      </view>
+
+      <view class="stat-card card">
+        <view class="stat-icon-box icon-box icon-box-success">
+          <text class="stat-icon-text">📝</text>
+        </view>
+        <view class="stat-info">
+          <text class="stat-value">{{report.homework_rate}}%</text>
+          <text class="stat-label">作业完成</text>
+        </view>
+        <view class="stat-trend {{report.homework_trend >= 0 ? 'up' : 'down'}}" wx:if="{{report.homework_trend !== 0}}">
+          <text>{{report.homework_trend >= 0 ? '↑' : '↓'}}{{Math.abs(report.homework_trend)}}%</text>
+        </view>
+      </view>
+
+      <view class="stat-card card">
+        <view class="stat-icon-box icon-box icon-box-warning">
+          <text class="stat-icon-text">📈</text>
+        </view>
+        <view class="stat-info">
+          <text class="stat-value">{{report.score_avg}}</text>
+          <text class="stat-label">平均成绩</text>
+        </view>
+        <view class="stat-trend {{report.score_trend >= 0 ? 'up' : 'down'}}" wx:if="{{report.score_trend !== 0}}">
+          <text>{{report.score_trend >= 0 ? '↑' : '↓'}}{{Math.abs(report.score_trend)}}分</text>
+        </view>
+      </view>
+
+      <view class="stat-card card">
+        <view class="stat-icon-box icon-box icon-box-danger">
+          <text class="stat-icon-text">⭐</text>
+        </view>
+        <view class="stat-info">
+          <text class="stat-value">{{report.excellent_count}}</text>
+          <text class="stat-label">优秀作品</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 成绩趋势 -->
+    <view class="section stagger-4" wx:if="{{report.score_trend_data && report.score_trend_data.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">成绩趋势</text>
+      </view>
+      <view class="trend-card card">
+        <view class="trend-bars">
+          <view class="trend-bar-item" wx:for="{{report.score_trend_data}}" wx:key="label">
+            <view class="trend-bar-track">
+              <view class="trend-bar-fill" style="height: {{item.percent}}%; background: {{item.is_highlight ? 'var(--primary)' : 'var(--primary-light)'}}"></view>
+            </view>
+            <text class="trend-bar-label">{{item.label}}</text>
+            <text class="trend-bar-value">{{item.score}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 优秀作品 -->
+    <view class="section stagger-5" wx:if="{{report.portfolio_items && report.portfolio_items.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">优秀作品</text>
+      </view>
+      <view class="portfolio-scroll">
+        <view class="portfolio-item card" wx:for="{{report.portfolio_items}}" wx:key="id" bindtap="goToPortfolio" data-id="{{item.id}}">
+          <image class="portfolio-thumb" src="{{item.thumbnail}}" mode="aspectFill" wx:if="{{item.thumbnail}}" />
+          <view class="portfolio-thumb-placeholder" wx:else>
+            <text>🎨</text>
+          </view>
+          <text class="portfolio-title">{{item.title}}</text>
+          <text class="portfolio-date">{{item.date}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 教师评语 -->
+    <view class="section stagger-6" wx:if="{{report.teacher_comment}}">
+      <view class="section-header">
+        <text class="section-title">老师的话</text>
+        <text class="teacher-name">{{report.teacher_name}}老师</text>
+      </view>
+      <view class="comment-card card">
+        <view class="comment-quote">"</view>
+        <text class="comment-text">{{report.teacher_comment}}</text>
+        <view class="comment-quote end">"</view>
+      </view>
+    </view>
+
+    <!-- 分享操作区 -->
+    <view class="share-section">
+      <view class="share-card-preview card card-elevated" wx:if="{{showPreview}}">
+        <view class="preview-header">
+          <view class="preview-logo-icon" bindtap="onLogoTap">
+            <image class="preview-logo-image" src="{{schoolInfo.logo}}" mode="aspectFit" wx:if="{{schoolInfo.logo}}" />
+            <text class="preview-logo-letter" wx:else>{{schoolInfo.name[0]}}</text>
+          </view>
+          <text class="preview-school">{{schoolInfo.name}}</text>
+        </view>
+        <view class="preview-body">
+          <text class="preview-student">{{report.student_name}}同学 · {{period === 'weekly' ? '本周' : '本月'}}成长报告</text>
+          <view class="preview-stats">
+            <view class="preview-stat">
+              <text class="preview-stat-icon">📈</text>
+              <text class="preview-stat-text">进步{{report.score_trend}}分</text>
+            </view>
+            <view class="preview-stat">
+              <text class="preview-stat-icon">✅</text>
+              <text class="preview-stat-text">出勤{{report.attendance_count}}/{{report.attendance_total}}</text>
+            </view>
+            <view class="preview-stat">
+              <text class="preview-stat-icon">📝</text>
+              <text class="preview-stat-text">作业完成{{report.homework_rate}}%</text>
+            </view>
+          </view>
+        </view>
+        <view class="preview-footer">
+          <text class="preview-cta">长按了解{{schoolInfo.name}}课程</text>
+        </view>
+      </view>
+
+      <view class="share-actions">
+        <button class="btn-primary share-btn" open-type="share">
+          分享给朋友
+        </button>
+        <view class="btn-outline save-card-btn" bindtap="saveShareCard">
+          保存分享卡片
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:elif="{{!loading}}">
+    <view class="empty-state-icon">📋</view>
+    <text class="empty-state-title">暂无成长报告</text>
+    <text class="empty-state-text">老师发布报告后将在此展示</text>
+  </view>
+</view>

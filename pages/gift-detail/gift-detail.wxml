@@ -1,0 +1,79 @@
+<view class="container">
+  <view wx:if="{{loading}}" class="loading-state">
+    <text>加载中...</text>
+  </view>
+
+  <block wx:elif="{{gift}}">
+    <!-- 礼品大图 -->
+    <view class="gift-image-section">
+      <image class="gift-big-image" src="{{gift.image || '/svg/icon-gift.svg'}}" mode="aspectFill"/>
+      <view class="stock-badge" wx:if="{{gift.stock <= 5 && gift.stock > 0}}">仅剩{{gift.stock}}件</view>
+    </view>
+
+    <!-- 礼品信息 -->
+    <view class="gift-info-section">
+      <view class="gift-name-row">
+        <text class="gift-name">{{gift.name}}</text>
+        <text class="gift-points">{{gift.required_points}} 积分</text>
+      </view>
+      <text class="gift-desc">{{gift.description}}</text>
+    </view>
+
+    <!-- 积分余额 -->
+    <view class="points-section">
+      <view class="points-row">
+        <text class="points-label">我的积分</text>
+        <text class="points-balance">{{pointsBalance}}</text>
+      </view>
+      <text class="points-hint" wx:if="{{pointsBalance < gift.required_points}}">
+        还差 {{gift.required_points - pointsBalance}} 积分可兑换
+      </text>
+    </view>
+
+    <!-- 兑换按钮 -->
+    <view class="exchange-action">
+      <view class="exchange-btn {{canExchange ? '' : 'disabled'}}" bindtap="openExchangeModal">
+        {{gift.stock === 0 ? '已兑完' : (canExchange ? '立即兑换' : '积分不足')}}
+      </view>
+    </view>
+  </block>
+
+  <view wx:else class="loading-state">
+    <text>礼品不存在</text>
+  </view>
+</view>
+
+<!-- 兑换弹窗 -->
+<view class="modal-mask" wx:if="{{showExchangeModal}}" bindtap="closeExchangeModal"></view>
+<view class="modal-content" wx:if="{{showExchangeModal}}">
+  <view class="modal-header">
+    <text class="modal-title">确认兑换</text>
+    <text class="modal-close" bindtap="closeExchangeModal">✕</text>
+  </view>
+  <view class="modal-gift-info">
+    <text class="modal-gift-name">{{gift.name}}</text>
+    <text class="modal-gift-cost">消耗 {{gift.required_points}} 积分</text>
+  </view>
+  <view class="modal-form">
+    <view class="form-group">
+      <view class="form-label">收件人 <text class="required">*</text></view>
+      <input class="form-input" placeholder="请输入收件人姓名" value="{{addressForm.name}}" bindinput="onAddressInput" data-field="name"/>
+      <text class="error-text" wx:if="{{errors.name}}">{{errors.name}}</text>
+    </view>
+    <view class="form-group">
+      <view class="form-label">手机号 <text class="required">*</text></view>
+      <input class="form-input" type="number" placeholder="请输入手机号" value="{{addressForm.phone}}" bindinput="onAddressInput" data-field="phone"/>
+      <text class="error-text" wx:if="{{errors.phone}}">{{errors.phone}}</text>
+    </view>
+    <view class="form-group">
+      <view class="form-label">收货地址 <text class="required">*</text></view>
+      <textarea class="form-textarea" placeholder="请输入详细地址" value="{{addressForm.address}}" bindinput="onAddressInput" data-field="address"></textarea>
+      <text class="error-text" wx:if="{{errors.address}}">{{errors.address}}</text>
+    </view>
+  </view>
+  <view class="modal-action">
+    <view class="confirm-btn {{submitting ? 'disabled' : ''}}" bindtap="{{submitting ? '' : 'confirmExchange'}}">
+      {{submitting ? '提交中...' : '确认兑换'}}
+    </view>
+  </view>
+</view>

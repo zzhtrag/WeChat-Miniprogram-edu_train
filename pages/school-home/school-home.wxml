@@ -1,0 +1,240 @@
+<view class="page-container">
+  <!-- 顶部品牌区域 -->
+  <view class="brand-header stagger-1">
+    <view class="brand-header-inner" bindtap="onLogoTap">
+      <view class="brand-logo-wrapper">
+        <image class="brand-logo" src="{{schoolInfo.logo}}" mode="aspectFill" wx:if="{{schoolInfo.logo}}" />
+        <view class="brand-logo-placeholder" wx:else>
+          <text class="brand-logo-text">{{schoolInfo.name[0]}}</text>
+        </view>
+      </view>
+      <view class="brand-info">
+        <view class="brand-name-wrapper">
+          <text class="brand-name">{{schoolInfo.name}}</text>
+          <view class="verify-badge" wx:if="{{schoolInfo.name}}">
+            <text class="verify-icon">✓</text>
+            <text class="verify-text">官方</text>
+          </view>
+        </view>
+        <text class="brand-slogan" wx:if="{{schoolInfo.slogan}}">{{schoolInfo.slogan}}</text>
+        <view class="brand-meta" wx:if="{{schoolInfo.address}}">
+          <text class="meta-icon">📍</text>
+          <text class="meta-text">{{schoolInfo.address}}</text>
+        </view>
+      </view>
+      <view class="brand-arrow">›</view>
+    </view>
+    <!-- 快捷操作区 -->
+    <view class="quick-actions">
+      <view class="quick-action-item" bindtap="bookTrial">
+        <view class="quick-action-icon icon-box icon-box-warning">
+          <image class="action-icon-img" src="/svg/icon-schedule.svg" mode="aspectFit"/>
+        </view>
+        <text class="quick-action-text">预约试学</text>
+      </view>
+      <view class="quick-action-item" bindtap="goToEnroll">
+        <view class="quick-action-icon icon-box icon-box-primary">
+          <text class="action-icon-emoji">📝</text>
+        </view>
+        <text class="quick-action-text">立即报名</text>
+      </view>
+      <view class="quick-action-item" bindtap="callPhone">
+        <view class="quick-action-icon icon-box icon-box-success">
+          <text class="action-icon-emoji">📞</text>
+        </view>
+        <text class="quick-action-text">电话咨询</text>
+      </view>
+      <view class="quick-action-item" bindtap="scrollToInfo">
+        <view class="quick-action-icon icon-box icon-box-default">
+          <image class="action-icon-img" src="/svg/icon-school.svg" mode="aspectFit"/>
+        </view>
+        <text class="quick-action-text">了解学校</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Banner -->
+  <view class="banner stagger-2">
+    <image class="banner-img" src="{{schoolInfo.banner}}" mode="aspectFill" wx:if="{{schoolInfo.banner}}" />
+    <view class="banner-placeholder bg-gradient-primary" wx:else>
+      <text class="banner-placeholder-text">🎨</text>
+    </view>
+    <view class="banner-overlay">
+      <view class="banner-slogan">
+        <text class="banner-slogan-text">{{schoolInfo.slogan || '让每个孩子都发光'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 简介 -->
+  <view class="intro-card card stagger-2" wx:if="{{schoolInfo.description}}">
+    <text class="intro-text">{{schoolInfo.description}}</text>
+  </view>
+
+  <!-- 特色标签 -->
+  <view class="features-section stagger-3" wx:if="{{schoolInfo.features && schoolInfo.features.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">机构特色</text>
+    </view>
+    <view class="features-grid">
+      <view class="feature-item card" wx:for="{{schoolInfo.features}}" wx:key="index">
+        <view class="feature-icon icon-box icon-box-primary icon-box-sm">
+          <text>{{item.icon}}</text>
+        </view>
+        <text class="feature-text">{{item.text}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 精选课程 -->
+  <view class="courses-section stagger-4" wx:if="{{courses.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">精选课程</text>
+    </view>
+    <view class="courses-list">
+      <view class="course-card card" wx:for="{{courses}}" wx:key="id">
+        <view class="course-top">
+          <view class="course-tag tag tag-primary">{{item.category}}</view>
+          <text class="course-name">{{item.name}}</text>
+        </view>
+        <text class="course-desc" wx:if="{{item.description}}">{{item.description}}</text>
+        <view class="course-bottom">
+          <view class="course-info-row">
+            <text class="course-info">🕐 {{item.duration}}</text>
+            <text class="course-info">👥 {{item.student_count}}人在学</text>
+          </view>
+          <view class="course-price-row">
+            <text class="course-price" wx:if="{{item.price}}">¥{{item.price}}/期</text>
+            <text class="course-price free" wx:else>预约试听</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 优秀作品 -->
+  <view class="portfolio-section stagger-5" wx:if="{{portfolioItems.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">学员作品</text>
+    </view>
+    <view class="portfolio-scroll">
+      <view class="portfolio-item card" wx:for="{{portfolioItems}}" wx:key="id">
+        <image class="portfolio-thumb" src="{{item.thumbnail}}" mode="aspectFill" wx:if="{{item.thumbnail}}" />
+        <view class="portfolio-thumb-placeholder" wx:else>
+          <text>🎨</text>
+        </view>
+        <view class="portfolio-info">
+          <text class="portfolio-title">{{item.title}}</text>
+          <text class="portfolio-author">{{item.student_name}} · {{item.teacher_name}}老师</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 家长评价 -->
+  <view class="reviews-section stagger-6" wx:if="{{reviews.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">家长评价</text>
+    </view>
+    <view class="reviews-list">
+      <view class="review-card card" wx:for="{{reviews}}" wx:key="id">
+        <view class="review-header">
+          <view class="reviewer-avatar avatar avatar-primary avatar-sm">{{item.parent_name[0]}}</view>
+          <view class="reviewer-info">
+            <text class="reviewer-name">{{item.parent_name}}</text>
+            <view class="review-stars">
+              <text class="star" wx:for="{{item.stars}}" wx:for-item="s" wx:key="index">{{s ? '★' : '☆'}}</text>
+            </view>
+          </view>
+        </view>
+        <text class="review-text">{{item.comment}}</text>
+        <text class="review-date">{{item.date}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 机构信息 -->
+  <view class="info-section" id="school-info" wx:if="{{schoolInfo.address || schoolInfo.contact_phone}}">
+    <view class="info-card card">
+      <view class="info-item" wx:if="{{schoolInfo.address}}" bindtap="openMap">
+        <text class="info-icon">📍</text>
+        <text class="info-text">{{schoolInfo.address}}</text>
+      </view>
+      <view class="info-item" wx:if="{{schoolInfo.contact_phone}}" bindtap="callPhone">
+        <text class="info-icon">📞</text>
+        <text class="info-text">{{schoolInfo.contact_phone}}</text>
+      </view>
+      <view class="info-item" wx:if="{{schoolInfo.business_hours}}">
+        <text class="info-icon">🕐</text>
+        <text class="info-text">{{schoolInfo.business_hours}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="bottom-bar-inner">
+      <view class="bottom-action" bindtap="scrollToInfo">
+        <view class="bottom-action-icon icon-box icon-box-sm icon-box-primary">
+          <image class="action-icon-img" src="/svg/icon-school.svg" mode="aspectFit"/>
+        </view>
+        <text class="bottom-action-label">了解学校</text>
+      </view>
+      <view class="bottom-action" bindtap="bookTrial">
+        <view class="bottom-action-icon icon-box icon-box-sm icon-box-warning">
+          <image class="action-icon-img" src="/svg/icon-schedule.svg" mode="aspectFit"/>
+        </view>
+        <text class="bottom-action-label">预约试学</text>
+      </view>
+      <button class="btn-primary enroll-btn" bindtap="goToEnroll">报名</button>
+      <view class="bottom-share" bindtap="shareSchool">
+        <text class="share-icon">↗</text>
+        <text class="share-label">分享</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 预约弹窗 -->
+  <view class="modal-mask" wx:if="{{showBookingModal}}" bindtap="closeBookingModal">
+    <view class="modal-content" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">预约试听课</text>
+        <text class="modal-close" bindtap="closeBookingModal">✕</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-group">
+          <text class="form-label">家长姓名</text>
+          <view class="input-wrapper">
+            <input class="form-input" placeholder="请输入姓名" value="{{bookingForm.name}}" bindinput="onBookingInput" data-field="name" />
+          </view>
+        </view>
+        <view class="form-group">
+          <text class="form-label">手机号</text>
+          <view class="input-wrapper">
+            <input class="form-input" type="number" placeholder="请输入手机号" maxlength="11" value="{{bookingForm.phone}}" bindinput="onBookingInput" data-field="phone" />
+          </view>
+        </view>
+        <view class="form-group">
+          <text class="form-label">感兴趣的课程</text>
+          <view class="input-wrapper">
+            <picker range="{{courseNames}}" bindchange="onCoursePick" value="{{bookingForm.courseIndex}}" wx:if="{{courseNames.length > 0}}">
+              <view class="form-input {{bookingForm.courseIndex >= 0 ? '' : 'placeholder'}}">
+                {{bookingForm.courseIndex >= 0 ? courseNames[bookingForm.courseIndex] : '请选择课程'}}
+              </view>
+            </picker>
+            <view class="form-input placeholder" wx:else>暂无可选课程</view>
+          </view>
+        </view>
+        <view class="form-group" wx:if="{{referralCode}}">
+          <text class="form-label">推荐码（选填）</text>
+          <view class="input-wrapper">
+            <input class="form-input" placeholder="有推荐码请填写" value="{{bookingForm.referralCode}}" bindinput="onBookingInput" data-field="referralCode" />
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="btn-primary submit-btn" bindtap="submitBooking">提交预约</view>
+      </view>
+    </view>
+  </view>
+</view>

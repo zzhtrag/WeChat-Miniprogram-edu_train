@@ -1,0 +1,89 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrapper">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索课程、老师" value="{{searchKeyword}}" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch" />
+      <text class="filter-btn" bindtap="toggleFilter">筛选</text>
+    </view>
+  </view>
+
+  <!-- 轮播图 -->
+  <view class="banner-section" wx:if="{{banners.length > 0}}">
+    <swiper class="banner-swiper" indicator-dots="true" autoplay="true" interval="3000" duration="500">
+      <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="viewBanner" data-id="{{item.id}}">
+        <image class="banner-image" src="{{item.image}}" mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- 科目筛选 -->
+  <view class="subject-section">
+    <scroll-view class="subject-scroll" scroll-x="true">
+      <view class="subject-list">
+        <view class="subject-item {{selectedSubject === '' ? 'active' : ''}}" bindtap="selectSubject" data-subject="">全部</view>
+        <view class="subject-item {{selectedSubject === item.id ? 'active' : ''}}" wx:for="{{subjectCategories}}" wx:key="id" bindtap="selectSubject" data-subject="{{item.id}}">
+          {{item.name}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 排序和类型 -->
+  <view class="sort-section">
+    <view class="sort-tabs">
+      <view class="sort-tab {{sortType === 'default' ? 'active' : ''}}" bindtap="selectSortType" data-sort="default">综合</view>
+      <view class="sort-tab {{sortType === 'newest' ? 'active' : ''}}" bindtap="selectSortType" data-sort="newest">最新</view>
+      <view class="sort-tab {{sortType === 'hot' ? 'active' : ''}}" bindtap="selectSortType" data-sort="hot">最热</view>
+      <view class="sort-tab {{sortType === 'price' ? 'active' : ''}}" bindtap="selectSortType" data-sort="price">价格</view>
+    </view>
+  </view>
+
+  <!-- 课程类型 -->
+  <view class="type-section">
+    <view class="type-tabs">
+      <view class="type-tab {{courseType === 'all' ? 'active' : ''}}" bindtap="selectCourseType" data-type="all">全部</view>
+      <view class="type-tab {{courseType === 'video' ? 'active' : ''}}" bindtap="selectCourseType" data-type="video">视频</view>
+      <view class="type-tab {{courseType === 'article' ? 'active' : ''}}" bindtap="selectCourseType" data-type="article">图文</view>
+      <view class="type-tab {{courseType === 'live' ? 'active' : ''}}" bindtap="selectCourseType" data-type="live">直播</view>
+    </view>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="course-list">
+    <view class="course-card" wx:for="{{filteredCourses}}" wx:key="id" bindtap="viewCourse" data-id="{{item.id}}">
+      <view class="course-cover-wrapper">
+        <image class="course-cover" src="{{item.cover}}" mode="aspectFill" />
+        <view class="course-type-tag type-{{item.type}}">
+          {{item.type === 'video' ? '视频' : item.type === 'article' ? '图文' : '直播'}}
+        </view>
+        <view class="course-free-tag" wx:if="{{item.isFree}}">免费</view>
+      </view>
+      <view class="course-info">
+        <view class="course-name">{{item.name}}</view>
+        <view class="course-teacher">
+          <image class="teacher-avatar" src="{{item.teacherAvatar}}" mode="aspectFill" />
+          <text class="teacher-name">{{item.teacher}}</text>
+          <text class="teacher-desc">{{item.teacherDesc}}</text>
+        </view>
+        <view class="course-meta">
+          <text class="student-count">{{item.studentCount}}人学习</text>
+          <text class="course-rating">⭐ {{item.rating}}</text>
+        </view>
+        <view class="course-footer">
+          <view class="course-price">
+            <text wx:if="{{item.isFree}}" class="free">免费</text>
+            <text wx:else class="price">¥{{item.price}}</text>
+            <text wx:if="{{item.originalPrice > item.price}}" class="original-price">¥{{item.originalPrice}}</text>
+          </view>
+          <view class="go-detail">查看详情 ›</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{filteredCourses.length === 0}}">
+    <view class="empty-icon">📚</view>
+    <view class="empty-text">暂无课程</view>
+  </view>
+</view>

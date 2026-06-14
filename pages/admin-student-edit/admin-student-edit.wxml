@@ -1,0 +1,128 @@
+<wxs module="util">
+module.exports = {
+  includes: function(arr, val) {
+    if (!arr || !arr.length) return false;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] === val) return true;
+    }
+    return false;
+  }
+};
+</wxs>
+
+<view class="container">
+  <view class="form-card">
+    <view class="form-title">{{isEdit ? '编辑学员' : '新增学员'}}</view>
+
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-title">基本信息</view>
+
+      <view class="form-item">
+        <view class="form-label required">学员姓名</view>
+        <input class="form-input" placeholder="请输入学员姓名" value="{{formData.name}}" bindinput="onNameInput"/>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label required">学号</view>
+        <input class="form-input" placeholder="请输入学号" value="{{formData.student_no}}" bindinput="onStudentNoInput"/>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label required">年级</view>
+        <view class="form-picker" bindtap="showGradeSelect">
+          <text class="{{formData.grade ? 'picker-value' : 'picker-placeholder'}}">
+            {{formData.grade || '请选择年级'}}
+          </text>
+          <text class="picker-arrow">></text>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">学员标签</view>
+        <view class="tag-list">
+          <view
+            class="tag-option {{selectedTags.indexOf(item) > -1 ? 'selected' : ''}}"
+            wx:for="{{tagOptions}}"
+            wx:key="*this"
+            bindtap="toggleTag"
+            data-tag="{{item}}"
+          >{{item}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 家长信息 -->
+    <view class="form-section">
+      <view class="section-title">家长信息</view>
+
+      <view class="form-item">
+        <view class="form-label required">家长姓名</view>
+        <input class="form-input" placeholder="请输入家长姓名" value="{{formData.parent_name}}" bindinput="onParentNameInput"/>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label required">家长手机</view>
+        <input class="form-input" type="number" maxlength="11" placeholder="请输入家长手机号" value="{{formData.parent_phone}}" bindinput="onParentPhoneInput"/>
+      </view>
+    </view>
+
+    <!-- 班级信息 -->
+    <view class="form-section">
+      <view class="section-title">就读班级</view>
+
+      <view class="class-list">
+        <view class="class-item {{util.includes(selectedClassIds, item.id) ? 'selected' : ''}}"
+              wx:for="{{allClasses}}" wx:key="id"
+              bindtap="toggleClass" data-id="{{item.id}}">
+          <view class="class-name">{{item.name}}</view>
+          <view class="class-course">{{item.course_name || ''}}</view>
+        </view>
+      </view>
+      <view class="empty-text" wx:if="{{allClasses.length === 0}}">暂无班级</view>
+    </view>
+
+    <!-- 其他信息 -->
+    <view class="form-section">
+      <view class="section-title">其他信息</view>
+
+      <view class="form-item">
+        <view class="form-label required">家庭住址</view>
+        <input class="form-input" placeholder="请输入家庭住址" value="{{formData.address}}" bindinput="onAddressInput"/>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">备注</view>
+        <textarea class="form-textarea" placeholder="请输入备注信息" value="{{formData.remarks}}" bindinput="onRemarksInput" maxlength="200"></textarea>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="btn-area">
+    <button class="btn-cancel" bindtap="cancel">取消</button>
+    <button class="btn-submit" bindtap="submitForm" loading="{{submitting}}">
+      {{isEdit ? '保存修改' : '创建学员'}}
+    </button>
+  </view>
+
+  <!-- 年级选择弹窗 -->
+  <view class="picker-modal" wx:if="{{showGradePicker}}">
+    <view class="picker-mask" bindtap="hideGradeSelect"></view>
+    <view class="picker-content">
+      <view class="picker-header">
+        <text class="picker-title">选择年级</text>
+        <text class="picker-close" bindtap="hideGradeSelect">✕</text>
+      </view>
+      <view class="picker-body">
+        <view
+          class="picker-item {{formData.grade === item ? 'selected' : ''}}"
+          wx:for="{{grades}}"
+          wx:key="*this"
+          bindtap="selectGrade"
+          data-grade="{{item}}"
+        >{{item}}</view>
+      </view>
+    </view>
+  </view>
+</view>

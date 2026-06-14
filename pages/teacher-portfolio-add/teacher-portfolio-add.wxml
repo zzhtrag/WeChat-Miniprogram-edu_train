@@ -1,0 +1,107 @@
+<view class="page-container">
+  <!-- 图片选择 -->
+  <view class="image-section">
+    <view class="image-grid">
+      <view class="image-item" wx:for="{{imageList}}" wx:key="*this">
+        <image class="portfolio-image" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-src="{{item}}" />
+        <view class="image-remove" catchtap="removeImage" data-index="{{index}}">✕</view>
+      </view>
+      <view class="image-add" bindtap="chooseImage" wx:if="{{imageList.length < 9}}">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加图片</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 表单 -->
+  <view class="form-section">
+    <view class="form-item">
+      <view class="form-label">标题 <text class="required">*</text></view>
+      <input class="form-input" placeholder="请输入作品标题" value="{{title}}" bindinput="onTitleInput" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">班级</text>
+      <picker range="{{classOptions}}" range-key="name" value="{{classIndex}}" bindchange="onClassChange">
+        <view class="form-picker">
+          <text class="picker-text">{{classOptions[classIndex].name || '选择班级'}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">学生 <text class="required">*</text></view>
+      <picker range="{{studentOptions}}" range-key="name" value="{{studentIndex}}" bindchange="onStudentChange">
+        <view class="form-picker">
+          <text class="picker-text">{{studentOptions[studentIndex].name || '选择学生'}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">作品类型</text>
+      <picker range="{{categoryOptions}}" range-key="label" value="{{categoryIndex}}" bindchange="onCategoryChange">
+        <view class="form-picker">
+          <text class="picker-text">{{categoryOptions[categoryIndex].label}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">作品日期</text>
+      <picker mode="date" value="{{workDate}}" bindchange="onDateChange">
+        <view class="form-picker">
+          <text class="picker-text">{{workDate}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">描述</text>
+      <textarea class="form-textarea" placeholder="描述作品内容" value="{{description}}" bindinput="onDescriptionInput" maxlength="200"></textarea>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">教师点评</text>
+      <textarea class="form-textarea" placeholder="写下您的点评" value="{{teacherComment}}" bindinput="onCommentInput" maxlength="200"></textarea>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">标签</text>
+      <input class="form-input" placeholder="用逗号分隔，如：满分、规范" value="{{tagsInput}}" bindinput="onTagsInput" />
+    </view>
+  </view>
+
+  <!-- 标记 -->
+  <view class="mark-section">
+    <view class="mark-item" bindtap="toggleFeatured">
+      <view class="mark-switch {{isFeatured ? 'active' : ''}}">
+        <text class="mark-check">{{isFeatured ? '✓' : ''}}</text>
+      </view>
+      <view class="mark-info">
+        <text class="mark-label">设为精选</text>
+        <text class="mark-desc">精选作品将突出展示</text>
+      </view>
+    </view>
+    <view class="mark-item" bindtap="toggleExcellent">
+      <view class="mark-switch {{isExcellent ? 'active excellent' : ''}}">
+        <text class="mark-check">{{isExcellent ? '✓' : ''}}</text>
+      </view>
+      <view class="mark-info">
+        <text class="mark-label">标记为优秀</text>
+        <text class="mark-desc">优秀作品带特殊标识</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交 -->
+  <view class="submit-section">
+    <view class="submit-btn {{submitting ? 'disabled' : ''}}" bindtap="{{submitting ? '' : 'submit'}}">
+      保存作品
+    </view>
+  </view>
+</view>

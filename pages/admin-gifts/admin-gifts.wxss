@@ -1,0 +1,247 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+.search-section { margin-bottom: 20rpx; }
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 40rpx;
+  padding: 16rpx 24rpx;
+}
+
+.search-icon { font-size: 28rpx; margin-right: 12rpx; }
+.search-input { flex: 1; font-size: 26rpx; }
+.clear-icon { font-size: 24rpx; color: #999999; padding: 8rpx; }
+
+.stats-section { margin-bottom: 20rpx; }
+
+.stats-card {
+  display: flex;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+}
+
+.stats-item { flex: 1; text-align: center; }
+
+.stats-number {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #333333;
+}
+
+.stats-number.on-shelf { color: #52c41a; }
+.stats-number.off-shelf { color: #999999; }
+
+.stats-label {
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 8rpx;
+}
+
+.filter-tabs {
+  display: flex;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.filter-tab {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 26rpx;
+  color: #666666;
+  border-radius: 16rpx;
+}
+
+.filter-tab.active {
+  background: #7C3AED;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.gift-list { margin-bottom: 20rpx; }
+
+.gift-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  margin-bottom: 16rpx;
+  overflow: hidden;
+}
+
+.gift-main { padding: 24rpx; }
+
+.gift-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.gift-thumb {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 16rpx;
+  margin-right: 20rpx;
+  background: #f5f5f5;
+}
+
+.gift-info { flex: 1; }
+
+.gift-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gift-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333333;
+}
+
+.gift-status {
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.gift-status.on_shelf {
+  background: #f6ffed;
+  color: #52c41a;
+}
+
+.gift-status.off_shelf {
+  background: #f5f5f5;
+  color: #999999;
+}
+
+.gift-desc {
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 6rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gift-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.detail-icon { margin-right: 6rpx; }
+
+.gift-actions {
+  border-top: 2rpx solid #f0f0f0;
+  padding: 16rpx 24rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  font-size: 32rpx;
+  color: #999999;
+  padding: 8rpx 16rpx;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon { font-size: 80rpx; }
+.empty-text { font-size: 28rpx; color: #999999; margin-top: 20rpx; }
+.empty-subtext { font-size: 24rpx; color: #cccccc; margin-top: 10rpx; }
+
+.fab-btn {
+  position: fixed;
+  right: 40rpx;
+  bottom: 60rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #7C3AED;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(124, 58, 237, 0.4);
+}
+
+.fab-icon { font-size: 48rpx; color: #ffffff; }
+
+.action-sheet {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 100;
+}
+
+.action-mask {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.action-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: #ffffff;
+  border-radius: 30rpx 30rpx 0 0;
+  padding: 30rpx;
+}
+
+.action-header {
+  padding: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+  margin-bottom: 10rpx;
+}
+
+.action-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333333;
+}
+
+.action-subtitle {
+  display: block;
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 6rpx;
+}
+
+.action-list { padding: 10rpx 0; }
+
+.action-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 20rpx;
+}
+
+.action-icon { font-size: 36rpx; margin-right: 20rpx; }
+.action-text { font-size: 30rpx; color: #333333; }
+.action-item.delete .action-text { color: #ff4d4f; }
+
+.action-cancel {
+  text-align: center;
+  padding: 28rpx;
+  font-size: 30rpx;
+  color: #999999;
+  border-top: 2rpx solid #f0f0f0;
+  margin-top: 10rpx;
+}

@@ -1,0 +1,314 @@
+<view class="page-container">
+  <!-- 统计数据 -->
+  <view class="stats-bar">
+    <view class="stat-item">
+      <view class="stat-value">{{stats.todayCourses}}</view>
+      <view class="stat-label">今日课程</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-value">{{stats.totalCourses}}</view>
+      <view class="stat-label">总课程</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-value">{{stats.totalHours}}</view>
+      <view class="stat-label">总课时</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-value">{{stats.totalStudents}}</view>
+      <view class="stat-label">授课人次</view>
+    </view>
+  </view>
+
+  <!-- 筛选标签 -->
+  <view class="filter-tabs">
+    <view
+      class="filter-tab {{filterType === 'all' ? 'active' : ''}}"
+      data-type="all"
+      bindtap="onFilterChange"
+    >全部</view>
+    <view
+      class="filter-tab {{filterType === 'today' ? 'active' : ''}}"
+      data-type="today"
+      bindtap="onFilterChange"
+    >今日</view>
+    <view
+      class="filter-tab {{filterType === 'week' ? 'active' : ''}}"
+      data-type="week"
+      bindtap="onFilterChange"
+    >本周</view>
+    <view
+      class="filter-tab {{filterType === 'upcoming' ? 'active' : ''}}"
+      data-type="upcoming"
+      bindtap="onFilterChange"
+    >待上课</view>
+  </view>
+
+  <!-- 视图切换 -->
+  <view class="view-toggle">
+    <view class="toggle-btn {{viewMode === 'list' ? 'active' : ''}}" bindtap="switchToListView">
+      <text class="toggle-icon">☰</text>
+      <text class="toggle-text">列表</text>
+    </view>
+    <view class="toggle-btn {{viewMode === 'calendar' ? 'active' : ''}}" bindtap="switchToCalendarView">
+      <text class="toggle-icon">📅</text>
+      <text class="toggle-text">日历</text>
+    </view>
+  </view>
+
+  <!-- 高级筛选 -->
+  <view class="advance-filter" wx:if="{{viewMode === 'list'}}">
+    <view class="filter-row">
+      <picker
+        mode="selector"
+        range="{{classList}}"
+        range-key="name"
+        bindchange="onClassChange"
+        value="0"
+      >
+        <view class="filter-item">
+          <text class="{{selectedClassId ? 'active' : ''}}">{{selectedClassId ? '已选班级' : '全部班级'}}</text>
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+      <picker mode="date" bindchange="onDateChange">
+        <view class="filter-item">
+          <text class="{{selectedDate ? 'active' : ''}}">{{selectedDate || '选择日期'}}</text>
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+    <view class="filter-row search-row">
+      <view class="search-input-wrap">
+        <input
+          class="search-input"
+          placeholder="搜索课程、班级、教室"
+          value="{{keyword}}"
+          bindinput="onSearchInput"
+          bindconfirm="onSearch"
+        />
+      </view>
+      <view class="search-btn" bindtap="onSearch">搜索</view>
+      <view class="clear-btn" wx:if="{{filterType !== 'all' || selectedClassId || selectedDate || keyword}}" bindtap="clearFilters">清除</view>
+    </view>
+  </view>
+
+  <!-- 列表视图 -->
+  <scroll-view
+    wx:if="{{viewMode === 'list'}}"
+    class="schedule-list"
+    scroll-y
+    enable-back-to-top
+  >
+    <!-- 空状态 -->
+    <view wx:if="{{isEmpty}}" class="empty-state">
+      <view class="empty-icon">📅</view>
+      <view class="empty-title">暂无排课记录</view>
+      <view class="empty-text">点击下方按钮添加排课</view>
+    </view>
+
+    <!-- 排课卡片 -->
+    <view wx:else>
+      <view
+        wx:for="{{scheduleList}}"
+        wx:key="id"
+        class="schedule-card"
+        bindtap="onViewDetail"
+        data-id="{{item.id}}"
+      >
+        <!-- 卡片头部 -->
+        <view class="card-header">
+          <view class="course-info">
+            <view class="course-name">{{item.courseName}}</view>
+            <view class="class-name">{{item.className}}</view>
+          </view>
+          <view class="status-badge" style="background: {{item.statusColor}}12; color: {{item.statusColor}}">
+            {{item.statusText}}
+          </view>
+        </view>
+
+        <!-- 时间信息 -->
+        <view class="time-info">
+          <view class="time-item">
+            <view class="time-icon-wrapper">📅</view>
+            <view class="time-text">{{item.date}}</view>
+          </view>
+          <view class="time-item">
+            <view class="time-icon-wrapper">⏰</view>
+            <view class="time-text">{{item.startTime}} - {{item.endTime}}</view>
+          </view>
+          <view class="time-item">
+            <view class="time-icon-wrapper">⏱</view>
+            <view class="time-text">{{item.duration}}课时</view>
+          </view>
+        </view>
+
+        <!-- 其他信息 -->
+        <view class="other-info">
+          <view class="info-item">
+            <view class="info-icon-wrapper">📍</view>
+            <view class="info-text">{{item.room}}</view>
+          </view>
+          <view class="info-item">
+            <view class="info-icon-wrapper">👥</view>
+            <view class="info-text">{{item.studentCount}}名学员</view>
+          </view>
+        </view>
+
+        <!-- 操作按钮 -->
+        <view class="card-actions" catchtap="noop">
+          <view
+            class="action-btn"
+            bindtap="onEditSchedule"
+            data-id="{{item.id}}"
+          >编辑</view>
+          <view
+            class="action-btn"
+            wx:if="{{item.status === 'scheduled'}}"
+            bindtap="onCancelSchedule"
+            data-id="{{item.id}}"
+          >取消</view>
+          <view
+            class="action-btn delete"
+            bindtap="onDeleteSchedule"
+            data-id="{{item.id}}"
+          >删除</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 日历视图 -->
+  <view wx:if="{{viewMode === 'calendar'}}" class="calendar-view">
+    <!-- 月份导航 -->
+    <view class="cal-month-nav">
+      <view class="cal-nav-btn" bindtap="calPrevMonth">‹</view>
+      <text class="cal-month-title">{{calYear}}年{{calMonth}}月</text>
+      <view class="cal-nav-btn" bindtap="calNextMonth">›</view>
+    </view>
+    <!-- 星期标题 -->
+    <view class="cal-week-header">
+      <text wx:for="{{calWeekDays}}" wx:key="*this" class="cal-week-day">{{item}}</text>
+    </view>
+    <!-- 日历网格 -->
+    <view class="cal-grid">
+      <view
+        class="cal-day-cell {{item.isCurrentMonth ? '' : 'other-month'}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}} {{item.hasCourse ? 'has-course' : ''}}"
+        wx:for="{{calCalendarDays}}"
+        wx:key="fullDate"
+        bindtap="onCalDateTap"
+        data-date="{{item.fullDate}}"
+        data-current-month="{{item.isCurrentMonth}}"
+      >
+        <text class="cal-day-num">{{item.day}}</text>
+        <view class="cal-course-dot" wx:if="{{item.courseCount > 0}}"></view>
+        <text class="cal-course-count" wx:if="{{item.courseCount > 1}}">{{item.courseCount}}</text>
+      </view>
+    </view>
+    <!-- 批量操作栏 -->
+    <view class="cal-batch-bar" wx:if="{{calSelectedDates.length > 0}}">
+      <text class="cal-batch-info">已选 {{calSelectedDates.length}} 天</text>
+      <view class="cal-batch-actions">
+        <view class="cal-batch-btn edit" bindtap="onBatchEdit">批量编辑</view>
+        <view class="cal-batch-btn cancel" bindtap="onBatchCancel">批量取消</view>
+        <view class="cal-batch-btn delete" bindtap="onBatchDelete">批量删除</view>
+      </view>
+    </view>
+    <!-- 选中日期的课程列表 -->
+    <view class="cal-schedule-list" wx:if="{{calSelectedDateSchedules.length > 0}}">
+      <view class="cal-schedule-header">
+        <text class="cal-schedule-title">{{calDisplayDate}} 的排课</text>
+      </view>
+      <view
+        class="schedule-card cal-schedule-card"
+        wx:for="{{calSelectedDateSchedules}}"
+        wx:key="id"
+        bindtap="onViewDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="card-header">
+          <view class="course-info">
+            <view class="course-name">{{item.courseName}}</view>
+            <view class="class-name">{{item.className}}</view>
+          </view>
+          <view class="status-badge" style="background: {{item.statusColor}}12; color: {{item.statusColor}}">
+            {{item.statusText}}
+          </view>
+        </view>
+        <view class="time-info">
+          <view class="time-item">
+            <view class="time-icon-wrapper">⏰</view>
+            <view class="time-text">{{item.startTime}} - {{item.endTime}}</view>
+          </view>
+          <view class="time-item">
+            <view class="time-icon-wrapper">📍</view>
+            <view class="time-text">{{item.room}}</view>
+          </view>
+        </view>
+        <view class="card-actions" catchtap="noop">
+          <view class="action-btn" bindtap="onEditSchedule" data-id="{{item.id}}">编辑</view>
+          <view class="action-btn" wx:if="{{item.status === 'scheduled'}}" bindtap="onCancelSchedule" data-id="{{item.id}}">取消</view>
+          <view class="action-btn delete" bindtap="onDeleteSchedule" data-id="{{item.id}}">删除</view>
+        </view>
+      </view>
+    </view>
+    <!-- 空状态 -->
+    <view class="cal-empty" wx:elif="{{calSelectedDates.length === 1 && calSelectedDateSchedules.length === 0}}">
+      <text class="cal-empty-text">该日暂无排课</text>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-fab" bindtap="onAddSchedule">
+    <view class="fab-icon">+</view>
+  </view>
+
+  <!-- 批量排课日历弹窗 -->
+  <view class="calendar-mask {{showBatchCalendar ? 'show' : ''}}" bindtap="closeBatchCalendar">
+    <view class="calendar-popup" catchtap="noop">
+      <view class="popup-header">
+        <text class="popup-title">批量排课</text>
+        <view class="popup-close" bindtap="closeBatchCalendar">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      <!-- 月份导航 -->
+      <view class="popup-month-nav">
+        <view class="popup-nav-btn" bindtap="batchPrevMonth">‹</view>
+        <text class="popup-month-title">{{batchYear}}年{{batchMonth}}月</text>
+        <view class="popup-nav-btn" bindtap="batchNextMonth">›</view>
+      </view>
+      <!-- 星期标题 -->
+      <view class="popup-week-header">
+        <text wx:for="{{batchWeekDays}}" wx:key="*this" class="popup-week-day">{{item}}</text>
+      </view>
+      <!-- 日历网格 -->
+      <view class="popup-calendar-grid">
+        <view
+          class="popup-day-cell {{item.isCurrentMonth ? '' : 'other-month'}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+          wx:for="{{batchCalendarDays}}"
+          wx:key="fullDate"
+          bindtap="toggleBatchDate"
+          data-date="{{item.fullDate}}"
+          data-current-month="{{item.isCurrentMonth}}"
+        >
+          <text class="popup-day-num">{{item.day}}</text>
+        </view>
+      </view>
+      <!-- 已选日期 -->
+      <view class="selected-dates" wx:if="{{selectedBatchDates.length > 0}}">
+        <text class="selected-label">已选 {{selectedBatchDates.length}} 天</text>
+        <view class="selected-tags">
+          <view class="date-tag" wx:for="{{selectedBatchDates}}" wx:key="*this">
+            <text>{{item}}</text>
+            <text class="tag-remove" catchtap="removeBatchDate" data-date="{{item}}">×</text>
+          </view>
+        </view>
+      </view>
+      <!-- 确认按钮 -->
+      <view class="popup-footer">
+        <view class="popup-btn-cancel" bindtap="closeBatchCalendar">取消</view>
+        <view class="popup-btn-confirm {{selectedBatchDates.length === 0 ? 'disabled' : ''}}" bindtap="confirmBatchDates">确认选择</view>
+      </view>
+    </view>
+  </view>
+</view>

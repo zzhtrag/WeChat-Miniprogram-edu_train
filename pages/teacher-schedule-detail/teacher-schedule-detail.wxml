@@ -1,0 +1,102 @@
+<!--pages/teacher-schedule-detail/teacher-schedule-detail.wxml-->
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-state">
+    <text>加载中...</text>
+  </view>
+
+  <block wx:else>
+    <!-- 课程状态卡片 -->
+    <view class="status-card">
+      <view class="status-header">
+        <view class="course-name">{{schedule.courseName}}</view>
+        <view class="status-badge" style="background: {{schedule.statusColor}}20; color: {{schedule.statusColor}}">
+          {{schedule.statusText}}
+        </view>
+      </view>
+      <view class="status-time">
+        <text class="date">{{schedule.date}}</text>
+        <text class="time">{{schedule.startTime}} - {{schedule.endTime}}</text>
+      </view>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="info-section">
+      <view class="section-title">课程信息</view>
+      <view class="info-list">
+        <view class="info-item">
+          <text class="info-label">课程名称</text>
+          <text class="info-value">{{schedule.courseName}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">所属班级</text>
+          <text class="info-value link" bindtap="onViewClass">{{schedule.className}} ›</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">上课日期</text>
+          <text class="info-value">{{schedule.date}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">上课时间</text>
+          <text class="info-value">{{schedule.startTime}} - {{schedule.endTime}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">课程时长</text>
+          <text class="info-value">{{schedule.duration}}课时</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">上课地点</text>
+          <text class="info-value">{{schedule.room}}</text>
+        </view>
+        <view class="info-item" wx:if="{{schedule.remarks}}">
+          <text class="info-label">备注说明</text>
+          <text class="info-value">{{schedule.remarks}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 学员列表 -->
+    <view class="info-section">
+      <view class="section-title">学员列表 <text class="section-count">({{classStudents.length}}人)</text></view>
+      <view class="student-list">
+        <view
+          wx:for="{{classStudents}}"
+          wx:key="id"
+          class="student-item"
+        >
+          <image
+            class="student-avatar"
+            src="{{item.avatar || '/images/default-avatar.png'}}"
+            mode="aspectFill"
+          />
+          <view class="student-info">
+            <text class="student-name">{{item.name}}</text>
+            <text class="student-no">{{item.student_no}}</text>
+          </view>
+        </view>
+        <view wx:if="{{classStudents.length === 0}}" class="empty-student">
+          暂无学员信息
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-section">
+      <!-- 待上课状态 -->
+      <block wx:if="{{schedule.status === 'scheduled'}}">
+        <button class="btn btn-primary" bindtap="onEdit">编辑课程</button>
+        <button class="btn btn-warning" bindtap="onComplete">标记结课</button>
+        <button class="btn btn-outline" bindtap="onCancel">取消课程</button>
+      </block>
+      <!-- 进行中状态 -->
+      <block wx:elif="{{schedule.status === 'ongoing'}}">
+        <button class="btn btn-primary" bindtap="onEdit">编辑课程</button>
+        <button class="btn btn-success" bindtap="onComplete">结束课程</button>
+      </block>
+      <!-- 其他状态 -->
+      <block wx:else>
+        <button class="btn btn-danger" bindtap="onDelete">删除记录</button>
+      </block>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,159 @@
+<view class="container">
+  <view class="class-selector">
+    <scroll-view class="class-scroll" scroll-x="true">
+      <view class="class-list">
+        <view class="class-item {{selectedClassId === item.id ? 'active' : ''}}" wx:for="{{teacherClasses}}" wx:key="id" bindtap="selectClass" data-id="{{item.id}}">
+          {{item.name}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab-item {{activeTab === index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="*this" bindtap="switchTab" data-index="{{index}}">
+      {{item}}
+    </view>
+  </view>
+
+  <view class="tab-content" wx:if="{{activeTab === 0}}">
+    <view class="action-bar">
+      <view class="action-btn" bindtap="exportScores">
+        <text class="icon">📥</text>
+        <text>导出</text>
+      </view>
+      <view class="action-btn" bindtap="publishScores">
+        <text class="icon">📤</text>
+        <text>发布</text>
+      </view>
+    </view>
+
+    <view class="score-list">
+      <view class="score-card" wx:for="{{classStudents}}" wx:key="id">
+        <view class="score-header" bindtap="viewScoreDetail" data-student="{{item}}">
+          <image class="student-avatar" src="{{item.avatar}}" mode="aspectFill" />
+          <view class="student-info">
+            <view class="student-name">{{item.name}}</view>
+            <view class="score-summary">
+              <text>最新成绩：</text>
+              <text class="latest-score {{item.scores[item.scores.length - 1].score >= 90 ? 'excellent' : item.scores[item.scores.length - 1].score >= 60 ? 'pass' : 'fail'}}">
+                {{item.scores[item.scores.length - 1].score}}分
+              </text>
+            </view>
+          </view>
+          <view class="avg-score">
+            <text class="avg-label">平均</text>
+            <text class="avg-value">{{item.avgScore}}</text>
+          </view>
+        </view>
+        <view class="score-history">
+          <view class="history-item" wx:for="{{item.scores}}" wx:for-item="s" wx:key="name">
+            <view class="exam-name">{{s.name}}</view>
+            <view class="exam-score {{s.score >= 90 ? 'excellent' : s.score >= 60 ? 'pass' : 'fail'}}">{{s.score}}</view>
+          </view>
+        </view>
+        <view class="score-actions">
+          <view class="action-link" bindtap="openInputModal" data-student="{{item}}">录入成绩</view>
+          <view class="action-link">查看详情</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="tab-content" wx:if="{{activeTab === 1}}">
+    <view class="stats-cards">
+      <view class="stats-card">
+        <view class="stats-value">{{currentClassAvgScore}}</view>
+        <view class="stats-label">班级平均分</view>
+      </view>
+      <view class="stats-card">
+        <view class="stats-value">85%</view>
+        <view class="stats-label">及格率</view>
+      </view>
+      <view class="stats-card">
+        <view class="stats-value">25%</view>
+        <view class="stats-label">优秀率</view>
+      </view>
+    </view>
+
+    <view class="section-title">分数段分布</view>
+    <view class="distribution-chart">
+      <view class="dist-item">
+        <view class="dist-bar">
+          <view class="dist-fill" style="height: 30%"></view>
+        </view>
+        <view class="dist-label">0-59</view>
+        <view class="dist-count">3人</view>
+      </view>
+      <view class="dist-item">
+        <view class="dist-bar">
+          <view class="dist-fill" style="height: 40%"></view>
+        </view>
+        <view class="dist-label">60-69</view>
+        <view class="dist-count">5人</view>
+      </view>
+      <view class="dist-item">
+        <view class="dist-bar">
+          <view class="dist-fill" style="height: 60%"></view>
+        </view>
+        <view class="dist-label">70-79</view>
+        <view class="dist-count">8人</view>
+      </view>
+      <view class="dist-item">
+        <view class="dist-bar">
+          <view class="dist-fill" style="height: 50%"></view>
+        </view>
+        <view class="dist-label">80-89</view>
+        <view class="dist-count">7人</view>
+      </view>
+      <view class="dist-item">
+        <view class="dist-bar">
+          <view class="dist-fill" style="height: 35%"></view>
+        </view>
+        <view class="dist-label">90-100</view>
+        <view class="dist-count">5人</view>
+      </view>
+    </view>
+
+    <view class="section-title">进步榜单</view>
+    <view class="ranking-list">
+      <view class="ranking-item" wx:for="{{topStudents}}" wx:key="id">
+        <view class="rank-number {{index < 3 ? 'top' : ''}}">{{index + 1}}</view>
+        <image class="rank-avatar" src="{{item.avatar}}" mode="aspectFill" />
+        <view class="rank-info">
+          <view class="rank-name">{{item.name}}</view>
+          <view class="rank-change">
+            <text class="up">↑</text>
+            <text>{{item.rankChange}}名</text>
+          </view>
+        </view>
+        <view class="rank-score">{{item.avgScore}}分</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="modal-mask" wx:if="{{showInputModal}}" bindtap="closeInputModal"></view>
+  <view class="input-modal" wx:if="{{showInputModal}}">
+    <view class="modal-header">
+      <view class="modal-title">录入成绩</view>
+      <view class="modal-close" bindtap="closeInputModal">✕</view>
+    </view>
+    <view class="modal-content">
+      <view class="student-row">
+        <image class="modal-avatar" src="{{currentStudent.avatar}}" mode="aspectFill" />
+        <view class="modal-name">{{currentStudent.name}}</view>
+      </view>
+      <view class="form-item">
+        <view class="form-label">考试名称</view>
+        <input class="form-input" placeholder="请输入考试名称" value="{{examName}}" bindinput="onExamNameInput" />
+      </view>
+      <view class="form-item">
+        <view class="form-label">分数</view>
+        <input class="form-input" type="number" placeholder="请输入分数" value="{{scoreInput}}" bindinput="onScoreInput" />
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="modal-btn cancel" bindtap="closeInputModal">取消</view>
+      <view class="modal-btn confirm" bindtap="submitScore">确认录入</view>
+    </view>
+  </view>
+</view>

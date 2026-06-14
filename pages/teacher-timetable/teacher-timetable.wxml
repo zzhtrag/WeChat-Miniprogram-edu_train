@@ -1,0 +1,239 @@
+<!--pages/teacher-timetable/teacher-timetable.wxml-->
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-state">
+    <text>加载中...</text>
+  </view>
+
+  <view wx:else>
+    <!-- 日历区域 -->
+    <view class="calendar-section">
+      <!-- 月份导航 -->
+      <view class="month-nav">
+        <view class="nav-btn" bindtap="prevMonth">
+          <text class="nav-arrow">‹</text>
+        </view>
+        <view class="month-info" bindtap="toggleCalendarExpand">
+          <text class="month-title">{{currentYear}}年{{currentMonth}}月</text>
+          <text class="expand-arrow {{calendarExpanded ? 'expanded' : ''}}">▼</text>
+        </view>
+        <view class="nav-btn" bindtap="nextMonth">
+          <text class="nav-arrow">›</text>
+        </view>
+      </view>
+
+      <!-- 星期标题 -->
+      <view class="week-header">
+        <view class="week-day" wx:for="{{weekDays}}" wx:key="*this">{{item}}</view>
+      </view>
+
+      <!-- 展开状态：月历视图 -->
+      <view class="calendar-grid {{calendarExpanded ? 'expanded' : 'collapsed'}}" wx:if="{{calendarExpanded}}">
+        <view
+          class="day-cell {{item.isCurrentMonth ? '' : 'other-month'}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+          wx:for="{{calendarDays}}"
+          wx:key="fullDate"
+          bindtap="selectDate"
+          data-date="{{item.fullDate}}">
+          <text class="day-num">{{item.day}}</text>
+          <view class="course-dot" wx:if="{{item.hasCourse}}"></view>
+        </view>
+      </view>
+
+      <!-- 收起状态：周日历 -->
+      <view class="week-days" wx:else>
+        <view
+          class="day-item {{currentDate === item.date ? 'active' : ''}} {{item.isToday ? 'today' : ''}}"
+          wx:for="{{weekDates}}"
+          wx:key="date"
+          bindtap="selectDate"
+          data-date="{{item.date}}">
+          <view class="day-week">{{item.weekDay}}</view>
+          <view class="day-num">{{item.day}}</view>
+          <view class="course-dot-week" wx:if="{{item.hasCourse}}"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 课程内容 -->
+    <view class="schedule-content">
+      <!-- 默认展示：今天 + 明天 -->
+      <block wx:if="{{!selectedOtherDate}}">
+        <!-- 今天的课程 -->
+        <view class="day-section">
+          <view class="date-header">
+            <text class="date-text">{{todayDisplay}}</text>
+            <text class="today-tag">今天</text>
+          </view>
+
+          <!-- 空状态 -->
+          <view class="empty-tip" wx:if="{{todaySchedules.length === 0}}">
+            <text class="empty-icon">📅</text>
+            <text class="empty-text">今日暂无课程安排</text>
+          </view>
+
+          <!-- 课程卡片 -->
+          <view
+            class="schedule-card {{item.statusClass}}"
+            wx:for="{{todaySchedules}}"
+            wx:key="id"
+            bindtap="onViewDetail"
+            data-id="{{item.id}}">
+            <view class="time-section">
+              <view class="time-start">{{item.startTime}}</view>
+              <view class="time-line"></view>
+              <view class="time-end">{{item.endTime}}</view>
+            </view>
+            <view class="course-section">
+              <view class="course-name">{{item.courseName}}</view>
+              <view class="course-info">
+                <view class="info-row">
+                  <text class="icon">🏫</text>
+                  <text>{{item.className}}</text>
+                </view>
+                <view class="info-row">
+                  <text class="icon">👥</text>
+                  <text>{{item.studentCount}}人</text>
+                </view>
+                <view class="info-row">
+                  <text class="icon">📍</text>
+                  <text>{{item.room || '待定'}}</text>
+                </view>
+                <view class="info-row" wx:if="{{item.remarks}}">
+                  <text class="icon">📝</text>
+                  <text>{{item.remarks}}</text>
+                </view>
+              </view>
+            </view>
+            <view class="status-section">
+              <view class="status-tag {{item.statusClass}}">{{item.statusText}}</view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 明天的课程 -->
+        <view class="day-section">
+          <view class="date-header">
+            <text class="date-text">{{tomorrowDisplay}}</text>
+            <text class="tomorrow-tag">明天</text>
+          </view>
+
+          <!-- 空状态 -->
+          <view class="empty-tip" wx:if="{{tomorrowSchedules.length === 0}}">
+            <text class="empty-icon">📅</text>
+            <text class="empty-text">明日暂无课程安排</text>
+          </view>
+
+          <!-- 课程卡片 -->
+          <view
+            class="schedule-card {{item.statusClass}}"
+            wx:for="{{tomorrowSchedules}}"
+            wx:key="id"
+            bindtap="onViewDetail"
+            data-id="{{item.id}}">
+            <view class="time-section">
+              <view class="time-start">{{item.startTime}}</view>
+              <view class="time-line"></view>
+              <view class="time-end">{{item.endTime}}</view>
+            </view>
+            <view class="course-section">
+              <view class="course-name">{{item.courseName}}</view>
+              <view class="course-info">
+                <view class="info-row">
+                  <text class="icon">🏫</text>
+                  <text>{{item.className}}</text>
+                </view>
+                <view class="info-row">
+                  <text class="icon">👥</text>
+                  <text>{{item.studentCount}}人</text>
+                </view>
+                <view class="info-row">
+                  <text class="icon">📍</text>
+                  <text>{{item.room || '待定'}}</text>
+                </view>
+                <view class="info-row" wx:if="{{item.remarks}}">
+                  <text class="icon">📝</text>
+                  <text>{{item.remarks}}</text>
+                </view>
+              </view>
+            </view>
+            <view class="status-section">
+              <view class="status-tag {{item.statusClass}}">{{item.statusText}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <!-- 选择了其他日期 -->
+      <block wx:else>
+        <view class="day-section">
+          <view class="date-header">
+            <text class="date-text">{{selectedDateDisplay}}</text>
+            <text class="today-tag" wx:if="{{isToday}}">今天</text>
+          </view>
+
+          <view class="empty-tip" wx:if="{{selectedDateSchedules.length === 0}}">
+            <text class="empty-icon">📅</text>
+            <text class="empty-text">当日暂无课程安排</text>
+          </view>
+
+          <view
+            class="schedule-card {{item.statusClass}}"
+            wx:for="{{selectedDateSchedules}}"
+            wx:key="id"
+            bindtap="onViewDetail"
+            data-id="{{item.id}}">
+            <view class="time-section">
+              <view class="time-start">{{item.startTime}}</view>
+              <view class="time-line"></view>
+              <view class="time-end">{{item.endTime}}</view>
+            </view>
+            <view class="course-section">
+              <view class="course-name">{{item.courseName}}</view>
+              <view class="course-info">
+                <view class="info-row">
+                  <text class="icon">🏫</text>
+                  <text>{{item.className}}</text>
+                </view>
+                <view class="info-row">
+                  <text class="icon">👥</text>
+                  <text>{{item.studentCount}}人</text>
+                </view>
+                <view class="info-row">
+                  <text class="icon">📍</text>
+                  <text>{{item.room || '待定'}}</text>
+                </view>
+                <view class="info-row" wx:if="{{item.remarks}}">
+                  <text class="icon">📝</text>
+                  <text>{{item.remarks}}</text>
+                </view>
+              </view>
+            </view>
+            <view class="status-section">
+              <view class="status-tag {{item.statusClass}}">{{item.statusText}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 本周概览 -->
+    <view class="week-summary" wx:if="{{weekSchedules.length > 0}}">
+      <view class="summary-title">本周概览</view>
+      <view class="summary-list">
+        <view class="summary-item">
+          <view class="summary-value">{{weekStats.totalHours}}</view>
+          <view class="summary-label">总课时</view>
+        </view>
+        <view class="summary-item">
+          <view class="summary-value">{{weekStats.totalCourses}}</view>
+          <view class="summary-label">课程数</view>
+        </view>
+        <view class="summary-item">
+          <view class="summary-value">{{weekStats.totalStudents}}</view>
+          <view class="summary-label">授课人次</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

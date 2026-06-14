@@ -1,0 +1,124 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.filter-tabs {
+  display: flex;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.filter-tab {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 26rpx;
+  color: #666666;
+  border-radius: 16rpx;
+}
+
+.filter-tab.active {
+  background: #4F46E5;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.order-list { margin-bottom: 20rpx; }
+
+.order-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.order-time {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.order-status {
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.order-status.warning { background: #fff7e6; color: #D97706; }
+.order-status.primary { background: #eef2ff; color: #4F46E5; }
+.order-status.info { background: #e0f2fe; color: #2563EB; }
+.order-status.success { background: #f0fdf4; color: #059669; }
+.order-status.muted { background: #f5f5f5; color: #999999; }
+
+.order-body {
+  display: flex;
+  margin-bottom: 16rpx;
+}
+
+.gift-thumb {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 12rpx;
+  margin-right: 20rpx;
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
+.order-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gift-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 8rpx;
+}
+
+.order-detail {
+  font-size: 24rpx;
+  color: #666666;
+  line-height: 1.6;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 2rpx solid #f0f0f0;
+  padding-top: 16rpx;
+}
+
+.cancel-btn {
+  padding: 12rpx 28rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  background: #ffffff;
+  color: #ff4d4f;
+  border: 2rpx solid #ff4d4f;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon { font-size: 80rpx; }
+.empty-text { font-size: 28rpx; color: #999999; margin-top: 20rpx; }
+.empty-subtext {
+  font-size: 26rpx;
+  color: #4F46E5;
+  margin-top: 16rpx;
+}

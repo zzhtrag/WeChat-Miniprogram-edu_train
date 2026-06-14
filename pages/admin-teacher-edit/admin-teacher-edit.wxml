@@ -1,0 +1,66 @@
+<view class="container">
+  <!-- 基本信息 -->
+  <view class="form-section">
+    <view class="section-title">基本信息</view>
+    <view class="form-card">
+      <view class="form-row">
+        <text class="form-label required">姓名</text>
+        <input class="form-input" placeholder="请输入教师姓名" value="{{formData.name}}" bindinput="onNameInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">手机号码</text>
+        <input class="form-input" type="number" placeholder="请输入手机号" value="{{formData.phone}}" bindinput="onPhoneInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">电子邮箱</text>
+        <input class="form-input" type="text" placeholder="请输入邮箱" value="{{formData.email}}" bindinput="onEmailInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">入职日期</text>
+        <picker mode="date" value="{{formData.entry_date}}" bindchange="onEntryDateChange">
+          <view class="picker-value {{formData.entry_date ? '' : 'placeholder'}}">
+            {{formData.entry_date || '请选择入职日期'}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 教授科目 -->
+  <view class="form-section">
+    <view class="section-title">教授科目</view>
+    <view class="form-card">
+      <view class="subjects-grid">
+        <view 
+          class="subject-item {{subjectSelected[item] ? 'selected' : ''}}"
+          wx:for="{{subjects}}" 
+          wx:key="index"
+          data-index="{{index}}"
+          bindtap="onSubjectChange">
+          {{item}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 学历信息 -->
+  <view class="form-section">
+    <view class="section-title">学历信息</view>
+    <view class="form-card">
+      <view class="form-row">
+        <text class="form-label">学历</text>
+        <input class="form-input" placeholder="请输入学历" value="{{formData.education}}" bindinput="onEducationInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">毕业院校</text>
+        <input class="form-input" placeholder="请输入毕业院校" value="{{formData.school}}" bindinput="onSchoolInput" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-actions">
+    <button class="btn-cancel" bindtap="cancel">取消</button>
+    <button class="btn-save" bindtap="saveTeacher" loading="{{loading}}">保存</button>
+  </view>
+</view>

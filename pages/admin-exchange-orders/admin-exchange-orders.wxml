@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="filter-tabs">
+    <view class="filter-tab {{filterStatus === '' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="">全部</view>
+    <view class="filter-tab {{filterStatus === 'pending' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="pending">待确认</view>
+    <view class="filter-tab {{filterStatus === 'confirmed' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="confirmed">已确认</view>
+    <view class="filter-tab {{filterStatus === 'shipped' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="shipped">已发货</view>
+    <view class="filter-tab {{filterStatus === 'completed' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="completed">已完成</view>
+  </view>
+
+  <view class="order-list">
+    <view class="order-card" wx:for="{{orders}}" wx:key="id">
+      <view class="order-header">
+        <text class="order-id">订单号: {{item.id}}</text>
+        <text class="order-status {{statusMap[item.status].color}}">{{statusMap[item.status].label}}</text>
+      </view>
+
+      <view class="order-body">
+        <image class="gift-thumb" src="{{item.gift_image || '/svg/icon-gift.svg'}}" mode="aspectFill"/>
+        <view class="order-info">
+          <text class="gift-name">{{item.gift_name}}</text>
+          <text class="order-detail">兑换积分: {{item.points_cost}}</text>
+          <text class="order-detail">兑换人: {{parentMap[item.parent_id] || item.parent_id}}</text>
+          <text class="order-detail" wx:if="{{item.address_info}}">地址: {{item.address_info.name}} {{item.address_info.phone}}</text>
+        </view>
+      </view>
+
+      <view class="order-time">{{item.created_at}}</view>
+
+      <!-- 操作按钮 -->
+      <view class="order-actions" wx:if="{{item.status === 'pending' || item.status === 'confirmed' || item.status === 'shipped'}}">
+        <view class="action-btn confirm" wx:if="{{item.status === 'pending'}}" bindtap="updateOrderStatus" data-id="{{item.id}}" data-status="confirmed">确认</view>
+        <view class="action-btn cancel" wx:if="{{item.status === 'pending'}}" bindtap="updateOrderStatus" data-id="{{item.id}}" data-status="cancelled">取消</view>
+        <view class="action-btn ship" wx:if="{{item.status === 'confirmed'}}" bindtap="updateOrderStatus" data-id="{{item.id}}" data-status="shipped">发货</view>
+        <view class="action-btn complete" wx:if="{{item.status === 'shipped'}}" bindtap="updateOrderStatus" data-id="{{item.id}}" data-status="completed">完成</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{orders.length === 0}}">
+    <view class="empty-icon">📋</view>
+    <view class="empty-text">暂无兑换订单</view>
+  </view>
+</view>

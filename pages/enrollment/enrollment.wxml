@@ -1,0 +1,143 @@
+<view class="page-container">
+  <view class="header">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="logo-area" bindtap="onLogoTap">
+        <view class="logo-icon">
+          <image class="logo-image" src="/svg/logo.svg" mode="aspectFit"/>
+        </view>
+        <view class="logo-text">
+          <text class="header-title">在线报名</text>
+          <text class="header-desc">填写信息，完成课程报名</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-card" wx:if="{{!showResult}}">
+    <!-- Student section -->
+    <view class="section-header">
+      <view class="section-icon-box icon-box-primary">
+        <image class="section-icon" src="/svg/icon-students.svg" mode="aspectFit"/>
+      </view>
+      <text class="section-title">学生信息</text>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">姓名 <text class="required">*</text></view>
+      <view class="input-wrapper">
+        <input class="form-input" placeholder="请输入学生姓名" value="{{student_name}}" bindinput="onStudentNameInput"/>
+      </view>
+    </view>
+
+    <view class="form-row">
+      <view class="form-item form-item-half">
+        <view class="form-label">年龄 <text class="required">*</text></view>
+        <view class="input-wrapper">
+          <input class="form-input" type="number" placeholder="请输入" maxlength="2" value="{{age}}" bindinput="onAgeInput"/>
+        </view>
+      </view>
+      <view class="form-item form-item-half">
+        <text class="form-label">性别</text>
+        <picker mode="selector" range="{{genderLabels}}" value="{{genderIndex}}" bindchange="onGenderChange">
+          <view class="input-wrapper picker-trigger">
+            <text class="{{genderIndex >= 0 ? 'picker-value-text' : 'picker-placeholder'}}">{{genderIndex >= 0 ? genderLabels[genderIndex] : '请选择'}}</text>
+            <text class="picker-chevron">›</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">报名学科 <text class="required">*</text></view>
+      <picker mode="selector" range="{{subjectOptions}}" value="{{subjectIndex}}" bindchange="onSubjectChange">
+        <view class="input-wrapper picker-trigger">
+          <text class="{{subjectIndex >= 0 ? 'picker-value-text' : 'picker-placeholder'}}">{{subjectIndex >= 0 ? subjectOptions[subjectIndex] : '请选择学科'}}</text>
+          <text class="picker-chevron">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- Parent section -->
+    <view class="section-header section-header-spacing">
+      <view class="section-icon-box icon-box-accent">
+        <image class="section-icon" src="/svg/icon-manage.svg" mode="aspectFit"/>
+      </view>
+      <text class="section-title">家长信息</text>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">姓名 <text class="required">*</text></view>
+      <view class="input-wrapper">
+        <input class="form-input" placeholder="请输入家长姓名" value="{{parent_name}}" bindinput="onParentNameInput"/>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">电话 <text class="required">*</text></view>
+      <view class="input-wrapper">
+        <text class="input-prefix">+86</text>
+        <view class="input-divider"></view>
+        <input class="form-input form-input-phone" type="number" placeholder="请输入手机号" maxlength="11" value="{{parent_phone}}" bindinput="onParentPhoneInput"/>
+      </view>
+    </view>
+
+    <button class="submit-btn {{submitting ? 'btn-disabled' : ''}}" bindtap="submit" disabled="{{submitting}}">
+      <text class="submit-btn-text">{{submitting ? '提交中...' : '提交报名'}}</text>
+    </button>
+
+    <text class="form-hint">提交后将生成唯一报名码，请妥善保存</text>
+  </view>
+
+  <!-- Success Result -->
+  <view class="result-card" wx:if="{{showResult}}">
+    <view class="result-icon-wrapper">
+      <text class="result-icon">✓</text>
+    </view>
+    <text class="result-title">报名成功</text>
+    <text class="result-desc">请保存您的报名码，用于查询报名状态</text>
+
+    <view class="code-card">
+      <view class="code-top">
+        <text class="code-label">报名码</text>
+        <view class="copy-btn" bindtap="copyCode">
+          <text class="copy-text">复制</text>
+        </view>
+      </view>
+      <text class="code-value">{{regCode}}</text>
+      <text class="code-expire">有效期至 {{regExpire}}</text>
+    </view>
+
+    <view class="status-flow">
+      <view class="flow-step active">
+        <view class="flow-dot">
+          <view class="flow-dot-inner"></view>
+        </view>
+        <text class="flow-label">已报名</text>
+      </view>
+      <view class="flow-line"></view>
+      <view class="flow-step">
+        <view class="flow-dot">
+          <view class="flow-dot-inner"></view>
+        </view>
+        <text class="flow-label">已缴费</text>
+      </view>
+      <view class="flow-line"></view>
+      <view class="flow-step">
+        <view class="flow-dot">
+          <view class="flow-dot-inner"></view>
+        </view>
+        <text class="flow-label">已入学</text>
+      </view>
+    </view>
+
+    <view class="result-actions">
+      <button class="primary-action-btn" bindtap="goToEnrollmentStatus">
+        <text class="primary-action-text">查询报名状态</text>
+      </button>
+      <button class="secondary-action-btn" bindtap="goBack">
+        <text class="secondary-action-text">返回登录</text>
+      </button>
+    </view>
+  </view>
+</view>

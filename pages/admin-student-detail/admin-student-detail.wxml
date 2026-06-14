@@ -1,0 +1,158 @@
+<view class="container">
+  <block wx:if="{{!loading && student}}">
+    <!-- 基本信息卡片 -->
+    <view class="info-card">
+      <view class="student-header">
+        <view class="avatar-placeholder">
+          <text class="avatar-text">{{student.name}}</text>
+        </view>
+        <view class="student-main-info">
+          <view class="name-row">
+            <text class="name">{{student.name}}</text>
+            <text class="status-tag {{student.status}}">{{student.status === 'active' ? '在读' : '休学'}}</text>
+          </view>
+          <view class="student-no">学号：{{student.student_no}}</view>
+          <view class="tags" wx:if="{{student.tags.length > 0}}">
+            <text class="tag" wx:for="{{student.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+          </view>
+        </view>
+        <view class="more-btn" bindtap="showMoreActions">···</view>
+      </view>
+    </view>
+
+    <!-- 详细信息 -->
+    <view class="detail-card">
+      <view class="detail-title">基本信息</view>
+      <view class="detail-grid">
+        <view class="detail-item">
+          <text class="detail-label">年级</text>
+          <text class="detail-value">{{student.grade}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">入学日期</text>
+          <text class="detail-value">{{student.created_at}}</text>
+        </view>
+        <view class="detail-item full-width">
+          <text class="detail-label">家庭住址</text>
+          <text class="detail-value">{{student.address}}</text>
+        </view>
+        <view class="detail-item full-width">
+          <text class="detail-label">备注</text>
+          <text class="detail-value">{{student.remarks || '暂无备注'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 家长信息 -->
+    <view class="detail-card">
+      <view class="detail-title">家长信息</view>
+      <view class="parent-info" wx:if="{{parentInfo}}">
+        <view class="parent-avatar">
+          <text class="avatar-icon">👨‍👩‍👧</text>
+        </view>
+        <view class="parent-details">
+          <view class="parent-name">{{parentInfo.name}}</view>
+          <view class="parent-phone">{{parentInfo.phone}}</view>
+          <view class="parent-relation">{{student.relation || '家长'}}</view>
+        </view>
+        <view class="call-btn" bindtap="callParent">
+          <text class="call-icon">📞</text>
+        </view>
+      </view>
+      <view class="empty-info" wx:else>
+        <text class="empty-text">暂无绑定家长</text>
+      </view>
+    </view>
+
+    <!-- 在读班级 -->
+    <view class="detail-card">
+      <view class="detail-title">在读班级</view>
+      <view class="class-list" wx:if="{{enrolledClasses.length > 0}}">
+        <view class="class-item interactive-item interactive-admin" wx:for="{{enrolledClasses}}" wx:key="id" bindtap="viewClassDetail" data-id="{{item.id}}">
+          <view class="class-icon">📚</view>
+          <view class="class-info">
+            <view class="class-name">{{item.name}}</view>
+            <view class="class-meta">上课时间：{{item.start_time}}-{{item.end_time}}</view>
+          </view>
+          <text class="interactive-arrow">></text>
+        </view>
+      </view>
+      <view class="empty-info" wx:else>
+        <text class="empty-text">暂未加入任何班级</text>
+      </view>
+    </view>
+
+    <!-- 近期成绩 -->
+    <view class="detail-card">
+      <view class="detail-title">近期成绩</view>
+      <view class="grade-list" wx:if="{{recentGrades.length > 0}}">
+        <view class="grade-item" wx:for="{{recentGrades}}" wx:key="id">
+          <view class="grade-header">
+            <text class="grade-type">{{item.exam_type}}</text>
+            <text class="grade-date">{{item.graded_at}}</text>
+          </view>
+          <view class="grade-body">
+            <view class="score-section">
+              <text class="score-label">得分</text>
+              <text class="score-value">{{item.score}}分</text>
+            </view>
+            <view class="comment-section">
+              <text class="comment-text">{{item.comment}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="empty-info" wx:else>
+        <text class="empty-text">暂无成绩记录</text>
+      </view>
+    </view>
+
+    <!-- 近期考勤 -->
+    <view class="detail-card">
+      <view class="detail-title">近期考勤</view>
+      <view class="attendance-list" wx:if="{{recentAttendance.length > 0}}">
+        <view class="attendance-item" wx:for="{{recentAttendance}}" wx:key="id">
+          <view class="attendance-date">{{item.checkin_time}}</view>
+          <text class="attendance-status {{item.status}}">
+            {{item.status === 'present' ? '出勤' : item.status === 'absent' ? '缺勤' : '请假'}}
+          </text>
+        </view>
+      </view>
+      <view class="empty-info" wx:else>
+        <text class="empty-text">暂无考勤记录</text>
+      </view>
+    </view>
+
+    <!-- 近期作业 -->
+    <view class="detail-card">
+      <view class="detail-title">近期作业</view>
+      <view class="homework-list" wx:if="{{recentHomework.length > 0}}">
+        <view class="homework-item" wx:for="{{recentHomework}}" wx:key="id">
+          <view class="homework-header">
+            <text class="homework-title">{{item.title}}</text>
+            <text class="homework-status {{item.submitStatus}}">
+              {{item.submitStatus === 'pending' ? '待提交' : item.submitStatus === 'submitted' ? '已提交' : '已批改'}}
+            </text>
+          </view>
+          <view class="homework-meta">截止日期：{{item.deadline}}</view>
+          <view class="homework-result" wx:if="{{item.submission}}">
+            <text class="result-score">得分：{{item.submission.score}}分</text>
+          </view>
+        </view>
+      </view>
+      <view class="empty-info" wx:else>
+        <text class="empty-text">暂无作业记录</text>
+      </view>
+    </view>
+
+    <!-- 编辑按钮 -->
+    <view class="bottom-actions">
+      <button class="btn-edit" bindtap="editStudent">编辑学员信息</button>
+    </view>
+  </block>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

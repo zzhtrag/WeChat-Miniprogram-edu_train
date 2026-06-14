@@ -1,0 +1,309 @@
+/* pages/teacher-stats/teacher-stats.wxss */
+
+/* 容器 */
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 40rpx;
+}
+
+/* 加载状态 */
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* 顶部卡片 */
+.header-card {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  padding: 40rpx 30rpx;
+  color: #fff;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.header-subtitle {
+  font-size: 26rpx;
+  opacity: 0.9;
+  margin-top: 8rpx;
+}
+
+/* 核心数据网格 */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+  padding: 20rpx;
+  margin-top: -30rpx;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  display: flex;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.stat-card.primary { border-left: 6rpx solid #1890ff; }
+.stat-card.success { border-left: 6rpx solid #52c41a; }
+.stat-card.warning { border-left: 6rpx solid #faad14; }
+.stat-card.info { border-left: 6rpx solid #722ed1; }
+
+.stat-icon {
+  font-size: 48rpx;
+  margin-right: 16rpx;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.stat-arrow {
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
+  font-size: 22rpx;
+  color: #1890ff;
+}
+
+/* 分区卡片 */
+.section-card {
+  background: #fff;
+  margin: 20rpx;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.title-icon {
+  margin-right: 10rpx;
+  font-size: 32rpx;
+}
+
+/* 本月动态 */
+.month-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20rpx 0;
+}
+
+.month-stat-item {
+  text-align: center;
+}
+
+.month-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.month-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.month-divider {
+  width: 1rpx;
+  height: 60rpx;
+  background: #f0f0f0;
+}
+
+/* 本周课时图表 */
+.week-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 200rpx;
+  padding-top: 20rpx;
+}
+
+.week-day {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.day-bar-wrap {
+  height: 120rpx;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.day-bar {
+  width: 40rpx;
+  background: #e6e6e6;
+  border-radius: 6rpx 6rpx 0 0;
+  transition: height 0.3s;
+}
+
+.day-bar.active {
+  background: linear-gradient(180deg, #1890ff 0%, #69c0ff 100%);
+}
+
+.day-label {
+  font-size: 22rpx;
+  color: #666;
+  margin-top: 8rpx;
+}
+
+.day-hours {
+  font-size: 20rpx;
+  color: #999;
+}
+
+/* 课程列表 */
+.course-list {
+  margin-top: 10rpx;
+}
+
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.course-item:last-child {
+  border-bottom: none;
+}
+
+.course-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.course-meta {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.course-hours {
+  text-align: right;
+}
+
+.hours-num {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.hours-unit {
+  font-size: 22rpx;
+  color: #999;
+  margin-left: 4rpx;
+}
+
+/* 考勤统计 */
+.attendance-chart {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+}
+
+.attendance-ring {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1890ff 0%, #69c0ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 30rpx;
+}
+
+.ring-center {
+  width: 140rpx;
+  height: 140rpx;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-percent {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.ring-label {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.attendance-legend {
+  flex: 1;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.legend-item:last-child {
+  margin-bottom: 0;
+}
+
+.legend-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  margin-right: 12rpx;
+}
+
+.legend-dot.present { background: #52c41a; }
+.legend-dot.late { background: #faad14; }
+.legend-dot.absent { background: #ff4d4f; }
+
+.legend-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 底部提示 */
+.footer-tip {
+  text-align: center;
+  padding: 30rpx;
+  font-size: 24rpx;
+  color: #999;
+}

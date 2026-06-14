@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="section">
+    <view class="section-title">通知设置</view>
+    <view class="card">
+      <view class="setting-item">
+        <text class="setting-label">消息通知</text>
+        <switch checked="{{notificationEnabled}}" bindchange="toggleNotification" color="#1677ff" />
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">存储</view>
+    <view class="card">
+      <view class="setting-item" bindtap="clearCache">
+        <text class="setting-label">清除缓存</text>
+        <view class="setting-right">
+          <text class="setting-value">{{cacheSize}}</text>
+          <text class="setting-arrow">›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">其他</view>
+    <view class="card">
+      <view class="setting-item" bindtap="viewUserAgreement">
+        <text class="setting-label">用户协议</text>
+        <text class="setting-arrow">›</text>
+      </view>
+      <view class="setting-item" bindtap="viewPrivacy">
+        <text class="setting-label">隐私政策</text>
+        <text class="setting-arrow">›</text>
+      </view>
+      <view class="setting-item" bindtap="about">
+        <text class="setting-label">关于我们</text>
+        <text class="setting-arrow">›</text>
+      </view>
+    </view>
+  </view>
+</view>

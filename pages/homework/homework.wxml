@@ -1,0 +1,57 @@
+<view class="page-container">
+  <!-- 筛选栏 -->
+  <view class="filter-bar stagger-1">
+    <view class="filter-item {{currentFilter === 'all' ? 'filter-active' : ''}}" bindtap="switchFilter" data-filter="all">
+      <text class="filter-text">全部</text>
+    </view>
+    <view class="filter-item {{currentFilter === 'pending' ? 'filter-active filter-danger' : ''}}" bindtap="switchFilter" data-filter="pending">
+      <text class="filter-text">待做</text>
+      <view class="filter-dot filter-dot-danger" wx:if="{{currentFilter === 'pending'}}"></view>
+    </view>
+    <view class="filter-item {{currentFilter === 'submitted' ? 'filter-active filter-warning' : ''}}" bindtap="switchFilter" data-filter="submitted">
+      <text class="filter-text">已提交</text>
+    </view>
+    <view class="filter-item {{currentFilter === 'graded' ? 'filter-active filter-success' : ''}}" bindtap="switchFilter" data-filter="graded">
+      <text class="filter-text">已批改</text>
+    </view>
+  </view>
+
+  <!-- 作业列表 -->
+  <view class="homework-list" wx:if="{{filteredHomework.length > 0}}">
+    <view class="homework-card interactive-item interactive-primary stagger-{{index < 6 ? index + 2 : 6}}" wx:for="{{filteredHomework}}" wx:key="id" bindtap="viewHomework" data-id="{{item.id}}">
+      <view class="homework-header">
+        <text class="homework-title">{{item.title}}</text>
+        <view class="status-tag tag-{{item.status === 'pending' ? 'danger' : item.status === 'submitted' ? 'warning' : 'success'}}">
+          {{item.status === 'pending' ? '待完成' : item.status === 'submitted' ? '已提交' : '已批改'}}
+        </view>
+      </view>
+      <text class="homework-course">{{item.course}}</text>
+      <view class="homework-meta">
+        <view class="meta-item" wx:if="{{item.status === 'pending'}}">
+          <text class="meta-label">截止</text>
+          <text class="meta-value">{{item.deadlineText}}</text>
+        </view>
+        <view class="meta-item" wx:if="{{item.status !== 'pending'}}">
+          <text class="meta-label">提交</text>
+          <text class="meta-value">{{item.submitTime}}</text>
+        </view>
+        <view class="meta-item score-item" wx:if="{{item.status === 'graded'}}">
+          <text class="meta-label">得分</text>
+          <text class="meta-value score">{{item.score}}分</text>
+        </view>
+      </view>
+      <view class="homework-priority priority-{{item.priority}}" wx:if="{{item.status === 'pending' && item.priority}}">
+        {{item.priority === 'high' ? '高优先级' : item.priority === 'medium' ? '中优先级' : '低优先级'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{filteredHomework.length === 0}}">
+    <view class="empty-state-icon icon-box icon-box-primary">
+      <image class="icon-image-lg" src="/svg/icon-homework.svg" mode="aspectFit"/>
+    </view>
+    <text class="empty-state-title">暂无作业</text>
+    <text class="empty-state-text">当前筛选条件下没有作业</text>
+  </view>
+</view>

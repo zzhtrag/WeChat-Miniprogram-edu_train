@@ -1,0 +1,114 @@
+<view class="container">
+  <!-- 顶部渐变背景 -->
+  <view class="header-section">
+    <view class="header-bg"></view>
+
+    <!-- 用户信息 -->
+    <view class="user-card" wx:if="{{currentStudent}}">
+      <image class="avatar" src="{{currentStudent.avatar || '/images/default-avatar.png'}}" mode="aspectFill"/>
+      <view class="user-info">
+        <view class="user-name">{{currentStudent.name}}</view>
+        <view class="user-phone">{{userInfo.phone || ''}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="quick-section" wx:if="{{currentStudent}}">
+    <view class="quick-grid">
+      <view class="quick-item" bindtap="goToPage" data-url="/pages/timetable/timetable">
+        <view class="quick-icon-circle red">
+          <text class="icon">👥</text>
+        </view>
+        <view class="quick-label">班级</view>
+      </view>
+      <view class="quick-item" bindtap="goToPage" data-url="/pages/homework/homework">
+        <view class="quick-icon-circle green">
+          <text class="icon">📄</text>
+        </view>
+        <view class="quick-label">作业</view>
+      </view>
+      <view class="quick-item" bindtap="goToPage" data-url="/pages/scores/scores">
+        <view class="quick-icon-circle orange">
+          <text class="icon">🏆</text>
+        </view>
+        <view class="quick-label">成绩</view>
+      </view>
+      <view class="quick-item" bindtap="goToPage" data-url="/pages/messages/messages">
+        <view class="quick-icon-circle purple">
+          <text class="icon">⭐</text>
+        </view>
+        <view class="quick-label">点评记录</view>
+      </view>
+    </view>
+
+    <view class="quick-grid second-row">
+      <view class="quick-item" bindtap="goToPage" data-url="/pages/timetable/timetable">
+        <view class="quick-icon-circle blue">
+          <text class="icon">📅</text>
+        </view>
+        <view class="quick-label">上课记录</view>
+      </view>
+      <view class="quick-item" bindtap="goToPage" data-url="/pages/course-select/course-select">
+        <view class="quick-icon-circle green">
+          <text class="icon">📚</text>
+        </view>
+        <view class="quick-label">选课</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 公告栏 -->
+  <view class="notice-banner" wx:if="{{notices.length > 0}}">
+    <view class="notice-icon">📢</view>
+    <view class="notice-text">{{(notices[0] && notices[0].title) || '开学通知'}}</view>
+    <view class="notice-arrow">›</view>
+  </view>
+
+  <!-- 今日课表 -->
+  <view class="section">
+    <view class="section-header">
+      <view class="section-title-with-line">今日课表</view>
+      <view class="section-count">{{todayCourses.length}}节课</view>
+    </view>
+
+    <view class="course-list" wx:if="{{todayCourses.length > 0}}">
+      <view class="course-card" wx:for="{{todayCourses}}" wx:key="id" bindtap="viewCourse" data-id="{{item.id}}">
+        <view class="course-info">
+          <view class="course-name">{{item.name}}</view>
+          <view class="course-time">{{item.startTime}} - {{item.endTime}}</view>
+        </view>
+        <view class="course-arrow">›</view>
+      </view>
+    </view>
+
+    <view class="empty-card" wx:else>
+      <view class="empty-icon">📄🚫</view>
+      <view class="empty-text">今日无课</view>
+    </view>
+  </view>
+
+  <!-- 我的课程 -->
+  <view class="section">
+    <view class="section-header">
+      <view class="section-title-with-line">我的课程</view>
+      <view class="section-more" bindtap="goToMyCourses">全部</view>
+    </view>
+
+    <view class="my-course-list">
+      <view class="my-course-card">
+        <view class="my-course-info">
+          <view class="my-course-name">数学</view>
+          <view class="my-course-progress">剩余5678课</view>
+          <view class="my-course-date">有效期至2027-06-13</view>
+        </view>
+        <view class="my-course-stats">
+          <view class="stats-text">已上0 共5678</view>
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: 0%"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

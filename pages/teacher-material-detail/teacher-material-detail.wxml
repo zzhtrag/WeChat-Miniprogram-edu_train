@@ -1,0 +1,98 @@
+<view class="page-container" wx:if="{{material}}">
+  <!-- 文件预览区 -->
+  <view class="preview-section" bindtap="previewFile">
+    <view class="preview-icon-wrap" style="background: {{material.file_type_color}}20">
+      <text class="preview-file-icon">{{material.file_type_icon}}</text>
+    </view>
+    <text class="preview-file-name">{{material.file_name}}</text>
+    <text class="preview-hint">点击预览</text>
+  </view>
+
+  <!-- 资料信息 -->
+  <view class="info-card">
+    <text class="info-title">{{material.title}}</text>
+    <view class="info-meta">
+      <view class="meta-chip" style="background: #ECFDF5; color: #059669;">{{material.category_label}}</view>
+      <view class="meta-chip" style="background: #EFF6FF; color: #3B82F6;">{{material.subject}}</view>
+    </view>
+    <text class="info-desc" wx:if="{{material.description}}">{{material.description}}</text>
+  </view>
+
+  <!-- 文件详情 -->
+  <view class="detail-card">
+    <view class="detail-row">
+      <text class="detail-label">文件名</text>
+      <text class="detail-value">{{material.file_name}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">文件大小</text>
+      <text class="detail-value">{{material.file_size_str}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">文件类型</text>
+      <text class="detail-value">{{material.file_type}}</text>
+    </view>
+    <view class="detail-row" wx:if="{{material.folder_name}}">
+      <text class="detail-label">所在文件夹</text>
+      <text class="detail-value">{{material.folder_name}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">上传时间</text>
+      <text class="detail-value">{{material.created_at}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">下载次数</text>
+      <text class="detail-value">{{material.download_count}}</text>
+    </view>
+  </view>
+
+  <!-- 标签 -->
+  <view class="tags-card" wx:if="{{material.tags.length > 0}}">
+    <text class="card-label">标签</text>
+    <view class="tags-list">
+      <view class="tag-item" wx:for="{{material.tags}}" wx:key="*this">{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 分享班级 -->
+  <view class="share-card">
+    <view class="share-header">
+      <text class="card-label">分享到班级</text>
+      <text class="share-count">{{material.shared_class_details.length}} 个班级</text>
+    </view>
+    <view class="share-list" wx:if="{{material.shared_class_details.length > 0}}">
+      <view class="share-item" wx:for="{{material.shared_class_details}}" wx:key="id">
+        <text class="share-class-name">{{item.name}}</text>
+      </view>
+    </view>
+    <view class="share-empty" wx:else>
+      <text class="share-empty-text">尚未分享到任何班级</text>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <view class="action-btn edit" bindtap="editMaterial">编辑</view>
+    <view class="action-btn share" bindtap="shareToClass">分享到班级</view>
+    <view class="action-btn delete" bindtap="deleteMaterial">删除</view>
+  </view>
+
+  <!-- 分享弹窗 -->
+  <view class="modal-mask" wx:if="{{showShareModal}}" bindtap="closeShareModal"></view>
+  <view class="share-modal" wx:if="{{showShareModal}}">
+    <view class="modal-header">
+      <text class="modal-title">选择分享班级</text>
+      <view class="modal-close" bindtap="closeShareModal">✕</view>
+    </view>
+    <view class="modal-body">
+      <view class="class-check-item" wx:for="{{classItems}}" wx:key="id" bindtap="toggleClassShare" data-id="{{item.id}}">
+        <view class="checkbox {{item.checked ? 'checked' : ''}}">{{item.checked ? '✓' : ''}}</view>
+        <text class="class-name">{{item.name}}</text>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="modal-btn cancel" bindtap="closeShareModal">取消</view>
+      <view class="modal-btn confirm" bindtap="confirmShare">确认</view>
+    </view>
+  </view>
+</view>

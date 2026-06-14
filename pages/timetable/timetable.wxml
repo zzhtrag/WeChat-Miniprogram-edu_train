@@ -1,0 +1,79 @@
+<view class="page-container">
+  <!-- 未选择学生 -->
+  <view class="no-student" wx:if="{{!currentStudent}}">
+    <view class="no-student-card">
+      <view class="no-student-icon icon-box icon-box-primary">
+        <image class="icon-image-lg" src="/svg/icon-calendar.svg" mode="aspectFit"/>
+      </view>
+      <text class="no-student-text">暂无关联学生</text>
+    </view>
+  </view>
+
+  <block wx:else>
+    <!-- 日历头部 -->
+    <view class="calendar-header stagger-1">
+      <view class="month-nav">
+        <view class="nav-btn" bindtap="prevMonth">
+          <text class="nav-arrow">‹</text>
+        </view>
+        <view class="month-info">
+          <text class="month-title">{{currentYear}}年{{currentMonth}}月</text>
+        </view>
+        <view class="nav-btn" bindtap="nextMonth">
+          <text class="nav-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 星期标题 -->
+    <view class="week-header stagger-2">
+      <view class="week-day" wx:for="{{weekDays}}" wx:key="*this">{{item}}</view>
+    </view>
+
+    <!-- 日历网格 -->
+    <view class="calendar-grid stagger-3">
+      <view class="day-cell {{item.isCurrentMonth ? '' : 'other-month'}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+            wx:for="{{calendarDays}}"
+            wx:key="fullDate"
+            bindtap="selectDate"
+            data-date="{{item.date}}"
+            data-full-date="{{item.fullDate}}">
+        <text class="day-num">{{item.day}}</text>
+        <view class="course-dot" wx:if="{{item.hasCourse}}"></view>
+      </view>
+    </view>
+
+    <!-- 当日课表 -->
+    <view class="schedule-section stagger-4">
+      <view class="section-header">
+        <text class="section-title">{{selectedDateDisplay || defaultDateDisplay}} 课程</text>
+        <view class="section-count" wx:if="{{todaySchedules.length > 0}}">
+          <text class="count-text">{{todaySchedules.length}}节</text>
+        </view>
+      </view>
+
+      <view class="schedule-list" wx:if="{{todaySchedules.length > 0}}">
+        <view class="schedule-card interactive-item interactive-primary" wx:for="{{todaySchedules}}" wx:key="id" bindtap="viewCourse" data-id="{{item.class_id}}">
+          <view class="schedule-time-block">
+            <text class="time-text">{{item.start_time}}</text>
+            <text class="time-text time-end">{{item.end_time}}</text>
+          </view>
+          <view class="schedule-line"></view>
+          <view class="schedule-content">
+            <text class="schedule-name">{{item.course_name}}</text>
+            <text class="schedule-info">{{item.class_name}} · {{item.teacher_name}}</text>
+            <text class="schedule-room">{{item.room}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:else>
+        <view class="empty-state-icon icon-box icon-box-teacher">
+          <image class="icon-image" src="/svg/icon-calendar.svg" mode="aspectFit"/>
+        </view>
+        <text class="empty-state-title">当日暂无课程</text>
+      </view>
+    </view>
+  </block>
+</view>

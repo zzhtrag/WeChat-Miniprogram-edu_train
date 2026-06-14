@@ -1,0 +1,261 @@
+/* Homework Page v3 - Soft UI Evolution */
+
+.page-container {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  padding: 24rpx 24rpx 40rpx;
+}
+
+/* ============================================
+   FILTER BAR - Pill style
+   ============================================ */
+.filter-bar {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 8rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  gap: 6rpx;
+}
+
+.filter-item {
+  flex: 1;
+  text-align: center;
+  padding: 18rpx 0;
+  font-size: 26rpx;
+  color: #64748B;
+  font-weight: 500;
+  border-radius: 14rpx;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+}
+
+.filter-item:active {
+  transform: scale(0.96);
+}
+
+.filter-active {
+  background: #4F46E5;
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.3);
+}
+
+.filter-active.filter-danger {
+  background: #DC2626;
+  box-shadow: 0 2px 8px -2px rgba(220, 38, 38, 0.3);
+}
+
+.filter-active.filter-warning {
+  background: #D97706;
+  box-shadow: 0 2px 8px -2px rgba(217, 119, 6, 0.3);
+}
+
+.filter-active.filter-success {
+  background: #059669;
+  box-shadow: 0 2px 8px -2px rgba(5, 150, 105, 0.3);
+}
+
+.filter-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.filter-dot-danger {
+  background: #FFFFFF;
+}
+
+.filter-text {
+  font-size: 26rpx;
+}
+
+/* ============================================
+   HOMEWORK LIST
+   ============================================ */
+.homework-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.homework-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08), 0 4px 12px -4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-left: 4rpx solid rgba(79, 70, 229, 0.25);
+  transition: all 250ms ease;
+}
+
+.homework-card:active {
+  border-left-color: #4F46E5;
+  background: rgba(79, 70, 229, 0.03);
+  transform: scale(0.98);
+}
+
+/* Left border color by status */
+.homework-card:has(.tag-danger) {
+  border-left-color: #DC2626;
+}
+
+.homework-card:has(.tag-warning) {
+  border-left-color: #D97706;
+}
+
+.homework-card:has(.tag-success) {
+  border-left-color: #059669;
+}
+
+.homework-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.homework-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0F172A;
+  flex: 1;
+  margin-right: 16rpx;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.tag-danger {
+  background: rgba(220, 38, 38, 0.1);
+  color: #DC2626;
+}
+
+.tag-warning {
+  background: rgba(217, 119, 6, 0.1);
+  color: #D97706;
+}
+
+.tag-success {
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+}
+
+.homework-course {
+  font-size: 24rpx;
+  color: #94A3B8;
+  margin-bottom: 16rpx;
+  font-weight: 500;
+  display: block;
+}
+
+.homework-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.meta-label {
+  font-size: 22rpx;
+  color: #CBD5E1;
+  font-weight: 500;
+}
+
+.meta-value {
+  font-size: 24rpx;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.meta-value.score {
+  color: #059669;
+  font-weight: 700;
+}
+
+.homework-priority {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  margin-top: 4rpx;
+}
+
+.priority-high {
+  background: rgba(220, 38, 38, 0.08);
+  color: #DC2626;
+}
+
+.priority-medium {
+  background: rgba(217, 119, 6, 0.08);
+  color: #D97706;
+}
+
+.priority-low {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94A3B8;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 32rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  margin-top: 16rpx;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  animation: fadeIn 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.empty-state-icon {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24rpx;
+}
+
+.empty-state-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 10rpx;
+  letter-spacing: -0.01em;
+}
+
+.empty-state-text {
+  font-size: 26rpx;
+  color: #94A3B8;
+  text-align: center;
+}

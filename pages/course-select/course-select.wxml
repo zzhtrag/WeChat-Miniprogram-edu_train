@@ -1,0 +1,66 @@
+<view class="container">
+  <!-- 顶部标签栏 -->
+  <view class="tab-header">
+    <scroll-view class="tab-scroll" scroll-x="true" show-scrollbar="false">
+      <view class="tab-list">
+        <view class="tab-item {{activeTab === index ? 'active' : ''}}" 
+              wx:for="{{tabs}}" 
+              wx:key="index"
+              bindtap="switchTab" 
+              data-index="{{index}}">
+          {{item}}
+        </view>
+      </view>
+    </scroll-view>
+    <view class="tab-more" bindtap="showMoreTabs">
+      <view class="grid-icon">
+        <view class="grid-dot"></view>
+        <view class="grid-dot"></view>
+        <view class="grid-dot"></view>
+        <view class="grid-dot"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="course-list">
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{filteredCourses.length === 0}}">
+      <view class="empty-icon">
+        <image src="/images/empty-course.png" mode="aspectFit"/>
+      </view>
+      <view class="empty-text">~ 暂无课程 敬请期待 ~</view>
+    </view>
+
+    <!-- 课程卡片 -->
+    <block wx:if="{{filteredCourses.length > 0}}">
+      <view class="course-card" wx:for="{{filteredCourses}}" wx:key="id">
+        <view class="course-main interactive-item interactive-primary" bindtap="viewCourseDetail" data-id="{{item.id}}">
+          <view class="course-basic">
+            <view class="course-name">{{item.name}}</view>
+            <view class="course-meta">
+              <text class="subject">{{item.subject}}</text>
+            </view>
+          </view>
+          <view class="course-info">
+            <view class="teacher-info">
+              <image class="teacher-avatar" src="{{item.teacherAvatar || '/images/default-avatar.png'}}" mode="aspectFill"/>
+              <text class="teacher-name">{{item.teacherName}}</text>
+            </view>
+            <view class="course-stats">
+              <text class="stat">{{item.current_students}}/{{item.capacity}}人</text>
+              <text class="remaining" wx:if="{{item.remaining > 0}}">余{{item.remaining}}名额</text>
+              <text class="full" wx:else>已满</text>
+            </view>
+          </view>
+          <view class="course-desc">{{item.description}}</view>
+        </view>
+        <view class="course-action">
+          <button class="enroll-btn {{item.remaining <= 0 ? 'disabled' : ''}}" bindtap="enrollCourse" data-course="{{item}}" disabled="{{item.remaining <= 0}}">
+            {{item.remaining <= 0 ? '已满' : '立即报名'}}
+          </button>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

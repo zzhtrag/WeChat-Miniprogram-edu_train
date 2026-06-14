@@ -1,0 +1,124 @@
+<view class="page-container">
+  <!-- 教师头部 -->
+  <view class="header stagger-1">
+    <view class="user-card" bindtap="goToProfile">
+      <view class="avatar avatar-teacher-gradient">{{userInfo.name ? userInfo.name.charAt(0) : 'T'}}</view>
+      <view class="user-info">
+        <text class="name">{{userInfo.name || '老师'}}</text>
+        <text class="detail">{{teacherSubjects}} · 工号 {{teacherNo}}</text>
+      </view>
+      <view class="header-right">
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计 -->
+  <view class="stats-grid stagger-2">
+    <view class="stat-item stat-display">
+      <view class="stat-icon-box icon-box-teacher">
+        <image class="icon-image-sm" src="/svg/icon-schedule.svg" mode="aspectFit"/>
+      </view>
+      <text class="stat-value">{{stats.month_hours}}</text>
+      <text class="stat-label">本月课时</text>
+    </view>
+    <view class="stat-item stat-display">
+      <view class="stat-icon-box icon-box-success">
+        <image class="icon-image-sm" src="/svg/icon-students.svg" mode="aspectFit"/>
+      </view>
+      <text class="stat-value">{{stats.student_count}}</text>
+      <text class="stat-label">学员总数</text>
+    </view>
+    <view class="stat-item stat-display">
+      <view class="stat-icon-box icon-box-primary">
+        <image class="icon-image-sm" src="/svg/icon-progress.svg" mode="aspectFit"/>
+      </view>
+      <text class="stat-value">{{stats.attendance_rate}}%</text>
+      <text class="stat-label">出勤率</text>
+    </view>
+  </view>
+
+  <!-- 今日课程 -->
+  <view class="today-section stagger-3">
+    <view class="today-header">
+      <view class="today-title-group">
+        <text class="today-title">今日课程</text>
+        <view class="status-dot active" wx:if="{{todayCourses.length > 0}}"></view>
+      </view>
+      <text class="today-date">{{todayDate}}</text>
+    </view>
+
+    <view class="today-list" wx:if="{{todayCourses.length > 0}}">
+      <view class="today-item" wx:for="{{todayCourses}}" wx:key="id">
+        <view class="today-time-col">
+          <text class="today-time">{{item.startTime}}</text>
+          <text class="today-time-end">{{item.endTime}}</text>
+        </view>
+        <view class="today-timeline">
+          <view class="timeline-dot timeline-dot-{{item.status}}"></view>
+          <view class="timeline-line" wx:if="{{index < todayCourses.length - 1}}"></view>
+        </view>
+        <view class="today-content">
+          <text class="today-name">{{item.name}}</text>
+          <text class="today-meta">{{item.className}} · {{item.room}}</text>
+        </view>
+        <view class="today-status tag-{{item.status === 'ongoing' ? 'success' : item.status === 'upcoming' ? 'primary' : 'muted'}}">
+          {{item.status === 'ongoing' ? '进行中' : item.status === 'upcoming' ? '即将开始' : '已结束'}}
+        </view>
+      </view>
+    </view>
+
+    <view class="today-empty" wx:else>
+      <view class="empty-state-icon icon-box icon-box-teacher">
+        <image class="icon-image" src="/svg/icon-calendar.svg" mode="aspectFit"/>
+      </view>
+      <text class="empty-state-title">今日暂无课程安排</text>
+    </view>
+  </view>
+
+  <!-- 快捷菜单 -->
+  <view class="quick-section stagger-4">
+    <view class="quick-grid">
+      <view class="quick-item" wx:for="{{quickMenus}}" wx:key="label" bindtap="goToMenu" data-url="{{item.url}}">
+        <view class="quick-icon-box icon-box-teacher">
+          <image class="icon-image" src="/svg/icon-{{item.iconFile}}.svg" mode="aspectFit"/>
+        </view>
+        <text class="quick-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 待批改作业 -->
+  <view class="section stagger-5">
+    <view class="section-header">
+      <text class="section-title">待批改作业</text>
+      <view class="section-more" bindtap="goToMenu" data-url="/pages/teacher-homework/teacher-homework">
+        <text class="more-text">查看全部</text>
+        <text class="more-arrow">›</text>
+      </view>
+    </view>
+
+    <view class="homework-list" wx:if="{{pendingHomework.length > 0}}">
+      <view class="homework-card interactive-item interactive-teacher" wx:for="{{pendingHomework}}" wx:key="id"
+            bindtap="goToMenu" data-url="/pages/teacher-homework/teacher-homework">
+        <view class="homework-left">
+          <text class="homework-title">{{item.title}}</text>
+          <text class="homework-meta">截止：{{item.deadline}}</text>
+        </view>
+        <view class="homework-tag tag-warning">待批改</view>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{pendingHomework.length === 0}}">
+      <view class="empty-tip-icon icon-box icon-box-success">
+        <image class="icon-image-sm" src="/svg/icon-grade.svg" mode="aspectFit"/>
+      </view>
+      <text class="empty-tip-text">没有待批改的作业</text>
+    </view>
+  </view>
+
+  <!-- 退出 -->
+  <view class="logout-section stagger-6">
+    <view class="logout-btn" bindtap="logout">退出登录</view>
+  </view>
+</view>

@@ -1,0 +1,61 @@
+<view class="page-container" wx:if="{{item}}">
+  <!-- 图片 -->
+  <view class="image-section" bindtap="previewImage" wx:if="{{item.file_url || item.thumbnail}}">
+    <image class="main-image" src="{{item.file_url || item.thumbnail}}" mode="widthFix" />
+    <view class="image-hint">点击查看大图</view>
+  </view>
+
+  <view class="no-image" wx:else>
+    <text class="no-image-icon">📄</text>
+    <text class="no-image-text">{{item.file_name || '无预览'}}</text>
+  </view>
+
+  <!-- 信息 -->
+  <view class="info-card">
+    <view class="info-header">
+      <text class="info-title">{{item.title}}</text>
+      <view class="info-badges">
+        <view class="badge featured" wx:if="{{item.is_featured}}">精选</view>
+        <view class="badge excellent" wx:if="{{item.is_excellent}}">优秀</view>
+      </view>
+    </view>
+    <view class="info-meta">
+      <view class="meta-chip" style="background: #EFF6FF; color: #4F46E5;">{{item.category_label}}</view>
+    </view>
+    <text class="info-desc" wx:if="{{item.description}}">{{item.description}}</text>
+  </view>
+
+  <!-- 教师点评 -->
+  <view class="comment-card" wx:if="{{item.teacher_comment}}">
+    <text class="card-label">教师点评</text>
+    <text class="comment-text">{{item.teacher_comment}}</text>
+  </view>
+
+  <!-- 标签 -->
+  <view class="tags-card" wx:if="{{item.tags.length > 0}}">
+    <text class="card-label">标签</text>
+    <view class="tags-list">
+      <view class="tag-item" wx:for="{{item.tags}}" wx:key="*this">{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 详情 -->
+  <view class="detail-card">
+    <view class="detail-row">
+      <text class="detail-label">作品日期</text>
+      <text class="detail-value">{{item.work_date}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">录入教师</text>
+      <text class="detail-value">{{item.teacher_name}}</text>
+    </view>
+  </view>
+
+  <!-- 分享到朋友圈 -->
+  <view class="share-bar">
+    <view class="share-btn {{hasShared ? 'shared' : ''}}" bindtap="shareToMoments">
+      <image class="share-icon" src="/svg/icon-moments.svg" mode="aspectFit" />
+      <text class="share-label">{{hasShared ? '已分享' : '分享到朋友圈'}}</text>
+    </view>
+  </view>
+</view>

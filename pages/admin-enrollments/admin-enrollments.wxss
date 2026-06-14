@@ -1,0 +1,660 @@
+/* Admin Enrollments - Soft UI Evolution (consistent with admin-index) */
+.page-container {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  padding-bottom: 40rpx;
+}
+
+/* ============================================
+   STATS - with icon boxes (matches admin-index)
+   ============================================ */
+.stats-row {
+  display: flex;
+  gap: 12rpx;
+  padding: 24rpx 24rpx 0;
+}
+
+.stat-chip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 0 20rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.08), 0 4px 12px -4px rgba(79, 70, 229, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.stat-icon-box {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10rpx;
+}
+
+.icon-box-neutral { background: rgba(79, 70, 229, 0.08); }
+.icon-box-enrolled { background: rgba(245, 158, 11, 0.1); }
+.icon-box-paid { background: rgba(59, 130, 246, 0.1); }
+.icon-box-admitted { background: rgba(16, 185, 129, 0.1); }
+
+.stat-icon {
+  width: 22rpx;
+  height: 22rpx;
+}
+
+.stat-dot-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+}
+
+.icon-box-enrolled .stat-dot-dot { background: #F59E0B; }
+.icon-box-paid .stat-dot-dot { background: #3B82F6; }
+.icon-box-admitted .stat-dot-dot { background: #10B981; }
+
+.stat-num {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.stat-label {
+  font-size: 20rpx;
+  color: #94A3B8;
+  margin-top: 4rpx;
+  font-weight: 500;
+}
+
+.chip-enrolled .stat-num { color: #D97706; }
+.chip-paid .stat-num { color: #2563EB; }
+.chip-admitted .stat-num { color: #059669; }
+
+/* ============================================
+   SEARCH - with icon
+   ============================================ */
+.search-bar {
+  padding: 20rpx 24rpx;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  height: 88rpx;
+  border: 2rpx solid #E2E8F0;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.06);
+}
+
+.search-wrapper:focus-within {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 4rpx rgba(79, 70, 229, 0.08);
+}
+
+.search-icon {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 16rpx;
+  opacity: 0.4;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #0F172A;
+  height: 88rpx;
+}
+
+/* ============================================
+   TABS - matches login page tab style
+   ============================================ */
+.tab-bar {
+  display: flex;
+  padding: 0 24rpx;
+  margin-bottom: 16rpx;
+  border-bottom: 2rpx solid #F1F5F9;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0 24rpx;
+  position: relative;
+  transition: all 200ms ease;
+}
+
+.tab-text {
+  font-size: 26rpx;
+  color: #94A3B8;
+  font-weight: 500;
+  transition: all 200ms ease;
+}
+
+.tab-active .tab-text {
+  color: #0F172A;
+  font-weight: 600;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: linear-gradient(90deg, #4F46E5, #6366F1);
+  animation: scaleIn 250ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ============================================
+   LIST
+   ============================================ */
+.reg-list {
+  padding: 0 24rpx;
+}
+
+.reg-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.08), 0 4px 12px -4px rgba(79, 70, 229, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  transition: all 200ms ease;
+}
+
+.reg-card:active {
+  transform: scale(0.99);
+}
+
+.reg-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.reg-left {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Avatar */
+.avatar-circle {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.avatar-male { background: rgba(59, 130, 246, 0.1); }
+.avatar-female { background: rgba(236, 72, 153, 0.1); }
+
+.avatar-letter {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.avatar-male .avatar-letter { color: #3B82F6; }
+.avatar-female .avatar-letter { color: #EC4899; }
+
+.reg-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 6rpx;
+}
+
+.student-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+/* Status tag with indicator dot (accessibility: not color-only) */
+.status-tag {
+  padding: 4rpx 14rpx;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.status-indicator {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+}
+
+.status-enrolled { background: rgba(245, 158, 11, 0.1); }
+.status-paid { background: rgba(59, 130, 246, 0.1); }
+.status-admitted { background: rgba(16, 185, 129, 0.1); }
+
+.status-enrolled .status-indicator { background: #F59E0B; }
+.status-paid .status-indicator { background: #3B82F6; }
+.status-admitted .status-indicator { background: #10B981; }
+
+.status-tag-text {
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.status-enrolled .status-tag-text { color: #D97706; }
+.status-paid .status-tag-text { color: #2563EB; }
+.status-admitted .status-tag-text { color: #059669; }
+
+.reg-meta {
+  font-size: 24rpx;
+  color: #64748B;
+  display: block;
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reg-parent {
+  font-size: 24rpx;
+  color: #94A3B8;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.reg-date {
+  font-size: 22rpx;
+  color: #CBD5E1;
+  display: block;
+}
+
+/* Actions - larger touch targets */
+.reg-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.action-btn {
+  padding: 14rpx 24rpx;
+  border-radius: 12rpx;
+  background: #F8FAFC;
+  border: 2rpx solid #E2E8F0;
+  transition: all 200ms ease;
+  min-height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn:active {
+  transform: scale(0.96);
+  background: #F1F5F9;
+}
+
+.action-btn-register {
+  background: rgba(79, 70, 229, 0.08);
+  border-color: rgba(79, 70, 229, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.action-btn-register:active {
+  background: rgba(79, 70, 229, 0.14);
+}
+
+.action-icon {
+  width: 22rpx;
+  height: 22rpx;
+}
+
+.action-text {
+  font-size: 24rpx;
+  color: #475569;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.action-text-action {
+  font-size: 24rpx;
+  color: #4F46E5;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Class info row */
+.reg-class {
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1px solid #F1F5F9;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.class-icon-wrapper {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 8rpx;
+  background: rgba(79, 70, 229, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.class-icon {
+  width: 18rpx;
+  height: 18rpx;
+}
+
+.class-value {
+  font-size: 24rpx;
+  color: #4F46E5;
+  font-weight: 600;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0;
+}
+
+.empty-circle {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20rpx;
+  border: 3rpx solid #E2E8F0;
+}
+
+.empty-icon {
+  width: 36rpx;
+  height: 36rpx;
+  opacity: 0.3;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+/* ============================================
+   ACTION SHEET - with handle + blur
+   ============================================ */
+.sheet-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  animation: fadeIn 200ms ease both;
+}
+
+.action-sheet {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: #FFFFFF;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 0 32rpx;
+  padding-bottom: calc(48rpx + env(safe-area-inset-bottom));
+  z-index: 101;
+  animation: slideUp 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.sheet-handle {
+  width: 48rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: #E2E8F0;
+  margin: 16rpx auto 20rpx;
+}
+
+.sheet-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 8rpx 0;
+}
+
+.sheet-avatar {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+}
+
+.sheet-avatar-letter {
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.sheet-title-group {
+  flex: 1;
+}
+
+.sheet-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #0F172A;
+  display: block;
+}
+
+.sheet-subtitle {
+  font-size: 24rpx;
+  color: #94A3B8;
+  display: block;
+  margin-top: 4rpx;
+}
+
+.sheet-options {
+  margin-bottom: 8rpx;
+}
+
+.sheet-option {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  border-bottom: 1px solid #F1F5F9;
+  transition: all 200ms ease;
+}
+
+.sheet-option:active {
+  background: rgba(79, 70, 229, 0.03);
+}
+
+.option-icon {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.icon-box-paid { background: rgba(59, 130, 246, 0.1); }
+.icon-box-admitted { background: rgba(16, 185, 129, 0.1); }
+
+.option-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+}
+
+.icon-box-paid .option-dot { background: #3B82F6; }
+.icon-box-admitted .option-dot { background: #10B981; }
+
+.option-content {
+  flex: 1;
+}
+
+.option-text {
+  font-size: 28rpx;
+  color: #0F172A;
+  font-weight: 600;
+  display: block;
+}
+
+.option-desc {
+  font-size: 22rpx;
+  color: #94A3B8;
+  display: block;
+  margin-top: 4rpx;
+}
+
+.option-arrow {
+  font-size: 32rpx;
+  color: #CBD5E1;
+  margin-left: 8rpx;
+}
+
+.sheet-cancel {
+  text-align: center;
+  padding: 28rpx;
+  font-size: 28rpx;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+/* ============================================
+   CLASS PICKER
+   ============================================ */
+.class-picker {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: #FFFFFF;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 0 32rpx;
+  padding-bottom: calc(48rpx + env(safe-area-inset-bottom));
+  z-index: 101;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.picker-header {
+  margin-bottom: 16rpx;
+  padding: 8rpx 0;
+}
+
+.picker-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #0F172A;
+  display: block;
+}
+
+.picker-desc {
+  font-size: 24rpx;
+  color: #94A3B8;
+  display: block;
+  margin-top: 6rpx;
+  line-height: 1.5;
+}
+
+.class-list {
+  max-height: 50vh;
+}
+
+.class-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  border-bottom: 1px solid #F1F5F9;
+  transition: all 200ms ease;
+}
+
+.class-item:active {
+  background: rgba(79, 70, 229, 0.03);
+}
+
+.class-info {
+  flex: 1;
+}
+
+.class-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0F172A;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.class-meta {
+  font-size: 22rpx;
+  color: #94A3B8;
+  display: block;
+  line-height: 1.6;
+}
+
+.class-cap {
+  flex-shrink: 0;
+  padding: 10rpx 16rpx;
+  background: #F8FAFC;
+  border-radius: 10rpx;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.cap-text {
+  font-size: 22rpx;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.picker-cancel {
+  text-align: center;
+  padding: 28rpx;
+  font-size: 28rpx;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { transform: translateX(-50%) scaleX(0); }
+  to { transform: translateX(-50%) scaleX(1); }
+}

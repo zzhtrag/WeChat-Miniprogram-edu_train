@@ -1,0 +1,160 @@
+<!--pages/teacher-stats/teacher-stats.wxml-->
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-state">
+    <text>加载中...</text>
+  </view>
+
+  <view wx:else>
+    <!-- 顶部数据卡片 -->
+    <view class="header-card">
+      <view class="header-title">教学数据概览</view>
+      <view class="header-subtitle">{{teacherInfo.name || '教师'}} · {{teacherInfo.subjectsLabel}}</view>
+    </view>
+
+    <!-- 核心数据区 -->
+    <view class="stats-grid">
+      <view class="stat-card primary">
+        <view class="stat-icon">🏫</view>
+        <view class="stat-content">
+          <view class="stat-value">{{stats.classCount}}</view>
+          <view class="stat-label">负责班级</view>
+        </view>
+        <view class="stat-arrow" bindtap="onViewClasses">查看 →</view>
+      </view>
+
+      <view class="stat-card success">
+        <view class="stat-icon">👨‍🎓</view>
+        <view class="stat-content">
+          <view class="stat-value">{{stats.studentCount}}</view>
+          <view class="stat-label">授课学员</view>
+        </view>
+        <view class="stat-arrow" bindtap="onViewStudents">查看 →</view>
+      </view>
+
+      <view class="stat-card warning">
+        <view class="stat-icon">⏰</view>
+        <view class="stat-content">
+          <view class="stat-value">{{stats.monthHours}}</view>
+          <view class="stat-label">本月课时</view>
+        </view>
+      </view>
+
+      <view class="stat-card info">
+        <view class="stat-icon">📚</view>
+        <view class="stat-content">
+          <view class="stat-value">{{stats.assignmentCount}}</view>
+          <view class="stat-label">布置作业</view>
+        </view>
+        <view class="stat-arrow" bindtap="onViewAssignments">查看 →</view>
+      </view>
+    </view>
+
+    <!-- 本月新增 -->
+    <view class="section-card">
+      <view class="section-title">
+        <text class="title-icon">🎯</text>
+        <text>本月动态</text>
+      </view>
+      <view class="month-stats">
+        <view class="month-stat-item">
+          <view class="month-value">{{stats.monthNewStudents}}</view>
+          <view class="month-label">新增学员</view>
+        </view>
+        <view class="month-divider"></view>
+        <view class="month-stat-item">
+          <view class="month-value">{{stats.attendanceRate}}%</view>
+          <view class="month-label">出勤率</view>
+        </view>
+        <view class="month-divider"></view>
+        <view class="month-stat-item">
+          <view class="month-value">{{stats.monthHours}}</view>
+          <view class="month-label">完成课时</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 本周课时分布 -->
+    <view class="section-card">
+      <view class="section-title">
+        <text class="title-icon">📅</text>
+        <text>本周课时分布</text>
+      </view>
+      <view class="week-chart">
+        <view 
+          wx:for="{{weekSchedule}}" 
+          wx:key="day" 
+          class="week-day"
+        >
+          <view class="day-bar-wrap">
+            <view 
+              class="day-bar {{item.hours > 0 ? 'active' : ''}}"
+              style="height: {{item.hours * 30}}rpx"
+            ></view>
+          </view>
+          <view class="day-label">{{item.day}}</view>
+          <view class="day-hours">{{item.hours}}h</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 课程统计 -->
+    <view class="section-card" wx:if="{{courseStats.length > 0}}">
+      <view class="section-title">
+        <text class="title-icon">📖</text>
+        <text>课程统计</text>
+      </view>
+      <view class="course-list">
+        <view 
+          wx:for="{{courseStats}}" 
+          wx:key="name" 
+          class="course-item"
+        >
+          <view class="course-info">
+            <view class="course-name">{{item.name}}</view>
+            <view class="course-meta">{{item.count}}次课</view>
+          </view>
+          <view class="course-hours">
+            <text class="hours-num">{{item.hours}}</text>
+            <text class="hours-unit">课时</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 考勤统计 -->
+    <view class="section-card" wx:if="{{attendanceStats.total > 0}}">
+      <view class="section-title">
+        <text class="title-icon">✅</text>
+        <text>考勤概览</text>
+      </view>
+      <view class="attendance-chart">
+        <view class="attendance-ring">
+          <view class="ring-center">
+            <text class="ring-percent">{{attendanceStats.rate}}%</text>
+            <text class="ring-label">出勤率</text>
+          </view>
+        </view>
+        <view class="attendance-legend">
+          <view class="legend-item">
+            <view class="legend-dot present"></view>
+            <text class="legend-text">出勤 {{attendanceStats.present}}人</text>
+          </view>
+          <view class="legend-item">
+            <view class="legend-dot late"></view>
+            <text class="legend-text">迟到 {{attendanceStats.late}}人</text>
+          </view>
+          <view class="legend-item">
+            <view class="legend-dot absent"></view>
+            <text class="legend-text">缺勤 {{attendanceStats.absent}}人</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部提示 -->
+    <view class="footer-tip">
+      <text>数据更新时间：{{updateTime}}</text>
+    </view>
+  </view>
+</view>

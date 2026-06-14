@@ -1,0 +1,148 @@
+<!--pages/teacher-schedule-edit/teacher-schedule-edit.wxml-->
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-state">
+    <text>加载中...</text>
+  </view>
+
+  <block wx:else>
+    <!-- 班级选择 -->
+    <view class="form-section">
+      <view class="form-label required">上课班级</view>
+      <picker
+        mode="selector"
+        range="{{classList}}"
+        range-key="name"
+        bindchange="onClassChange"
+        value="{{selectedClassIndex}}"
+      >
+        <view class="form-picker {{errors.classId ? 'error' : ''}}">
+          <text class="{{formData.classId ? '' : 'placeholder'}}">
+            {{formData.className || '请选择班级'}}
+          </text>
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+      <view wx:if="{{formData.courseName}}" class="course-tip">
+        课程：{{formData.courseName}}
+      </view>
+      <view wx:if="{{errors.classId}}" class="error-text">{{errors.classId}}</view>
+    </view>
+
+    <!-- 日期选择 -->
+    <view class="form-section">
+      <view class="form-label required">上课日期</view>
+      <!-- 批量日期模式 -->
+      <block wx:if="{{isBatchMode}}">
+        <view class="batch-dates-info">
+          <view class="batch-dates-header">
+            <text class="batch-count">已选 {{batchDates.length}} 天</text>
+            <text class="batch-add-btn" bindtap="onAddMoreDates">+ 增加日期</text>
+          </view>
+          <view class="batch-dates-tags">
+            <view class="batch-date-tag" wx:for="{{batchDates}}" wx:key="*this">
+              <text>{{item}}</text>
+              <text class="batch-tag-remove" catchtap="onRemoveBatchDate" data-date="{{item}}">×</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <!-- 单日期模式 -->
+      <block wx:else>
+        <picker mode="date" value="{{formData.date}}" bindchange="onDateChange">
+          <view class="form-picker {{errors.date ? 'error' : ''}}">
+            <text class="{{formData.date ? '' : 'placeholder'}}">
+              {{formData.date || '请选择日期'}}
+            </text>
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </block>
+      <view wx:if="{{errors.date}}" class="error-text">{{errors.date}}</view>
+    </view>
+
+    <!-- 时间选择 -->
+    <view class="form-section time-section">
+      <view class="form-label required">上课时间</view>
+      <view class="time-row">
+        <picker
+          mode="selector"
+          range="{{startTimeOptions}}"
+          value="{{startTimeIndex}}"
+          bindchange="onStartTimeChange"
+        >
+          <view class="time-picker {{errors.startTime ? 'error' : ''}}">
+            <text class="{{formData.startTime ? '' : 'placeholder'}}">
+              {{formData.startTime || '开始时间'}}
+            </text>
+          </view>
+        </picker>
+        <text class="time-separator">至</text>
+        <picker
+          mode="selector"
+          range="{{endTimeOptions}}"
+          value="{{endTimeIndex}}"
+          bindchange="onEndTimeChange"
+        >
+          <view class="time-picker {{errors.endTime ? 'error' : ''}}">
+            <text class="{{formData.endTime ? '' : 'placeholder'}}">
+              {{formData.endTime || '结束时间'}}
+            </text>
+          </view>
+        </picker>
+      </view>
+      <view class="duration-tip">
+        课程时长：{{formData.duration}}课时
+      </view>
+      <view wx:if="{{errors.startTime || errors.endTime}}" class="error-text">
+        {{errors.startTime || errors.endTime}}
+      </view>
+    </view>
+
+    <!-- 教室选择 -->
+    <view class="form-section">
+      <view class="form-label">上课地点</view>
+      <picker
+        mode="selector"
+        range="{{roomList}}"
+        value="{{roomIndex}}"
+        bindchange="onRoomChange"
+      >
+        <view class="form-picker">
+          <text class="{{formData.room ? '' : 'placeholder'}}">
+            {{formData.room || '请选择教室'}}
+          </text>
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 备注 -->
+    <view class="form-section">
+      <view class="form-label">备注说明</view>
+      <textarea
+        class="form-textarea"
+        placeholder="请输入备注说明（选填）"
+        value="{{formData.remarks}}"
+        bindinput="onRemarksInput"
+        maxlength="200"
+        auto-height
+      ></textarea>
+      <view class="char-count">{{formData.remarks.length || 0}}/200</view>
+    </view>
+
+    <!-- 保存按钮 -->
+    <view class="btn-area">
+      <button
+        class="btn btn-primary"
+        bindtap="onSave"
+        loading="{{submitting}}"
+      >保存</button>
+    </view>
+
+    <!-- 删除按钮（编辑模式） -->
+    <view wx:if="{{isEdit}}" class="delete-area">
+      <button class="btn-delete" bindtap="onDelete">删除排课</button>
+    </view>
+  </block>
+</view>

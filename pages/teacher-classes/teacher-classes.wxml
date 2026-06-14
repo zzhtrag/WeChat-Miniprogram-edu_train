@@ -1,0 +1,56 @@
+<view class="container">
+  <view class="tabs">
+    <view class="tab-item {{activeTab === index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="*this" bindtap="switchTab" data-index="{{index}}">
+      {{item}}
+    </view>
+  </view>
+
+  <view class="tab-content" wx:if="{{activeTab === 0}}">
+    <view class="class-list">
+      <view class="class-card interactive-item interactive-teacher {{selectedClassId === item.id ? 'selected' : ''}}" wx:for="{{teacherClasses}}" wx:key="id" bindtap="selectClass" data-id="{{item.id}}">
+        <view class="class-header">
+          <view class="class-name">{{item.name}}</view>
+          <view class="class-course">{{item.course}}</view>
+        </view>
+        <view class="class-stats">
+          <view class="stat-item">
+            <view class="stat-value">{{item.studentCount}}</view>
+            <view class="stat-label">学生数</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-value highlight">{{item.avgScore}}</view>
+            <view class="stat-label">平均分</view>
+          </view>
+          <view class="stat-item">
+            <view class="stat-value {{item.todayHomework > 0 ? 'highlight' : ''}}">{{item.todayHomework}}</view>
+            <view class="stat-label">待改作业</view>
+          </view>
+        </view>
+        <view class="class-footer">
+          <text class="last-lesson">上次课：{{item.lastLesson}}</text>
+          <text class="view-detail">查看学员 ›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="tab-content" wx:if="{{activeTab === 1}}">
+    <view class="student-list">
+      <view class="student-card interactive-item interactive-teacher" wx:for="{{classStudents}}" wx:key="id" bindtap="viewStudent" data-id="{{item.id}}">
+        <image class="student-avatar" src="{{item.avatar}}" mode="aspectFill" />
+        <view class="student-info">
+          <view class="student-name">{{item.name}}</view>
+          <view class="student-stats">
+            <text>作业完成：{{item.completedHomework}}/{{item.totalHomework}}</text>
+            <text>·</text>
+            <text>平均分：{{item.avgScore}}</text>
+          </view>
+          <view class="last-active">最近活跃：{{item.lastActive}}</view>
+        </view>
+        <view class="student-actions" catchtap="contactStudent" data-id="{{item.id}}">
+          <view class="action-btn">联系</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

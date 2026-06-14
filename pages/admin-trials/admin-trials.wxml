@@ -1,0 +1,68 @@
+<view class="page-container">
+  <!-- 统计 -->
+  <view class="stats-row">
+    <view class="stat-chip" bindtap="onTabTap" data-status="">
+      <text class="stat-num">{{stats.total}}</text>
+      <text class="stat-label">全部</text>
+    </view>
+    <view class="stat-chip chip-pending" bindtap="onTabTap" data-status="pending">
+      <text class="stat-num">{{stats.pending}}</text>
+      <text class="stat-label">待处理</text>
+    </view>
+    <view class="stat-chip chip-confirmed" bindtap="onTabTap" data-status="confirmed">
+      <text class="stat-num">{{stats.confirmed}}</text>
+      <text class="stat-label">已确认</text>
+    </view>
+    <view class="stat-chip chip-trial" bindtap="onTabTap" data-status="trial">
+      <text class="stat-num">{{stats.trial}}</text>
+      <text class="stat-label">已试听</text>
+    </view>
+    <view class="stat-chip chip-enrolled" bindtap="onTabTap" data-status="enrolled">
+      <text class="stat-num">{{stats.enrolled}}</text>
+      <text class="stat-label">已报名</text>
+    </view>
+  </view>
+
+  <!-- Tab 筛选 -->
+  <view class="tabs">
+    <view class="tab {{filterStatus === item.key ? 'tab-active' : ''}}" wx:for="{{statusTabs}}" wx:key="key" bindtap="onTabTap" data-status="{{item.key}}">
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="list" wx:if="{{registrations.length > 0}}">
+    <view class="trial-card" wx:for="{{registrations}}" wx:key="id">
+      <view class="trial-header">
+        <view class="trial-student">
+          <text class="student-name">{{item.student_name}}</text>
+          <view class="status-tag tag-{{item.status}}">{{item.status === 'pending' ? '待处理' : item.status === 'confirmed' ? '已确认' : item.status === 'trial' ? '已试听' : '已报名'}}</view>
+        </view>
+        <text class="trial-date">{{item.created_at}}</text>
+      </view>
+      <view class="trial-body">
+        <view class="trial-info-row" wx:if="{{item.parent_name}}">
+          <text class="info-label">家长</text>
+          <text class="info-value">{{item.parent_name}}</text>
+        </view>
+        <view class="trial-info-row" wx:if="{{item.parent_phone}}">
+          <text class="info-label">电话</text>
+          <text class="info-value phone-link" bindtap="callPhone" data-phone="{{item.parent_phone}}">{{item.parent_phone}}</text>
+        </view>
+        <view class="trial-info-row" wx:if="{{item.subject}}">
+          <text class="info-label">科目</text>
+          <text class="info-value">{{item.subject}}</text>
+        </view>
+      </view>
+      <view class="trial-footer">
+        <view class="action-btn btn-update" bindtap="updateStatus" data-id="{{item.id}}" data-status="{{item.status}}">更新状态</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{registrations.length === 0 && !loading}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无试学预约</text>
+  </view>
+</view>

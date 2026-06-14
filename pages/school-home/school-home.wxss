@@ -1,0 +1,746 @@
+.page-container {
+  min-height: 100vh;
+  background: var(--bg);
+  padding-bottom: 160rpx;
+}
+
+/* 顶部品牌区域 */
+.brand-header {
+  background: linear-gradient(135deg, #00cccc 0%, #0099cc 100%);
+  padding: 32rpx 24rpx 24rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-header::before {
+  content: '';
+  position: absolute;
+  top: -100rpx;
+  right: -100rpx;
+  width: 300rpx;
+  height: 300rpx;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.brand-header-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  background: rgba(255,255,255,0.95);
+  border-radius: 24rpx;
+  padding: 24rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.1);
+}
+
+.brand-logo-wrapper {
+  flex-shrink: 0;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
+}
+
+.brand-logo {
+  width: 100%;
+  height: 100%;
+}
+
+.brand-logo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #00cccc 0%, #0099cc 100%);
+}
+
+.brand-logo-text {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.brand-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.brand-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 8rpx;
+}
+
+.brand-name {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+.verify-badge {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  background: linear-gradient(135deg, #52c41a 0%, #389e0d 100%);
+  padding: 4rpx 10rpx;
+  border-radius: 20rpx;
+  flex-shrink: 0;
+}
+
+.verify-icon {
+  font-size: 18rpx;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.verify-text {
+  font-size: 18rpx;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.brand-slogan {
+  font-size: 24rpx;
+  color: #666666;
+  line-height: 1.4;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.brand-meta {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.meta-icon {
+  font-size: 20rpx;
+}
+
+.meta-text {
+  font-size: 22rpx;
+  color: #999999;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.brand-arrow {
+  font-size: 40rpx;
+  color: #cccccc;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+/* 快捷操作区 */
+.quick-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 24rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.quick-action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rpx;
+  padding: 20rpx 12rpx;
+  background: rgba(255,255,255,0.95);
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+}
+
+.quick-action-item:active {
+  transform: scale(0.96);
+  background: rgba(255,255,255,0.85);
+}
+
+.quick-action-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+}
+
+.action-icon-emoji {
+  font-size: 36rpx;
+}
+
+.quick-action-text {
+  font-size: 22rpx;
+  color: #333333;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Banner */
+.banner {
+  position: relative;
+  height: 320rpx;
+  overflow: hidden;
+  margin: 24rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.08);
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+}
+
+.banner-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-placeholder-text {
+  font-size: 64rpx;
+  opacity: 0.4;
+}
+
+.banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24rpx;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+}
+
+.banner-slogan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-slogan-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 2rpx 8rpx rgba(0,0,0,0.3);
+}
+
+.school-brand {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.logo-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.logo-image {
+  width: 76rpx;
+  height: 76rpx;
+  flex-shrink: 0;
+}
+
+.logo-letter {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.04em;
+}
+
+.school-title-group {
+  flex: 1;
+}
+
+.school-name {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  margin-bottom: 4rpx;
+}
+
+.school-slogan {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 简介 */
+.intro-card {
+  margin: 24rpx;
+  padding: 28rpx;
+}
+
+.intro-text {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* 特色标签 */
+.features-section {
+  padding: 0 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12rpx;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 20rpx 12rpx;
+  margin-bottom: 0;
+}
+
+.feature-icon text {
+  font-size: 28rpx;
+}
+
+.feature-text {
+  font-size: 22rpx;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* 精选课程 */
+.courses-section {
+  padding: 0 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.course-card {
+  padding: 24rpx;
+  margin-bottom: 0;
+}
+
+.course-top {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.course-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.course-desc {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 16rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.course-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.course-info-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.course-info {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+.course-price {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.course-price.free {
+  color: var(--success);
+}
+
+/* 优秀作品 */
+.portfolio-section {
+  padding: 0 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.portfolio-scroll {
+  display: flex;
+  gap: 16rpx;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8rpx;
+}
+
+.portfolio-item {
+  flex-shrink: 0;
+  width: 280rpx;
+  padding: 16rpx;
+  margin-bottom: 0;
+}
+
+.portfolio-thumb {
+  width: 248rpx;
+  height: 200rpx;
+  border-radius: var(--radius-md);
+  margin-bottom: 12rpx;
+}
+
+.portfolio-thumb-placeholder {
+  width: 248rpx;
+  height: 200rpx;
+  border-radius: var(--radius-md);
+  background: var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56rpx;
+  margin-bottom: 12rpx;
+}
+
+.portfolio-info {
+  padding: 0 4rpx;
+}
+
+.portfolio-title {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.portfolio-author {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+/* 家长评价 */
+.reviews-section {
+  padding: 0 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.review-card {
+  padding: 24rpx;
+  margin-bottom: 0;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.reviewer-info {
+  flex: 1;
+}
+
+.reviewer-name {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4rpx;
+}
+
+.review-stars {
+  display: flex;
+  gap: 4rpx;
+}
+
+.star {
+  font-size: 22rpx;
+  color: #F59E0B;
+}
+
+.review-text {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-date {
+  display: block;
+  font-size: 22rpx;
+  color: var(--text-muted);
+  margin-top: 12rpx;
+}
+
+/* 机构信息 */
+.info-section {
+  padding: 0 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.info-card {
+  padding: 0;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-icon {
+  font-size: 32rpx;
+}
+
+.info-text {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+/* 底部栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  padding: 12rpx 24rpx;
+  padding-bottom: calc(12rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+  z-index: 100;
+}
+
+.bottom-bar-inner {
+  display: flex;
+  gap: 12rpx;
+  align-items: center;
+}
+
+.bottom-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rpx;
+  padding: 8rpx 16rpx;
+}
+
+.bottom-action-label {
+  font-size: 20rpx;
+  color: #475569;
+  font-weight: 500;
+}
+
+.action-icon-img {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.enroll-btn {
+  flex: 1;
+  line-height: 80rpx;
+  padding: 0;
+  font-size: 30rpx;
+  border-radius: 20rpx;
+  background: #4F46E5;
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.2), 0 4px 12px -4px rgba(79, 70, 229, 0.1);
+  text-align: center;
+  border: none;
+}
+
+.enroll-btn:active {
+  background: #4338CA;
+  transform: scale(0.97);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-share {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12rpx 24rpx;
+  gap: 4rpx;
+}
+
+.share-icon {
+  font-size: 36rpx;
+  color: #4F46E5;
+  font-weight: 700;
+}
+
+.share-label {
+  font-size: 20rpx;
+  color: #94A3B8;
+}
+
+/* 预约弹窗 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  animation: fadeIn 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-content {
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 32rpx;
+  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.modal-close {
+  font-size: 36rpx;
+  color: #94A3B8;
+  padding: 8rpx;
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 24rpx;
+}
+
+.form-group {
+  margin-bottom: 20rpx;
+}
+
+.modal-footer {
+  flex-shrink: 0;
+  padding-top: 16rpx;
+}
+
+.submit-btn {
+  background: #4F46E5;
+  color: #FFFFFF;
+  line-height: 88rpx;
+  padding: 0;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 20rpx;
+  box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.2), 0 4px 12px -4px rgba(79, 70, 229, 0.1);
+  text-align: center;
+  border: none;
+}
+
+.submit-btn:active {
+  background: #4338CA;
+  transform: scale(0.97);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* 弹窗内输入框样式增强 */
+.modal-content .input-wrapper {
+  background: #F8FAFC;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  border: 2rpx solid #E2E8F0;
+  min-height: 88rpx;
+  box-sizing: border-box;
+}
+
+.modal-content .input-wrapper:focus-within {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 4rpx rgba(79, 70, 229, 0.08);
+}
+
+.modal-content picker {
+  width: 100%;
+}
+
+.modal-content picker .form-input {
+  display: block;
+  min-height: 48rpx;
+  line-height: 48rpx;
+}
+
+.modal-content picker .placeholder {
+  color: #CBD5E1;
+}
+
+.placeholder {
+  color: #CBD5E1;
+}

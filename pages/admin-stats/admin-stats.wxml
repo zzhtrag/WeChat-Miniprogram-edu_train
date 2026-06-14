@@ -1,0 +1,298 @@
+<!--pages/admin-stats/admin-stats.wxml-->
+<view class="container">
+  <!-- 标签导航 -->
+  <view class="tab-nav">
+    <view
+      class="tab-item {{activeTab === 'overview' ? 'active' : ''}}"
+      data-tab="overview"
+      bindtap="onTabChange"
+    >概览</view>
+    <view
+      class="tab-item {{activeTab === 'trend' ? 'active' : ''}}"
+      data-tab="trend"
+      bindtap="onTabChange"
+    >趋势</view>
+    <view
+      class="tab-item {{activeTab === 'distribution' ? 'active' : ''}}"
+      data-tab="distribution"
+      bindtap="onTabChange"
+    >分布</view>
+    <view
+      class="tab-item {{activeTab === 'attendance' ? 'active' : ''}}"
+      data-tab="attendance"
+      bindtap="onTabChange"
+    >考勤</view>
+  </view>
+
+  <!-- 概览页面 -->
+  <view wx:if="{{activeTab === 'overview'}}" class="tab-content">
+    <!-- 核心数据卡片 -->
+    <view class="section">
+      <view class="section-title">核心数据</view>
+      <view class="stats-grid">
+        <view class="stat-card" bindtap="goToTeachers">
+          <view class="stat-icon teachers">👨‍🏫</view>
+          <view class="stat-value">{{overview.teachers}}</view>
+          <view class="stat-label">教师总数</view>
+          <view class="stat-sub">本月+{{overview.monthNewTeachers}}</view>
+        </view>
+        <view class="stat-card" bindtap="goToStudents">
+          <view class="stat-icon students">👨‍🎓</view>
+          <view class="stat-value">{{overview.students}}</view>
+          <view class="stat-label">学员总数</view>
+          <view class="stat-sub">本月+{{overview.monthNewStudents}}</view>
+        </view>
+        <view class="stat-card" bindtap="goToClasses">
+          <view class="stat-icon classes">📚</view>
+          <view class="stat-value">{{overview.classes}}</view>
+          <view class="stat-label">班级总数</view>
+          <view class="stat-sub">在读{{overview.activeClasses}}</view>
+        </view>
+        <view class="stat-card" bindtap="goToCourses">
+          <view class="stat-icon courses">📖</view>
+          <view class="stat-value">{{overview.courses}}</view>
+          <view class="stat-label">课程总数</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 业务数据 -->
+    <view class="section">
+      <view class="section-title">业务数据</view>
+      <view class="stats-row">
+        <view class="stat-item">
+          <view class="stat-num">{{overview.parents}}</view>
+          <view class="stat-text">已绑定家长</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-num">{{overview.assignments}}</view>
+          <view class="stat-text">作业布置</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-num">{{overview.students}}</view>
+          <view class="stat-text">出勤人次</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 班级容量 -->
+    <view class="section">
+      <view class="section-title">班级容量</view>
+      <view class="capacity-list">
+        <view
+          wx:for="{{classDistribution}}"
+          wx:key="id"
+          class="capacity-item"
+          bindtap="goToClasses"
+        >
+          <view class="capacity-info">
+            <text class="capacity-name">{{item.name}}</text>
+            <text class="capacity-num">{{item.current}}/{{item.capacity}}人</text>
+          </view>
+          <view class="capacity-bar">
+            <view
+              class="capacity-fill {{item.percentage > 80 ? 'warning' : ''}}"
+              style="width: {{item.percentage}}%"
+            ></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 趋势页面 -->
+  <view wx:if="{{activeTab === 'trend'}}" class="tab-content">
+    <view class="section">
+      <view class="section-title">近6个月增长趋势</view>
+
+      <!-- 学员增长 -->
+      <view class="trend-card">
+        <view class="trend-header">
+          <text class="trend-title">学员增长</text>
+          <text class="trend-current">{{trend.students[trend.students.length - 1]}}人</text>
+        </view>
+        <view class="trend-chart">
+          <view class="bar-group">
+            <view
+              wx:for="{{trend.students}}"
+              wx:for-item="val"
+              wx:for-index="i"
+              wx:key="i"
+              class="bar-wrapper"
+            >
+              <view
+                class="bar bar-students"
+                style="height: {{val * 3}}rpx"
+              ></view>
+              <text class="bar-label">M{{i + 1}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 教师增长 -->
+      <view class="trend-card">
+        <view class="trend-header">
+          <text class="trend-title">教师增长</text>
+          <text class="trend-current">{{trend.teachers[trend.teachers.length - 1]}}人</text>
+        </view>
+        <view class="trend-chart">
+          <view class="bar-group">
+            <view
+              wx:for="{{trend.teachers}}"
+              wx:for-item="val"
+              wx:for-index="i"
+              wx:key="i"
+              class="bar-wrapper"
+            >
+              <view
+                class="bar bar-teachers"
+                style="height: {{val * 30}}rpx"
+              ></view>
+              <text class="bar-label">M{{i + 1}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 班级增长 -->
+      <view class="trend-card">
+        <view class="trend-header">
+          <text class="trend-title">班级增长</text>
+          <text class="trend-current">{{trend.classes[trend.classes.length - 1]}}个</text>
+        </view>
+        <view class="trend-chart">
+          <view class="bar-group">
+            <view
+              wx:for="{{trend.classes}}"
+              wx:for-item="val"
+              wx:for-index="i"
+              wx:key="i"
+              class="bar-wrapper"
+            >
+              <view
+                class="bar bar-classes"
+                style="height: {{val * 60}}rpx"
+              ></view>
+              <text class="bar-label">M{{i + 1}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分布页面 -->
+  <view wx:if="{{activeTab === 'distribution'}}" class="tab-content">
+    <!-- 科目分布 -->
+    <view class="section">
+      <view class="section-title">科目分布</view>
+      <view class="distribution-list">
+        <view
+          wx:for="{{subjectStats}}"
+          wx:key="name"
+          class="distribution-item"
+        >
+          <view class="dist-header">
+            <text class="dist-name">{{item.name}}</text>
+            <text class="dist-value">{{item.classes}}班 / {{item.students}}人</text>
+          </view>
+          <view class="dist-bar">
+            <view
+              class="dist-fill"
+              style="width: {{item.students / overview.students * 100}}%"
+            ></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 年级分布 -->
+    <view class="section">
+      <view class="section-title">年级分布</view>
+      <view class="grade-grid">
+        <view
+          wx:for="{{gradeStats}}"
+          wx:key="name"
+          class="grade-card"
+        >
+          <view class="grade-name">{{item.name}}</view>
+          <view class="grade-count">{{item.count}}</view>
+          <view class="grade-label">学员</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 教师带班统计 -->
+    <view class="section">
+      <view class="section-title">教师带班统计</view>
+      <view class="teacher-list">
+        <view
+          wx:for="{{teacherClassStats}}"
+          wx:key="id"
+          class="teacher-item"
+          bindtap="goToTeachers"
+        >
+          <view class="teacher-info">
+            <text class="teacher-name">{{item.name}}</text>
+            <text class="teacher-meta">{{item.classCount}}个班级 / {{item.studentCount}}名学员</text>
+          </view>
+          <view class="teacher-arrow">›</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 考勤页面 -->
+  <view wx:if="{{activeTab === 'attendance'}}" class="tab-content">
+    <view class="section">
+      <view class="section-title">考勤概览</view>
+      <view class="attendance-overview">
+        <view class="attendance-ring">
+          <view class="ring-circle">
+            <text class="ring-value">{{overview.students}}</text>
+            <text class="ring-label">应到</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="attendance-cards">
+        <view class="attendance-card normal">
+          <view class="card-icon">✓</view>
+          <view class="card-num">{{attendanceStats.normal || overview.students}}</view>
+          <view class="card-label">正常出勤</view>
+          <view class="card-percent">{{overview.students > 0 ? Math.round((attendanceStats.normal || overview.students) / overview.students * 100) : 100}}%</view>
+        </view>
+        <view class="attendance-card late">
+          <view class="card-icon">⏰</view>
+          <view class="card-num">{{attendanceStats.late}}</view>
+          <view class="card-label">迟到</view>
+          <view class="card-percent">{{overview.students > 0 ? Math.round(attendanceStats.late / overview.students * 100) : 0}}%</view>
+        </view>
+        <view class="attendance-card absent">
+          <view class="card-icon">✗</view>
+          <view class="card-num">{{attendanceStats.absent}}</view>
+          <view class="card-label">缺勤</view>
+          <view class="card-percent">{{overview.students > 0 ? Math.round(attendanceStats.absent / overview.students * 100) : 0}}%</view>
+        </view>
+        <view class="attendance-card leave">
+          <view class="card-icon">✈</view>
+          <view class="card-num">{{attendanceStats.leave}}</view>
+          <view class="card-label">请假</view>
+          <view class="card-percent">{{overview.students > 0 ? Math.round(attendanceStats.leave / overview.students * 100) : 0}}%</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 考勤提示 -->
+    <view class="section">
+      <view class="tips-card">
+        <view class="tips-icon">💡</view>
+        <view class="tips-content">
+          <text class="tips-title">考勤说明</text>
+          <text class="tips-text">考勤数据每日更新，请及时关注学员出勤情况。如有异常，请联系家长确认。</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

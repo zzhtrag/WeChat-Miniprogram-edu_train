@@ -1,0 +1,437 @@
+.page-container {
+  min-height: 100vh;
+  background: var(--bg);
+  padding-bottom: 200rpx;
+}
+
+/* 期间切换 */
+.period-tabs {
+  display: flex;
+  padding: 16rpx 24rpx;
+  gap: 16rpx;
+  background: var(--surface);
+  margin-bottom: 8rpx;
+}
+
+.period-tab {
+  padding: 14rpx 36rpx;
+  border-radius: var(--radius-pill);
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--border-light);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.period-tab.active {
+  background: var(--primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-primary);
+}
+
+/* 加载态 */
+.loading-container {
+  padding: 24rpx;
+}
+
+.skeleton-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 32rpx;
+}
+
+.skeleton-title {
+  height: 40rpx;
+  width: 50%;
+  margin-bottom: 24rpx;
+}
+
+.skeleton-line {
+  height: 28rpx;
+  width: 100%;
+  margin-bottom: 16rpx;
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+
+/* 报告头部 */
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 24rpx;
+}
+
+.report-badge {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.badge-icon {
+  font-size: 32rpx;
+}
+
+.badge-text {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.report-date {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+/* 学生信息卡 */
+.student-card {
+  margin: 0 24rpx 16rpx;
+}
+
+.student-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.student-detail {
+  flex: 1;
+}
+
+.student-name {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.student-class {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.encouragement {
+  margin-top: 20rpx;
+  padding: 16rpx 20rpx;
+  background: var(--primary-soft);
+  border-radius: var(--radius-md);
+  border-left: 6rpx solid var(--primary);
+}
+
+.encouragement-text {
+  font-size: 26rpx;
+  color: var(--primary);
+  line-height: 1.6;
+}
+
+/* 数据概览网格 */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+  padding: 0 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 0;
+}
+
+.stat-icon-text {
+  font-size: 32rpx;
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-value {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+.stat-trend {
+  font-size: 22rpx;
+  font-weight: 600;
+  padding: 4rpx 12rpx;
+  border-radius: var(--radius-pill);
+}
+
+.stat-trend.up {
+  color: var(--success);
+  background: var(--success-soft);
+}
+
+.stat-trend.down {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+/* 趋势图 */
+.section {
+  padding: 0 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.trend-card {
+  padding: 24rpx 16rpx;
+}
+
+.trend-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 280rpx;
+  padding-top: 16rpx;
+}
+
+.trend-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  flex: 1;
+}
+
+.trend-bar-track {
+  width: 48rpx;
+  height: 200rpx;
+  background: var(--border-light);
+  border-radius: 24rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.trend-bar-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 24rpx;
+  transition: height 600ms var(--ease-out);
+  min-height: 8rpx;
+}
+
+.trend-bar-label {
+  font-size: 20rpx;
+  color: var(--text-muted);
+}
+
+.trend-bar-value {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* 优秀作品 */
+.portfolio-scroll {
+  display: flex;
+  gap: 16rpx;
+  overflow-x: auto;
+  padding-bottom: 8rpx;
+  -webkit-overflow-scrolling: touch;
+}
+
+.portfolio-item {
+  flex-shrink: 0;
+  width: 240rpx;
+  padding: 16rpx;
+  margin-bottom: 0;
+}
+
+.portfolio-thumb {
+  width: 208rpx;
+  height: 160rpx;
+  border-radius: var(--radius-md);
+  margin-bottom: 12rpx;
+}
+
+.portfolio-thumb-placeholder {
+  width: 208rpx;
+  height: 160rpx;
+  border-radius: var(--radius-md);
+  background: var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  margin-bottom: 12rpx;
+}
+
+.portfolio-title {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.portfolio-date {
+  font-size: 20rpx;
+  color: var(--text-muted);
+}
+
+/* 教师评语 */
+.comment-card {
+  position: relative;
+  padding: 32rpx;
+}
+
+.comment-quote {
+  font-size: 72rpx;
+  color: var(--primary-light);
+  line-height: 1;
+  position: absolute;
+  top: 12rpx;
+  left: 20rpx;
+  opacity: 0.3;
+}
+
+.comment-quote.end {
+  top: auto;
+  left: auto;
+  bottom: 24rpx;
+  right: 20rpx;
+}
+
+.comment-text {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  line-height: 1.8;
+  padding: 0 16rpx;
+}
+
+.teacher-name {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* 分享操作区 */
+.share-section {
+  padding: 0 24rpx;
+  margin-top: 16rpx;
+}
+
+.share-card-preview {
+  background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+  color: #FFFFFF;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.preview-logo-icon {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 12rpx;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.preview-logo-image {
+  width: 38rpx;
+  height: 38rpx;
+  flex-shrink: 0;
+}
+
+.preview-logo-letter {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.preview-school {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.preview-student {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-bottom: 20rpx;
+}
+
+.preview-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.preview-stat {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.preview-stat-icon {
+  font-size: 24rpx;
+}
+
+.preview-footer {
+  margin-top: 24rpx;
+  padding-top: 16rpx;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.preview-cta {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.share-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.share-btn {
+  flex: 1;
+  line-height: 80rpx;
+  padding: 0;
+  font-size: 30rpx;
+}
+
+.save-card-btn {
+  flex: 1;
+  text-align: center;
+  line-height: 80rpx;
+}

@@ -1,0 +1,186 @@
+.page-container {
+  min-height: 100vh;
+  background: #F8FAFC;
+  padding: 24rpx;
+  padding-bottom: 240rpx;
+}
+
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 16rpx;
+  padding-left: 4rpx;
+}
+
+.form-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 8rpx 24rpx;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.form-group {
+  padding: 20rpx 0;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.form-group:last-child {
+  border-bottom: none;
+}
+
+.form-label {
+  font-size: 24rpx;
+  color: #64748B;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.form-input {
+  font-size: 28rpx;
+  color: #0F172A;
+  width: 100%;
+}
+
+.form-textarea {
+  font-size: 28rpx;
+  color: #0F172A;
+  width: 100%;
+  min-height: 160rpx;
+}
+
+/* Images */
+.image-row {
+  display: flex;
+  gap: 16rpx;
+}
+
+.image-item {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 2rpx dashed #CBD5E1;
+}
+
+.image-item-wide {
+  flex: 1;
+  height: 200rpx;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+}
+
+.upload-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+}
+
+.upload-icon {
+  font-size: 48rpx;
+  color: #CBD5E1;
+}
+
+.upload-text {
+  font-size: 22rpx;
+  color: #94A3B8;
+}
+
+/* Features */
+.feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  padding: 16rpx 0;
+}
+
+.feature-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 8rpx 20rpx;
+  background: rgba(79, 70, 229, 0.08);
+  color: #4F46E5;
+  border-radius: 999rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.feature-remove {
+  font-size: 22rpx;
+  color: #94A3B8;
+  padding: 0 4rpx;
+}
+
+.feature-input-row {
+  display: flex;
+  gap: 12rpx;
+  align-items: center;
+  padding: 16rpx 0 8rpx;
+}
+
+.feature-input {
+  flex: 1;
+}
+
+.btn-add {
+  padding: 12rpx 28rpx;
+  background: rgba(79, 70, 229, 0.1);
+  color: #4F46E5;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Save */
+.save-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16rpx 24rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  background: #FFFFFF;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+  z-index: 100;
+}
+
+.save-btn {
+  background: #4F46E5;
+  color: #FFFFFF;
+  line-height: 84rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 16rpx;
+  box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.2), 0 4px 12px -4px rgba(79, 70, 229, 0.1);
+  text-align: center;
+  border: none;
+  padding: 0;
+}
+
+.save-btn:active {
+  background: #4338CA;
+  transform: scale(0.97);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.save-btn[disabled] {
+  background: #CBD5E1;
+  color: #FFFFFF;
+  box-shadow: none;
+}

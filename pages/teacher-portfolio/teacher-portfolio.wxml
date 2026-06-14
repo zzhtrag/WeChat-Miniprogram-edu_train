@@ -1,0 +1,111 @@
+<view class="page-container">
+  <!-- 班级选择 -->
+  <view class="class-selector">
+    <picker range="{{classes}}" range-key="name" value="{{selectedClassIndex}}" bindchange="selectClass">
+      <view class="class-picker">
+        <text class="class-name">{{selectedClassName || '选择班级'}}</text>
+        <text class="picker-arrow">▾</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 统计 -->
+  <view class="stats-row" wx:if="{{stats.total_items}}">
+    <view class="stat-chip">
+      <text class="stat-num">{{stats.total_items}}</text>
+      <text class="stat-text">份作品</text>
+    </view>
+    <view class="stat-chip excellent">
+      <text class="stat-num">{{stats.excellent_count}}</text>
+      <text class="stat-text">优秀</text>
+    </view>
+    <view class="stat-chip featured">
+      <text class="stat-num">{{stats.featured_count}}</text>
+      <text class="stat-text">精选</text>
+    </view>
+  </view>
+
+  <!-- 视图切换 -->
+  <view class="view-tabs">
+    <view class="view-tab {{viewMode === 'student' ? 'active' : ''}}" bindtap="switchView" data-mode="student">按学生</view>
+    <view class="view-tab {{viewMode === 'timeline' ? 'active' : ''}}" bindtap="switchView" data-mode="timeline">按时间</view>
+  </view>
+
+  <!-- 按学生视图 -->
+  <view wx:if="{{viewMode === 'student'}}">
+    <view class="student-list" wx:if="{{studentGroups.length > 0}}">
+      <view class="student-group" wx:for="{{studentGroups}}" wx:key="student_id">
+        <view class="student-header" bindtap="toggleStudentExpand" data-id="{{item.student_id}}">
+          <image class="student-avatar" src="{{item.student_avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+          <view class="student-summary">
+            <text class="student-name">{{item.student_name}}</text>
+            <view class="student-stats">
+              <text class="s-stat">{{item.count}} 份作品</text>
+              <text class="s-stat excellent" wx:if="{{item.excellent_count > 0}}">{{item.excellent_count}} 优秀</text>
+            </view>
+          </view>
+          <text class="expand-arrow {{expandedStudent === item.student_id ? 'expanded' : ''}}">›</text>
+        </view>
+
+        <view class="student-portfolio" wx:if="{{expandedStudent === item.student_id}}">
+          <view class="portfolio-grid">
+            <view class="portfolio-thumb" wx:for="{{item.items}}" wx:for-item="work" wx:key="id" bindtap="goToDetail" data-id="{{work.id}}">
+              <image class="thumb-img" src="{{work.thumbnail || work.file_url}}" mode="aspectFill" wx:if="{{work.thumbnail || work.file_url}}" />
+              <view class="thumb-placeholder" wx:else>
+                <text class="thumb-icon">📄</text>
+              </view>
+              <view class="thumb-badges">
+                <view class="badge excellent" wx:if="{{work.is_excellent}}">优</view>
+                <view class="badge featured" wx:if="{{work.is_featured}}">精</view>
+              </view>
+              <text class="thumb-title">{{work.title}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:else>
+      <view class="empty-icon">🎨</view>
+      <text class="empty-title">暂无作品</text>
+      <text class="empty-desc">点击右下角按钮添加学生作品</text>
+    </view>
+  </view>
+
+  <!-- 按时间视图 -->
+  <view wx:if="{{viewMode === 'timeline'}}">
+    <view class="timeline" wx:if="{{timelineGroups.length > 0}}">
+      <view class="timeline-group" wx:for="{{timelineGroups}}" wx:key="month">
+        <text class="timeline-month">{{item.month}}</text>
+        <view class="timeline-items">
+          <view class="timeline-item interactive-item interactive-teacher" wx:for="{{item.items}}" wx:for-item="work" wx:key="id" bindtap="goToDetail" data-id="{{work.id}}">
+            <view class="timeline-dot"></view>
+            <view class="timeline-card">
+              <image class="card-thumb" src="{{work.thumbnail || work.file_url}}" mode="aspectFill" wx:if="{{work.thumbnail || work.file_url}}" />
+              <view class="card-content">
+                <text class="card-title">{{work.title}}</text>
+                <text class="card-meta">{{work.student_name}} · {{work.category_label}}</text>
+                <view class="card-badges">
+                  <view class="badge excellent" wx:if="{{work.is_excellent}}">优秀</view>
+                  <view class="badge featured" wx:if="{{work.is_featured}}">精选</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:else>
+      <view class="empty-icon">📅</view>
+      <text class="empty-title">暂无作品</text>
+    </view>
+  </view>
+
+  <!-- 浮动操作按钮 -->
+  <view class="fab-container">
+    <view class="fab-btn" bindtap="goToAdd">
+      <text class="fab-icon">+</text>
+    </view>
+  </view>
+</view>

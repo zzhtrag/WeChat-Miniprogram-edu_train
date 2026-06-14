@@ -1,0 +1,98 @@
+<view class="container">
+  <!-- Loading -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- Empty -->
+  <view class="empty-state" wx:if="{{!loading && !assignment}}">
+    <view class="empty-state-icon icon-box icon-box-primary">
+      <image class="icon-image-lg" src="/svg/icon-homework.svg" mode="aspectFit"/>
+    </view>
+    <text class="empty-state-title">作业不存在</text>
+    <text class="empty-state-text">请返回重试</text>
+  </view>
+
+  <!-- Submit Form -->
+  <view class="detail-content" wx:if="{{!loading && assignment}}">
+    <!-- Homework Info Card -->
+    <view class="info-card stagger-1">
+      <view class="info-card-header">
+        <view class="info-card-icon icon-box icon-box-primary">
+          <image class="icon-image" src="/svg/icon-homework.svg" mode="aspectFit"/>
+        </view>
+        <view class="info-card-text">
+          <text class="info-card-title">{{assignment.title}}</text>
+          <view class="info-card-meta">
+            <text class="info-card-course" wx:if="{{course}}">{{course.name}}</text>
+            <text class="info-card-teacher" wx:if="{{teacher}}">{{teacher.name}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="info-card-row">
+        <text class="info-card-icon-text">📅</text>
+        <text class="info-card-label">截止时间</text>
+        <text class="info-card-value">{{deadlineText}}</text>
+      </view>
+      <view class="info-card-desc" wx:if="{{assignment.content}}">
+        <text class="info-card-desc-label">作业要求</text>
+        <text class="info-card-desc-content">{{assignment.content}}</text>
+      </view>
+    </view>
+
+    <!-- Content Input -->
+    <view class="section-card stagger-2">
+      <view class="section-header">
+        <view class="section-icon icon-box-sm icon-box-primary">
+          <text class="section-icon-emoji">✏️</text>
+        </view>
+        <text class="section-title">作业内容</text>
+      </view>
+      <textarea
+        class="content-input"
+        placeholder="请输入作业内容或答案..."
+        value="{{content}}"
+        bindinput="onContentInput"
+        maxlength="2000"
+        auto-height
+      ></textarea>
+      <view class="input-counter">
+        <text class="counter-text">{{content.length}}/2000</text>
+      </view>
+    </view>
+
+    <!-- Image Upload -->
+    <view class="section-card stagger-3">
+      <view class="section-header">
+        <view class="section-icon icon-box-sm icon-box-warning">
+          <text class="section-icon-emoji">🖼️</text>
+        </view>
+        <text class="section-title">图片附件</text>
+        <text class="section-subtitle">（最多{{maxImages}}张）</text>
+      </view>
+      <view class="image-upload-area">
+        <view class="image-grid">
+          <!-- Uploaded images -->
+          <view class="image-item" wx:for="{{imageList}}" wx:key="*this">
+            <image class="upload-image" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-url="{{item}}" />
+            <view class="image-remove" catchtap="removeImage" data-index="{{index}}">
+              <text class="remove-icon">×</text>
+            </view>
+          </view>
+          <!-- Add button -->
+          <view class="image-add" bindtap="chooseImage" wx:if="{{imageList.length < maxImages}}">
+            <text class="add-icon">+</text>
+            <text class="add-text">添加图片</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Submit Button -->
+    <view class="bottom-action stagger-4">
+      <button class="btn-primary btn-submit-action" bindtap="submit" disabled="{{submitting}}">
+        {{submitting ? '提交中...' : '提交作业'}}
+      </button>
+    </view>
+  </view>
+</view>

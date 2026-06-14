@@ -1,0 +1,45 @@
+<view class="page-container">
+  <view class="form-section stagger-1">
+    <view class="form-group">
+      <text class="form-label required">课程名称</text>
+      <input class="form-input" value="{{formData.name}}" bindinput="onNameInput" placeholder="请输入课程名称" placeholder-class="form-placeholder" />
+    </view>
+
+    <view class="form-group">
+      <text class="form-label required">科目</text>
+      <picker range="{{subjectOptions}}" value="{{subjectIndex}}" bindchange="onSubjectChange">
+        <view class="form-picker">
+          <text class="picker-text {{formData.subject ? '' : 'placeholder'}}">{{formData.subject || '请选择科目'}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">教材</text>
+      <input class="form-input" value="{{formData.textbook}}" bindinput="onTextbookInput" placeholder="请输入教材名称" placeholder-class="form-placeholder" />
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">班级容量</text>
+      <input class="form-input" type="number" value="{{formData.capacity}}" bindinput="onCapacityInput" placeholder="请输入班级容量" placeholder-class="form-placeholder" />
+    </view>
+
+    <view class="form-group switch-group">
+      <text class="form-label">开放报名</text>
+      <switch checked="{{formData.is_open}}" bindchange="onOpenChange" color="#7C3AED" />
+    </view>
+
+    <view class="form-group textarea-group">
+      <text class="form-label">课程描述</text>
+      <textarea class="form-textarea" value="{{formData.description}}" bindinput="onDescriptionInput" placeholder="请输入课程描述" placeholder-class="form-placeholder" maxlength="500"></textarea>
+    </view>
+  </view>
+
+  <view class="btn-section stagger-2">
+    <button class="btn-cancel" bindtap="cancel">取消</button>
+    <button class="btn-submit" bindtap="submit" disabled="{{submitting}}" loading="{{submitting}}">
+      {{submitting ? '保存中...' : '保存'}}
+    </button>
+  </view>
+</view>

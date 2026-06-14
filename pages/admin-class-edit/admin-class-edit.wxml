@@ -1,0 +1,154 @@
+<view class="container">
+  <view class="form-card">
+    <view class="form-title">{{isEdit ? '编辑班级' : '新增班级'}}</view>
+
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-title">基本信息</view>
+
+      <view class="form-item">
+        <view class="form-label required">班级名称</view>
+        <input class="form-input" placeholder="请输入班级名称" value="{{formData.name}}" bindinput="onNameInput"/>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label required">课程</view>
+        <view class="form-picker" bindtap="showCourseSelect">
+          <text class="{{formData.course_id ? 'picker-value' : 'picker-placeholder'}}">
+            {{formData.course_name || '请选择课程'}}
+          </text>
+          <text class="picker-arrow">></text>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label required">任课教师</view>
+        <view class="form-picker" bindtap="showTeacherSelect">
+          <text class="{{formData.teacher_id ? 'picker-value' : 'picker-placeholder'}}">
+            {{formData.teacher_name || '请选择任课教师'}}
+          </text>
+          <text class="picker-arrow">></text>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label required">上课地点</view>
+        <input class="form-input" placeholder="如：A101教室" value="{{formData.room}}" bindinput="onRoomInput"/>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label required">班级容量</view>
+        <input class="form-input" type="number" placeholder="请输入班级容量" value="{{formData.capacity}}" bindinput="onCapacityInput"/>
+      </view>
+    </view>
+
+    <!-- 时间安排 -->
+    <view class="form-section">
+      <view class="section-title">时间安排</view>
+
+      <view class="form-item">
+        <view class="form-label required">开课日期</view>
+        <view class="form-picker" bindtap="showDatePickerSelect" data-type="start">
+          <text class="{{formData.start_date ? 'picker-value' : 'picker-placeholder'}}">
+            {{formData.start_date || '请选择开课日期'}}
+          </text>
+          <text class="picker-arrow">></text>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label required">结课日期</view>
+        <view class="form-picker" bindtap="showDatePickerSelect" data-type="end">
+          <text class="{{formData.end_date ? 'picker-value' : 'picker-placeholder'}}">
+            {{formData.end_date || '请选择结课日期'}}
+          </text>
+          <text class="picker-arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 其他信息 -->
+    <view class="form-section">
+      <view class="section-title">其他信息</view>
+
+      <view class="form-item">
+        <view class="form-label">备注</view>
+        <textarea class="form-textarea" placeholder="请输入备注信息" value="{{formData.remarks}}" bindinput="onRemarksInput" maxlength="200"></textarea>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="btn-area">
+    <button class="btn-cancel" bindtap="cancel">取消</button>
+    <button class="btn-submit" bindtap="submitForm" loading="{{submitting}}">
+      {{isEdit ? '保存修改' : '创建班级'}}
+    </button>
+  </view>
+
+  <!-- 课程选择弹窗 -->
+  <view class="picker-modal" wx:if="{{showCoursePicker}}">
+    <view class="picker-mask" bindtap="hideCourseSelect"></view>
+    <view class="picker-content">
+      <view class="picker-header">
+        <text class="picker-title">选择课程</text>
+        <text class="picker-close" bindtap="hideCourseSelect">✕</text>
+      </view>
+      <view class="picker-body">
+        <view
+          class="picker-item {{formData.course_id === item.id ? 'selected' : ''}}"
+          wx:for="{{courses}}"
+          wx:key="id"
+          bindtap="selectCourse"
+          data-id="{{item.id}}"
+        >
+          <view class="item-content">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-meta">{{item.subject}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 教师选择弹窗 -->
+  <view class="picker-modal" wx:if="{{showTeacherPicker}}">
+    <view class="picker-mask" bindtap="hideTeacherSelect"></view>
+    <view class="picker-content">
+      <view class="picker-header">
+        <text class="picker-title">选择任课教师</text>
+        <text class="picker-close" bindtap="hideTeacherSelect">✕</text>
+      </view>
+      <view class="picker-body">
+        <view
+          class="picker-item {{formData.teacher_id === item.id ? 'selected' : ''}}"
+          wx:for="{{teachers}}"
+          wx:key="id"
+          bindtap="selectTeacher"
+          data-id="{{item.id}}"
+        >
+          <view class="item-content">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-meta">{{item.employee_no}} · {{item.subjectsLabel}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日期选择弹窗 -->
+  <view class="picker-modal" wx:if="{{showDatePicker}}">
+    <view class="picker-mask" bindtap="hideDatePicker"></view>
+    <view class="picker-content date-picker">
+      <view class="picker-header">
+        <text class="picker-title">{{datePickerType === 'start' ? '选择开课日期' : '选择结课日期'}}</text>
+        <text class="picker-close" bindtap="hideDatePicker">✕</text>
+      </view>
+      <picker mode="date" value="{{datePickerType === 'start' ? formData.start_date : formData.end_date}}" bindchange="onDateChange">
+        <view class="date-picker-body">
+          <text class="date-text">{{datePickerType === 'start' ? formData.start_date || '请选择日期' : formData.end_date || '请选择日期'}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+</view>

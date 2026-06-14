@@ -1,0 +1,73 @@
+<view class="page-container" wx:if="{{item}}">
+  <!-- 图片区 -->
+  <view class="image-section" bindtap="previewImage" wx:if="{{item.file_url || item.thumbnail}}">
+    <image class="main-image" src="{{item.file_url || item.thumbnail}}" mode="widthFix" />
+    <view class="image-hint">点击查看大图</view>
+  </view>
+
+  <view class="no-image" wx:else>
+    <text class="no-image-icon">📄</text>
+    <text class="no-image-text">{{item.file_name || '无预览'}}</text>
+  </view>
+
+  <!-- 作品信息 -->
+  <view class="info-card">
+    <view class="info-header">
+      <text class="info-title">{{item.title}}</text>
+      <view class="info-badges">
+        <view class="badge featured" wx:if="{{item.is_featured}}">精选</view>
+        <view class="badge excellent" wx:if="{{item.is_excellent}}">优秀</view>
+      </view>
+    </view>
+    <view class="info-meta">
+      <view class="meta-chip" style="background: #ECFDF5; color: #059669;">{{item.category_label}}</view>
+    </view>
+    <text class="info-desc" wx:if="{{item.description}}">{{item.description}}</text>
+  </view>
+
+  <!-- 学生信息 -->
+  <view class="student-card">
+    <image class="student-avatar" src="{{item.student_avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+    <view class="student-info">
+      <text class="student-name">{{item.student_name}}</text>
+      <text class="student-class">{{item.class_name}}</text>
+    </view>
+  </view>
+
+  <!-- 教师点评 -->
+  <view class="comment-card" wx:if="{{item.teacher_comment}}">
+    <text class="card-label">教师点评</text>
+    <text class="comment-text">{{item.teacher_comment}}</text>
+  </view>
+
+  <!-- 标签 -->
+  <view class="tags-card" wx:if="{{item.tags.length > 0}}">
+    <text class="card-label">标签</text>
+    <view class="tags-list">
+      <view class="tag-item" wx:for="{{item.tags}}" wx:key="*this">{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 详情 -->
+  <view class="detail-card">
+    <view class="detail-row">
+      <text class="detail-label">作品日期</text>
+      <text class="detail-value">{{item.work_date}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">录入教师</text>
+      <text class="detail-value">{{item.teacher_name}}</text>
+    </view>
+  </view>
+
+  <!-- 操作栏 -->
+  <view class="action-bar">
+    <view class="action-btn toggle" bindtap="toggleFeatured">
+      {{item.is_featured ? '取消精选' : '设为精选'}}
+    </view>
+    <view class="action-btn toggle excellent" bindtap="toggleExcellent">
+      {{item.is_excellent ? '取消优秀' : '标记优秀'}}
+    </view>
+    <view class="action-btn delete" bindtap="deleteItem">删除</view>
+  </view>
+</view>

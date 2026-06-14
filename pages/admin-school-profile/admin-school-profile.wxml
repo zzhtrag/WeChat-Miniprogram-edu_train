@@ -1,0 +1,84 @@
+<view class="page-container">
+  <!-- Logo & Banner -->
+  <view class="section">
+    <view class="section-title">品牌图片</view>
+    <view class="image-row">
+      <view class="image-item" bindtap="chooseImage" data-field="logo">
+        <image class="preview-img" src="{{form.logo}}" wx:if="{{form.logo}}" mode="aspectFill" />
+        <view class="upload-placeholder" wx:else>
+          <text class="upload-icon">+</text>
+          <text class="upload-text">Logo</text>
+        </view>
+      </view>
+      <view class="image-item image-item-wide" bindtap="chooseImage" data-field="banner">
+        <image class="preview-img" src="{{form.banner}}" wx:if="{{form.banner}}" mode="aspectFill" />
+        <view class="upload-placeholder" wx:else>
+          <text class="upload-icon">+</text>
+          <text class="upload-text">Banner</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="section">
+    <view class="section-title">基本信息</view>
+    <view class="form-card">
+      <view class="form-group">
+        <text class="form-label">学校名称</text>
+        <input class="form-input" placeholder="请输入学校名称" value="{{form.name}}" bindinput="onInput" data-field="name" />
+      </view>
+      <view class="form-group">
+        <text class="form-label">宣传口号</text>
+        <input class="form-input" placeholder="请输入宣传口号" value="{{form.slogan}}" bindinput="onInput" data-field="slogan" />
+      </view>
+      <view class="form-group">
+        <text class="form-label">学校简介</text>
+        <textarea class="form-textarea" placeholder="请输入学校简介" value="{{form.description}}" bindinput="onInput" data-field="description" maxlength="-1" auto-height />
+      </view>
+    </view>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="section">
+    <view class="section-title">联系方式</view>
+    <view class="form-card">
+      <view class="form-group">
+        <text class="form-label">联系电话</text>
+        <input class="form-input" placeholder="请输入联系电话" value="{{form.contact_phone}}" bindinput="onInput" data-field="contact_phone" type="number" />
+      </view>
+      <view class="form-group">
+        <text class="form-label">地址</text>
+        <input class="form-input" placeholder="请输入地址" value="{{form.address}}" bindinput="onInput" data-field="address" />
+      </view>
+      <view class="form-group">
+        <text class="form-label">营业时间</text>
+        <input class="form-input" placeholder="如：周一至周五 14:00-21:00" value="{{form.business_hours}}" bindinput="onInput" data-field="business_hours" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 机构特色 -->
+  <view class="section">
+    <view class="section-title">机构特色</view>
+    <view class="form-card">
+      <view class="feature-list" wx:if="{{form.features.length > 0}}">
+        <view class="feature-tag" wx:for="{{form.features}}" wx:key="index">
+          <text>{{item.text}}</text>
+          <text class="feature-remove" bindtap="removeFeature" data-index="{{index}}">x</text>
+        </view>
+      </view>
+      <view class="feature-input-row">
+        <input class="form-input feature-input" placeholder="输入特色标签" value="{{featureInput}}" bindinput="onFeatureInput" bindconfirm="addFeature" />
+        <view class="btn-add" bindtap="addFeature">添加</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 保存 -->
+  <view class="save-section">
+    <button class="btn-primary save-btn" bindtap="save" disabled="{{loading}}">
+      {{loading ? '保存中...' : '保存'}}
+    </button>
+  </view>
+</view>

@@ -1,0 +1,65 @@
+<view class="page-container">
+  <!-- 学生信息 -->
+  <view class="header" wx:if="{{currentStudent}}">
+    <view class="student-info">
+      <text class="student-name">{{currentStudent.name}}</text>
+      <text class="student-grade">{{currentStudent.grade}}</text>
+    </view>
+    <view class="summary-stats" wx:if="{{summary}}">
+      <view class="s-stat">
+        <text class="s-num">{{summary.total_count}}</text>
+        <text class="s-label">份作品</text>
+      </view>
+      <view class="s-stat excellent">
+        <text class="s-num">{{summary.excellent_count}}</text>
+        <text class="s-label">优秀</text>
+      </view>
+      <view class="s-stat featured">
+        <text class="s-num">{{summary.featured_count}}</text>
+        <text class="s-label">精选</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 筛选 -->
+  <view class="filter-bar">
+    <view class="filter-chip {{showFeaturedOnly ? 'active' : ''}}" bindtap="toggleFeaturedFilter">
+      {{showFeaturedOnly ? '查看全部' : '仅看精选/优秀'}}
+    </view>
+  </view>
+
+  <!-- 时间线 -->
+  <view class="timeline" wx:if="{{timelineGroups.length > 0}}">
+    <view class="timeline-group" wx:for="{{timelineGroups}}" wx:key="month">
+      <text class="timeline-month">{{item.month}}</text>
+      <view class="timeline-items">
+        <view class="timeline-item interactive-item interactive-primary" wx:for="{{item.items}}" wx:for-item="work" wx:key="id" bindtap="goToDetail" data-id="{{work.id}}">
+          <view class="timeline-dot"></view>
+          <view class="timeline-card">
+            <image class="card-thumb" src="{{work.thumbnail || work.file_url}}" mode="aspectFill" wx:if="{{work.thumbnail || work.file_url}}" />
+            <view class="card-thumb-placeholder" wx:else>
+              <text>📄</text>
+            </view>
+            <view class="card-content">
+              <view class="card-title-row">
+                <text class="card-title">{{work.title}}</text>
+                <view class="card-badges">
+                  <text class="badge excellent" wx:if="{{work.is_excellent}}">优秀</text>
+                  <text class="badge featured" wx:if="{{work.is_featured}}">精选</text>
+                </view>
+              </view>
+              <text class="card-meta">{{work.category_label}} · {{work.teacher_name}}老师</text>
+              <text class="card-comment" wx:if="{{work.teacher_comment}}">{{work.teacher_comment}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:elif="{{!loading}}">
+    <view class="empty-icon">🎨</view>
+    <text class="empty-title">{{showFeaturedOnly ? '暂无精选/优秀作品' : '暂无作品'}}</text>
+    <text class="empty-desc">{{showFeaturedOnly ? '试试查看全部作品' : '老师录入作品后将在此展示'}}</text>
+  </view>
+</view>

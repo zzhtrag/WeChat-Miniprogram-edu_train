@@ -1,0 +1,105 @@
+<view class="container">
+  <view class="header-actions">
+    <view class="publish-btn" bindtap="publishHomework">
+      <text class="icon">+</text>
+      <text>发布作业</text>
+    </view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab-item {{activeTab === index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="*this" bindtap="switchTab" data-index="{{index}}">
+      {{item}}
+      <view class="badge" wx:if="{{index === 0 && pendingHomework.length > 0}}">{{pendingHomework.length}}</view>
+    </view>
+  </view>
+
+  <view class="tab-content" wx:if="{{activeTab === 0}}">
+    <view class="section-title">学生提交</view>
+    <view class="submission-list">
+      <view class="submission-card" wx:for="{{studentSubmissions}}" wx:key="id">
+        <view class="submission-header">
+          <image class="student-avatar" src="{{item.studentAvatar}}" mode="aspectFill" />
+          <view class="student-info">
+            <view class="student-name">{{item.studentName}}</view>
+            <view class="homework-title">{{item.homeworkTitle}}</view>
+          </view>
+          <view class="submit-time">{{item.submitTime}}</view>
+        </view>
+        <view class="submission-content" wx:if="{{item.content}}">
+          {{item.content}}
+        </view>
+        <view class="submission-images" wx:if="{{item.images && item.images.length > 0}}">
+          <image class="submission-image" wx:for="{{item.images}}" wx:for-item="img" wx:key="*this" src="{{img}}" mode="aspectFill" />
+        </view>
+        <view class="submission-actions">
+          <view class="action-btn grade" bindtap="openGradeModal" data-submission="{{item}}">去批改</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-title" style="margin-top: 40rpx;">作业概览</view>
+    <view class="homework-list">
+      <view class="homework-card interactive-item interactive-teacher" wx:for="{{pendingHomework}}" wx:key="id" bindtap="viewHomeworkDetail" data-id="{{item.id}}">
+        <view class="homework-info">
+          <view class="homework-title">{{item.title}}</view>
+          <view class="homework-class">{{item.className}} · {{item.course}}</view>
+          <view class="homework-progress">
+            <view class="progress-bar">
+              <view class="progress-fill" style="width: {{(item.submitted / item.total) * 100}}%"></view>
+            </view>
+            <text class="progress-text">{{item.submitted}}/{{item.total}} 已提交</text>
+          </view>
+        </view>
+        <view class="homework-stats">
+          <view class="stat-item">
+            <view class="stat-value pending">{{item.pending}}</view>
+            <view class="stat-label">待批</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="tab-content" wx:if="{{activeTab === 1}}">
+    <view class="empty-state">
+      <view class="empty-icon">📝</view>
+      <view class="empty-text">已发布的作业列表</view>
+    </view>
+  </view>
+
+  <view class="tab-content" wx:if="{{activeTab === 2}}">
+    <view class="empty-state">
+      <view class="empty-icon">⏳</view>
+      <view class="empty-text">批改中的作业</view>
+    </view>
+  </view>
+
+  <view class="modal-mask" wx:if="{{showGradeModal}}" bindtap="closeGradeModal"></view>
+  <view class="grade-modal" wx:if="{{showGradeModal}}">
+    <view class="modal-header">
+      <view class="modal-title">批改作业</view>
+      <view class="modal-close" bindtap="closeGradeModal">✕</view>
+    </view>
+    <view class="modal-content">
+      <view class="student-info-row">
+        <image class="modal-avatar" src="{{currentSubmission.studentAvatar}}" mode="aspectFill" />
+        <view>
+          <view class="modal-student-name">{{currentSubmission.studentName}}</view>
+          <view class="modal-homework-title">{{currentSubmission.homeworkTitle}}</view>
+        </view>
+      </view>
+      <view class="form-item">
+        <view class="form-label">分数</view>
+        <input class="form-input" type="number" placeholder="请输入分数" value="{{gradeScore}}" bindinput="onScoreInput" />
+      </view>
+      <view class="form-item">
+        <view class="form-label">评语</view>
+        <textarea class="form-textarea" placeholder="请输入评语" value="{{gradeComment}}" bindinput="onCommentInput"></textarea>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="modal-btn cancel" bindtap="closeGradeModal">取消</view>
+      <view class="modal-btn confirm" bindtap="submitGrade">确认批改</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,209 @@
+/* My Courses Page - Redesigned with Taste Skill */
+
+.page-container {
+  min-height: 100vh;
+  background-color: #FAFAF9;
+  padding: 24rpx 24rpx 40rpx;
+}
+
+/* No Student */
+.no-student {
+  padding: 120rpx 0;
+}
+
+.no-student-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 64rpx 32rpx;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.no-student-icon {
+  font-size: 64rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.6;
+}
+
+.no-student-text {
+  font-size: 28rpx;
+  color: #71717A;
+  margin-bottom: 32rpx;
+}
+
+.bind-btn {
+  background: #4F46E5;
+  color: #FFFFFF;
+  padding: 24rpx 48rpx;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bind-btn:active {
+  background: #4338CA;
+  transform: translateY(1px);
+}
+
+/* Course List */
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.course-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 26rpx;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.course-card:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.course-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+  gap: 12rpx;
+}
+
+.course-subject {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #4F46E5;
+  background: rgba(79, 70, 229, 0.1);
+  padding: 8rpx 18rpx;
+  border-radius: 100rpx;
+}
+
+.course-grade {
+  font-size: 24rpx;
+  color: #71717A;
+  font-weight: 500;
+}
+
+.course-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #18181B;
+  margin-bottom: 18rpx;
+  letter-spacing: -0.01em;
+}
+
+.course-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.info-icon-wrapper {
+  font-size: 24rpx;
+  opacity: 0.7;
+}
+
+.info-text {
+  font-size: 24rpx;
+  color: #71717A;
+}
+
+.course-schedule {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  background: rgba(79, 70, 229, 0.05);
+  padding: 16rpx;
+  border-radius: 14rpx;
+  margin-bottom: 18rpx;
+}
+
+.schedule-icon-wrapper {
+  font-size: 22rpx;
+  opacity: 0.7;
+}
+
+.schedule-text {
+  font-size: 24rpx;
+  color: #4F46E5;
+  font-weight: 500;
+}
+
+.course-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18rpx;
+  border-top: 1px solid #E4E4E7;
+}
+
+.schedule-time {
+  font-size: 24rpx;
+  color: #71717A;
+}
+
+.view-more {
+  font-size: 26rpx;
+  color: #4F46E5;
+  font-weight: 500;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 32rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  margin-top: 16rpx;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.empty-icon {
+  font-size: 64rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #18181B;
+  margin-bottom: 8rpx;
+  letter-spacing: -0.02em;
+}
+
+.empty-text {
+  font-size: 26rpx;
+  color: #71717A;
+  margin-bottom: 28rpx;
+  text-align: center;
+}
+
+.empty-btn {
+  background: #4F46E5;
+  color: #FFFFFF;
+  padding: 24rpx 48rpx;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.empty-btn:active {
+  background: #4338CA;
+  transform: translateY(1px);
+}

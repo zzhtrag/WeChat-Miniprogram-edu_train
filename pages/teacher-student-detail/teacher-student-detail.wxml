@@ -1,0 +1,236 @@
+<view class="container">
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 学员不存在 -->
+  <view class="empty-state" wx:if="{{!loading && !student}}">
+    <view class="empty-icon">👤</view>
+    <view class="empty-text">学员不存在</view>
+    <button class="btn-back" bindtap="goBack">返回</button>
+  </view>
+
+  <!-- 学员详情 -->
+  <view class="detail-content" wx:if="{{!loading && student}}">
+    <!-- 基本信息卡片 -->
+    <view class="info-card">
+      <view class="card-header">
+        <view class="student-avatar-placeholder">
+          <text class="avatar-text">{{student.name}}</text>
+        </view>
+        <view class="student-basic">
+          <view class="student-name-row">
+            <text class="student-name">{{student.name}}</text>
+            <text class="student-status {{student.status}}">{{getStatusTag(student.status)}}</text>
+          </view>
+          <text class="student-no">学号：{{student.student_no}}</text>
+        </view>
+        <view class="more-btn" bindtap="showActions">···</view>
+      </view>
+      <view class="card-body">
+        <view class="info-item">
+          <text class="info-icon">📅</text>
+          <text class="info-label">年级</text>
+          <text class="info-value">{{student.grade}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-icon">🎂</text>
+          <text class="info-label">年龄</text>
+          <text class="info-value">{{student.age}}岁</text>
+        </view>
+        <view class="info-item">
+          <text class="info-icon">👨‍👩‍👧</text>
+          <text class="info-label">家长</text>
+          <text class="info-value">{{student.parent_name || '未绑定'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-icon">📱</text>
+          <text class="info-label">联系电话</text>
+          <text class="info-value link" bindtap="callParent">{{student.parent_phone || '无'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 统计数据 -->
+    <view class="stats-card">
+      <view class="stats-item">
+        <view class="stats-number">{{stats.totalCourses}}</view>
+        <view class="stats-label">在读课程</view>
+      </view>
+      <view class="stats-divider"></view>
+      <view class="stats-item">
+        <view class="stats-number">{{stats.attendanceRate}}%</view>
+        <view class="stats-label">出勤率</view>
+      </view>
+      <view class="stats-divider"></view>
+      <view class="stats-item">
+        <view class="stats-number">{{stats.avgGrade}}</view>
+        <view class="stats-label">平均成绩</view>
+      </view>
+    </view>
+
+    <!-- 标签页 -->
+    <view class="tab-section">
+      <view class="tab-header">
+        <view class="tab-item {{currentTab === 'info' ? 'active' : ''}}" bindtap="onTabChange" data-tab="info">
+          <text>基本信息</text>
+        </view>
+        <view class="tab-item {{currentTab === 'courses' ? 'active' : ''}}" bindtap="onTabChange" data-tab="courses">
+          <text>课程</text>
+        </view>
+        <view class="tab-item {{currentTab === 'attendance' ? 'active' : ''}}" bindtap="onTabChange" data-tab="attendance">
+          <text>考勤</text>
+        </view>
+        <view class="tab-item {{currentTab === 'grades' ? 'active' : ''}}" bindtap="onTabChange" data-tab="grades">
+          <text>成绩</text>
+        </view>
+        <view class="tab-item {{currentTab === 'portfolio' ? 'active' : ''}}" bindtap="onTabChange" data-tab="portfolio">
+          <text>作品集</text>
+        </view>
+      </view>
+
+      <!-- 基本信息 -->
+      <view class="tab-content" wx:if="{{currentTab === 'info'}}">
+        <view class="info-section">
+          <view class="section-title">基本信息</view>
+          <view class="info-list">
+            <view class="info-row">
+              <text class="row-label">性别</text>
+              <text class="row-value">{{student.gender === 'male' ? '男' : '女'}}</text>
+            </view>
+            <view class="info-row">
+              <text class="row-label">出生日期</text>
+              <text class="row-value">{{student.birthday}}</text>
+            </view>
+            <view class="info-row">
+              <text class="row-label">入学日期</text>
+              <text class="row-value">{{student.enrolled_date}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="info-section" wx:if="{{student.address}}">
+          <view class="section-title">其他信息</view>
+          <view class="info-list">
+            <view class="info-row">
+              <text class="row-label">家庭住址</text>
+              <text class="row-value">{{student.address}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="info-section" wx:if="{{student.tags.length > 0}}">
+          <view class="section-title">标签</view>
+          <view class="tag-list">
+            <text class="tag" wx:for="{{student.tags}}" wx:key="*this">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 课程列表 -->
+      <view class="tab-content" wx:if="{{currentTab === 'courses'}}">
+        <view class="empty-tips" wx:if="{{enrollments.length === 0}}">
+          <text>暂无课程记录</text>
+        </view>
+        <view class="course-list" wx:else>
+          <view class="course-item" wx:for="{{enrollments}}" wx:key="id">
+            <view class="course-info interactive-item interactive-teacher" bindtap="viewCourseDetail" data-courseid="{{item.course_id}}">
+              <view class="course-name">{{item.course_name}}</view>
+              <view class="course-meta">
+                <text class="meta-item">{{item.class_name}}</text>
+                <text class="meta-item">{{item.schedule}}</text>
+              </view>
+            </view>
+            <view class="course-status" style="color: {{getEnrollmentColor(item.status)}}">
+              {{getEnrollmentStatus(item.status)}}
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 考勤记录 -->
+      <view class="tab-content" wx:if="{{currentTab === 'attendance'}}">
+        <view class="empty-tips" wx:if="{{attendances.length === 0}}">
+          <text>暂无考勤记录</text>
+        </view>
+        <view class="attendance-list" wx:else>
+          <view class="attendance-item" wx:for="{{attendances}}" wx:key="id">
+            <view class="attendance-date">{{item.date}}</view>
+            <view class="attendance-course">{{item.course_name}}</view>
+            <view class="attendance-status" style="background: {{getAttendanceColor(item.status)}}20; color: {{getAttendanceColor(item.status)}}">
+              {{getAttendanceTag(item.status)}}
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 成绩记录 -->
+      <view class="tab-content" wx:if="{{currentTab === 'grades'}}">
+        <view class="empty-tips" wx:if="{{grades.length === 0}}">
+          <text>暂无成绩记录</text>
+        </view>
+        <view class="grade-list" wx:else>
+          <view class="grade-item" wx:for="{{grades}}" wx:key="id">
+            <view class="grade-header">
+              <text class="grade-course">{{item.course_name}}</text>
+              <text class="grade-date">{{item.date}}</text>
+            </view>
+            <view class="grade-body">
+              <view class="grade-score">
+                <text class="score-num">{{item.score}}</text>
+                <text class="score-max">分</text>
+              </view>
+              <view class="grade-info">
+                <text class="grade-type">{{item.exam_type}}</text>
+                <text class="grade-remark" wx:if="{{item.remark}}">{{item.remark}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 作品集 -->
+      <view class="tab-content" wx:if="{{currentTab === 'portfolio'}}">
+        <view class="empty-tips" wx:if="{{portfolioItems.length === 0}}">
+          <text>暂无作品记录</text>
+        </view>
+        <view class="portfolio-list" wx:else>
+          <view class="portfolio-item interactive-item interactive-teacher" wx:for="{{portfolioItems}}" wx:key="id" bindtap="viewPortfolioDetail" data-id="{{item.id}}">
+            <image class="portfolio-thumb" src="{{item.thumbnail || item.file_url}}" mode="aspectFill" wx:if="{{item.thumbnail || item.file_url}}" />
+            <view class="portfolio-thumb-placeholder" wx:else>
+              <text>📄</text>
+            </view>
+            <view class="portfolio-info">
+              <text class="portfolio-title">{{item.title}}</text>
+              <view class="portfolio-meta">
+                <text class="portfolio-category">{{item.category_label}}</text>
+                <text class="portfolio-date">{{item.work_date}}</text>
+              </view>
+              <view class="portfolio-badges">
+                <text class="p-badge excellent" wx:if="{{item.is_excellent}}">优秀</text>
+                <text class="p-badge featured" wx:if="{{item.is_featured}}">精选</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 操作菜单 -->
+<view class="action-sheet" wx:if="{{showActionSheet}}">
+  <view class="action-mask" bindtap="hideActionSheet"></view>
+  <view class="action-content">
+    <view class="action-list">
+      <view class="action-item" bindtap="callParent">
+        <text class="action-icon">📞</text>
+        <text class="action-text">拨打电话</text>
+      </view>
+      <view class="action-item" bindtap="sendMessage">
+        <text class="action-icon">💬</text>
+        <text class="action-text">发送消息</text>
+      </view>
+    </view>
+    <view class="action-cancel" bindtap="hideActionSheet">取消</view>
+  </view>
+</view>

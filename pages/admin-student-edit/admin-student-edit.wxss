@@ -1,0 +1,271 @@
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 140rpx;
+}
+
+.form-card {
+  background: #ffffff;
+  margin: 30rpx;
+  border-radius: 16rpx;
+  padding: 30rpx;
+}
+
+.form-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.form-section {
+  margin-bottom: 40rpx;
+}
+
+.form-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 24rpx;
+  padding-left: 16rpx;
+  border-left: 6rpx solid #7C3AED;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.form-label.required::after {
+  content: ' *';
+  color: #ff4d4f;
+}
+
+.form-input {
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.form-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  padding: 24rpx;
+}
+
+.picker-placeholder {
+  font-size: 30rpx;
+  color: #999;
+}
+
+.picker-value {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.picker-arrow {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.form-textarea {
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  font-size: 30rpx;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 160rpx;
+}
+
+/* 标签选择 */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.tag-option {
+  font-size: 26rpx;
+  color: #666;
+  background: #f5f5f5;
+  padding: 16rpx 28rpx;
+  border-radius: 32rpx;
+  border: 2rpx solid transparent;
+}
+
+.tag-option.selected {
+  color: #7C3AED;
+  background: #e6fffb;
+  border-color: #7C3AED;
+}
+
+/* 按钮区域 */
+.btn-area {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  padding: 20rpx 30rpx;
+  background: #ffffff;
+  gap: 20rpx;
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.06);
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  z-index: 100;
+}
+
+.btn-cancel {
+  flex: 1;
+  background: #f5f5f5;
+  color: #666;
+  border-radius: 44rpx;
+  padding: 28rpx;
+  font-size: 30rpx;
+  border: none;
+}
+
+.btn-submit {
+  flex: 2;
+  background: #7C3AED;
+  color: #ffffff;
+  border-radius: 44rpx;
+  padding: 28rpx;
+  font-size: 30rpx;
+  border: none;
+}
+
+.btn-submit[loading] {
+  opacity: 0.7;
+}
+
+/* 年级选择弹窗 */
+.picker-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.picker-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.picker-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 560rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+
+.picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.picker-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.picker-close {
+  font-size: 32rpx;
+  color: #999;
+  padding: 10rpx;
+}
+
+.picker-body {
+  padding: 20rpx 0;
+  max-height: 500rpx;
+  overflow-y: auto;
+}
+
+.picker-item {
+  font-size: 30rpx;
+  color: #333;
+  padding: 28rpx 30rpx;
+  text-align: center;
+}
+
+.picker-item.selected {
+  color: #7C3AED;
+  background: #e6fffb;
+}
+
+.class-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.class-item {
+  padding: 16rpx 24rpx;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  border: 4rpx solid transparent;
+}
+
+.class-item.selected {
+  background: #f0e6ff;
+  border-color: #7C3AED;
+}
+
+.class-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.class-course {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.class-item.selected .class-name {
+  color: #7C3AED;
+  font-weight: 600;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  text-align: center;
+  padding: 40rpx 0;
+}

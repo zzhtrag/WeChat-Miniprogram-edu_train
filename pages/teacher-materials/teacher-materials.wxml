@@ -1,0 +1,97 @@
+<view class="page-container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索资料名称" value="{{keyword}}" bindinput="onSearchInput" bindconfirm="onSearch" confirm-type="search" />
+    </view>
+  </view>
+
+  <!-- 分类标签 -->
+  <view class="category-tabs">
+    <view class="tab-item {{activeTab === index ? 'active' : ''}}" wx:for="{{categoryTabs}}" wx:key="key" bindtap="switchTab" data-index="{{index}}">
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 文件夹导航 -->
+  <view class="folder-section" wx:if="{{currentFolderId}}">
+    <view class="folder-breadcrumb" bindtap="exitFolder">
+      <text class="breadcrumb-back">‹ 返回全部</text>
+      <text class="breadcrumb-sep">/</text>
+      <text class="breadcrumb-current">{{currentFolderName}}</text>
+    </view>
+  </view>
+
+  <!-- 统计概览 -->
+  <view class="stats-row" wx:if="{{!currentFolderId && !keyword}}">
+    <view class="stat-chip">
+      <text class="stat-num">{{stats.total_count}}</text>
+      <text class="stat-text">份资料</text>
+    </view>
+    <view class="stat-chip">
+      <text class="stat-num">{{stats.shared_count}}</text>
+      <text class="stat-text">已分享</text>
+    </view>
+    <view class="stat-chip">
+      <text class="stat-num">{{stats.folder_count}}</text>
+      <text class="stat-text">个文件夹</text>
+    </view>
+  </view>
+
+  <!-- 文件夹列表 -->
+  <view class="folder-list" wx:if="{{folders.length > 0 && !currentFolderId && !keyword}}">
+    <view class="section-label">文件夹</view>
+    <view class="folder-grid">
+      <view class="folder-card interactive-item interactive-teacher" wx:for="{{folders}}" wx:key="id" bindtap="enterFolder" data-id="{{item.id}}" data-name="{{item.name}}" bindlongpress="showFolderAction">
+        <view class="folder-icon">📁</view>
+        <view class="folder-info">
+          <text class="folder-name">{{item.name}}</text>
+          <text class="folder-count">{{item.material_count}} 份资料</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 资料列表 -->
+  <view class="section-label">资料列表</view>
+
+  <view class="material-list" wx:if="{{materials.length > 0}}">
+    <view class="material-card interactive-item interactive-teacher" wx:for="{{materials}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <view class="material-icon-wrap" style="background: {{item.file_type === 'pdf' ? '#FEE2E2' : item.file_type === 'pptx' || item.file_type === 'ppt' ? '#FEF3C7' : item.file_type === 'docx' || item.file_type === 'doc' ? '#DBEAFE' : '#F3F4F6'}}">
+        <text class="material-type-icon">{{item.file_type === 'pdf' ? '📕' : item.file_type === 'pptx' || item.file_type === 'ppt' ? '📊' : item.file_type === 'docx' || item.file_type === 'doc' ? '📄' : '📎'}}</text>
+      </view>
+      <view class="material-info">
+        <text class="material-title">{{item.title}}</text>
+        <view class="material-meta">
+          <text class="meta-tag">{{item.category_label}}</text>
+          <text class="meta-dot">·</text>
+          <text class="meta-text">{{item.subject}}</text>
+          <text class="meta-dot">·</text>
+          <text class="meta-text">{{item.file_name}}</text>
+        </view>
+        <view class="material-bottom">
+          <text class="material-size">{{item.file_size_str}}</text>
+          <view class="material-shared" wx:if="{{item.is_shared}}">
+            <text class="shared-icon">🔗</text>
+            <text class="shared-text">已分享{{item.shared_class_ids.length}}个班</text>
+          </view>
+        </view>
+      </view>
+      <text class="material-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:else>
+    <view class="empty-icon">📂</view>
+    <text class="empty-title">暂无教学资料</text>
+    <text class="empty-desc">点击右下角按钮上传资料</text>
+  </view>
+
+  <!-- 浮动操作按钮 -->
+  <view class="fab-container">
+    <view class="fab-btn" bindtap="goToUpload">
+      <text class="fab-icon">+</text>
+    </view>
+  </view>
+</view>

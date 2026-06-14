@@ -1,0 +1,62 @@
+<view class="page-container">
+  <!-- 用户信息 -->
+  <view class="header stagger-1">
+    <view class="user-card" bindtap="editProfile">
+      <view class="avatar avatar-gradient">{{userInfo.name ? userInfo.name.charAt(0) : 'U'}}</view>
+      <view class="user-detail">
+        <text class="user-name">{{userInfo.name || '用户'}}</text>
+        <text class="user-phone">{{userInfo.phone || '未绑定手机号'}}</text>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 当前学生卡片 -->
+  <view class="student-section" wx:if="{{currentStudent}}">
+    <view class="student-card stagger-2">
+      <view class="student-header">
+        <view class="student-info">
+          <view class="student-avatar avatar-teacher-gradient">{{currentStudent.name ? currentStudent.name.charAt(0) : 'S'}}</view>
+          <view class="student-detail">
+            <text class="student-name">{{currentStudent.name || '学生'}}</text>
+            <text class="student-label">{{currentStudent.student_no || ''}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 菜单列表 -->
+      <view class="menu-list">
+        <view class="menu-item" bindtap="goToMenu" data-url="/pages/gift-shop/gift-shop">
+          <view class="menu-icon-box icon-box-warning">
+            <image class="icon-image-sm" src="/svg/icon-gift.svg" mode="aspectFit"/>
+          </view>
+          <text class="menu-label">我的积分</text>
+          <text class="menu-points">{{pointsBalance}}分</text>
+          <text class="menu-arrow">›</text>
+        </view>
+
+        <view class="menu-item" bindtap="goToMenu" data-url="/pages/messages/messages">
+          <view class="menu-icon-box icon-box-primary">
+            <image class="icon-image-sm" src="/svg/icon-announce.svg" mode="aspectFit"/>
+          </view>
+          <text class="menu-label">公告</text>
+          <text class="menu-arrow">›</text>
+        </view>
+
+        <view class="menu-item" bindtap="goToMenu" data-url="/pages/messages/messages">
+          <view class="menu-icon-box icon-box-warning">
+            <image class="icon-image-sm" src="/svg/icon-notification.svg" mode="aspectFit"/>
+          </view>
+          <text class="menu-label">我的消息</text>
+          <view class="badge" wx:if="{{unreadCount > 0}}">{{unreadCount}}</view>
+          <text class="menu-arrow">›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-section">
+    <view class="logout-btn" bindtap="logout">退出登录</view>
+  </view>
+</view>

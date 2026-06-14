@@ -1,0 +1,156 @@
+<view class="page-container">
+  <!-- 学校品牌栏 -->
+  <view class="school-brand-bar" bindtap="goToSchoolHome">
+    <view class="brand-bar-inner">
+      <view class="brand-bar-logo-wrapper" wx:if="{{schoolInfo.logo}}">
+        <image class="brand-bar-logo" src="{{schoolInfo.logo}}" mode="aspectFill"/>
+      </view>
+      <view class="brand-bar-logo-placeholder" wx:else>
+        <text class="brand-bar-logo-text">{{schoolInfo.name ? schoolInfo.name[0] : '🏫'}}</text>
+      </view>
+      <view class="brand-bar-info">
+        <view class="brand-bar-name-wrapper">
+          <text class="brand-bar-name">{{schoolInfo.name || '星程培训中心'}}</text>
+          <view class="brand-bar-badge">
+            <text class="badge-icon">✓</text>
+            <text class="badge-text">官方</text>
+          </view>
+        </view>
+        <text class="brand-bar-slogan">{{schoolInfo.slogan || '让每个孩子都发光'}}</text>
+      </view>
+      <view class="brand-bar-action">
+        <text class="brand-bar-action-text">查看学校</text>
+        <text class="brand-bar-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 推荐头部 -->
+  <view class="invite-header bg-gradient-primary stagger-1">
+    <view class="header-content">
+      <text class="header-title">推荐好友</text>
+      <text class="header-subtitle">分享好课程，好友得优惠</text>
+    </view>
+    <view class="header-reward">
+      <text class="reward-text">推荐成功各得</text>
+      <text class="reward-value">1节免费课</text>
+    </view>
+  </view>
+
+  <!-- 我的推荐码 -->
+  <view class="referral-card card card-elevated stagger-2">
+    <view class="referral-label">
+      <text class="label-text">我的专属推荐码</text>
+    </view>
+    <view class="referral-code-row">
+      <text class="referral-code">{{referralCode}}</text>
+      <view class="copy-btn tag tag-primary" bindtap="copyCode">复制</view>
+    </view>
+    <view class="referral-desc">
+      <text class="desc-text">好友报名时填写您的推荐码，双方均可获得奖励</text>
+    </view>
+  </view>
+
+  <!-- 快速分享 -->
+  <view class="share-section stagger-3">
+    <view class="section-title mb-3">邀请好友</view>
+    <view class="share-methods">
+      <button class="share-method card" open-type="share">
+        <view class="method-icon icon-box icon-box-primary">
+          <text>💬</text>
+        </view>
+        <text class="method-label">微信好友</text>
+      </button>
+      <view class="share-method card" bindtap="generatePoster">
+        <view class="method-icon icon-box icon-box-success">
+          <text>🖼️</text>
+        </view>
+        <text class="method-label">生成海报</text>
+      </view>
+      <view class="share-method card" bindtap="shareToSchoolHome">
+        <view class="method-icon icon-box icon-box-warning">
+          <text>🏫</text>
+        </view>
+        <text class="method-label">机构主页</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 推荐统计 -->
+  <view class="stats-section stagger-4">
+    <view class="section-title mb-3">推荐统计</view>
+    <view class="stats-row">
+      <view class="stat-item card">
+        <text class="stat-num text-primary">{{stats.total}}</text>
+        <text class="stat-desc">累计推荐</text>
+      </view>
+      <view class="stat-item card">
+        <text class="stat-num text-success">{{stats.trial}}</text>
+        <text class="stat-desc">已试听</text>
+      </view>
+      <view class="stat-item card">
+        <text class="stat-num text-warning">{{stats.enrolled}}</text>
+        <text class="stat-desc">已报名</text>
+      </view>
+      <view class="stat-item card">
+        <text class="stat-num text-danger">{{stats.rewards}}</text>
+        <text class="stat-desc">获得奖励</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分余额 -->
+  <view class="points-section stagger-4">
+    <view class="section-title mb-3">我的积分</view>
+    <view class="points-card card card-primary">
+      <view class="points-number">{{pointsBalance}}</view>
+      <text class="points-desc">可用积分</text>
+      <view class="points-action tag tag-primary" bindtap="goToMenu" data-url="/pages/gift-shop/gift-shop">去兑换</view>
+    </view>
+    <text class="points-hint">分享成长报告或机构主页，好友打开即可获得10积分</text>
+  </view>
+
+  <!-- 推荐记录 -->
+  <view class="records-section stagger-5">
+    <view class="section-title mb-3">推荐记录</view>
+    <view class="records-list" wx:if="{{records.length > 0}}">
+      <view class="record-item card interactive-item interactive-primary" wx:for="{{records}}" wx:key="id">
+        <view class="record-info">
+          <view class="record-name-row">
+            <text class="record-name">{{item.invitee_name || '微信好友'}}</text>
+            <view class="tag {{item.status === 'enrolled' ? 'tag-success' : item.status === 'trial' ? 'tag-warning' : 'tag-muted'}}">
+              {{item.status === 'pending' ? '待试听' : item.status === 'trial' ? '已试听' : '已报名'}}
+            </view>
+          </view>
+          <text class="record-date">{{item.created_at}}</text>
+        </view>
+        <view class="record-reward" wx:if="{{item.reward_claimed}}">
+          <text class="reward-claimed">已领奖</text>
+        </view>
+        <view class="record-reward claim" wx:elif="{{item.status === 'enrolled'}}" bindtap="claimReward" data-id="{{item.id}}">
+          <text class="reward-claim">领奖励</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-records" wx:else>
+      <text class="empty-text">还没有推荐记录</text>
+      <text class="empty-hint">分享给好友开始推荐吧</text>
+    </view>
+  </view>
+
+  <!-- 规则说明 -->
+  <view class="rules-section stagger-6">
+    <view class="rules-toggle" bindtap="toggleRules">
+      <text class="rules-label">活动规则</text>
+      <text class="rules-arrow {{showRules ? 'expanded' : ''}}">›</text>
+    </view>
+    <view class="rules-content" wx:if="{{showRules}}">
+      <text class="rule-item">1. 分享推荐码或链接给好友</text>
+      <text class="rule-item">2. 好友通过推荐报名试听课</text>
+      <text class="rule-item">3. 试听完成后，双方各得1节免费课</text>
+      <text class="rule-item">4. 奖励在好友完成试听后自动发放</text>
+      <text class="rule-item">5. 每位好友仅可被推荐一次</text>
+    </view>
+  </view>
+</view>

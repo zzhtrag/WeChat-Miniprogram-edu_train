@@ -1,0 +1,97 @@
+<view class="container">
+  <view class="search-section">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索礼品名称" value="{{keyword}}" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch"/>
+      <text class="clear-icon" wx:if="{{keyword}}" bindtap="clearSearch">✕</text>
+    </view>
+  </view>
+
+  <view class="stats-section">
+    <view class="stats-card">
+      <view class="stats-item">
+        <view class="stats-number">{{giftStats.total}}</view>
+        <view class="stats-label">全部礼品</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-number on-shelf">{{giftStats.on_shelf}}</view>
+        <view class="stats-label">上架中</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-number off-shelf">{{giftStats.off_shelf}}</view>
+        <view class="stats-label">已下架</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="filter-tabs">
+    <view class="filter-tab {{filterStatus === '' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="">全部</view>
+    <view class="filter-tab {{filterStatus === 'on_shelf' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="on_shelf">上架中</view>
+    <view class="filter-tab {{filterStatus === 'off_shelf' ? 'active' : ''}}" bindtap="setFilterStatus" data-status="off_shelf">已下架</view>
+  </view>
+
+  <view class="gift-list">
+    <view class="gift-card" wx:for="{{gifts}}" wx:key="id">
+      <view class="gift-main">
+        <view class="gift-header">
+          <image class="gift-thumb" src="{{item.image || '/svg/icon-gift.svg'}}" mode="aspectFill"/>
+          <view class="gift-info">
+            <view class="gift-name-row">
+              <text class="gift-name">{{item.name}}</text>
+              <text class="gift-status {{item.status}}">{{item.status === 'on_shelf' ? '上架中' : '已下架'}}</text>
+            </view>
+            <view class="gift-desc">{{item.description}}</view>
+          </view>
+        </view>
+        <view class="gift-details">
+          <view class="detail-item">
+            <text class="detail-icon">🎁</text>
+            <text class="detail-text">库存 {{item.stock}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-icon">💎</text>
+            <text class="detail-text">{{item.required_points}} 积分</text>
+          </view>
+        </view>
+      </view>
+      <view class="gift-actions">
+        <text class="action-btn" bindtap="showActions" data-id="{{item.id}}">···</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{gifts.length === 0}}">
+    <view class="empty-icon">🎁</view>
+    <view class="empty-text">暂无礼品数据</view>
+    <view class="empty-subtext">点击右下角添加礼品</view>
+  </view>
+
+  <view class="fab-btn" bindtap="addGift">
+    <text class="fab-icon">+</text>
+  </view>
+</view>
+
+<view class="action-sheet" wx:if="{{showActionSheet}}">
+  <view class="action-mask" bindtap="hideActionSheet"></view>
+  <view class="action-content">
+    <view class="action-header">
+      <text class="action-title">{{currentGift.name}}</text>
+      <text class="action-subtitle">库存 {{currentGift.stock}} · {{currentGift.required_points}} 积分</text>
+    </view>
+    <view class="action-list">
+      <view class="action-item" bindtap="editGift">
+        <text class="action-icon">✏️</text>
+        <text class="action-text">编辑礼品信息</text>
+      </view>
+      <view class="action-item" bindtap="toggleGiftStatus">
+        <text class="action-icon">{{currentGift.status === 'on_shelf' ? '⏸️' : '▶️'}}</text>
+        <text class="action-text">{{currentGift.status === 'on_shelf' ? '下架礼品' : '上架礼品'}}</text>
+      </view>
+      <view class="action-item delete" bindtap="deleteGift">
+        <text class="action-icon">🗑️</text>
+        <text class="action-text">删除礼品</text>
+      </view>
+    </view>
+    <view class="action-cancel" bindtap="hideActionSheet">取消</view>
+  </view>
+</view>

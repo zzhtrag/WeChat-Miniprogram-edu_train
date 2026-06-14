@@ -1,0 +1,161 @@
+<view class="page-container">
+  <!-- Stats with icons -->
+  <view class="stats-row">
+    <view class="stat-chip">
+      <view class="stat-icon-box icon-box-neutral">
+        <image class="stat-icon" src="/svg/icon-enrollment.svg" mode="aspectFit"/>
+      </view>
+      <text class="stat-num">{{stats.total || 0}}</text>
+      <text class="stat-label">全部</text>
+    </view>
+    <view class="stat-chip chip-enrolled">
+      <view class="stat-icon-box icon-box-enrolled">
+        <view class="stat-dot-dot"></view>
+      </view>
+      <text class="stat-num">{{stats.enrolled || 0}}</text>
+      <text class="stat-label">已报名</text>
+    </view>
+    <view class="stat-chip chip-paid">
+      <view class="stat-icon-box icon-box-paid">
+        <view class="stat-dot-dot"></view>
+      </view>
+      <text class="stat-num">{{stats.paid || 0}}</text>
+      <text class="stat-label">已缴费</text>
+    </view>
+    <view class="stat-chip chip-admitted">
+      <view class="stat-icon-box icon-box-admitted">
+        <view class="stat-dot-dot"></view>
+      </view>
+      <text class="stat-num">{{stats.admitted || 0}}</text>
+      <text class="stat-label">已入学</text>
+    </view>
+  </view>
+
+  <!-- Search -->
+  <view class="search-bar">
+    <view class="search-wrapper">
+      <image class="search-icon" src="/svg/icon-manage.svg" mode="aspectFit"/>
+      <input class="search-input" placeholder="搜索姓名/电话/报名码" value="{{keyword}}" bindinput="onSearchInput" bindconfirm="onSearch"/>
+    </view>
+  </view>
+
+  <!-- Tabs -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === item.value ? 'tab-active' : ''}}"
+          wx:for="{{statusTabs}}" wx:key="value"
+          bindtap="switchTab" data-value="{{item.value}}">
+      <text class="tab-text">{{item.label}}</text>
+      <view class="tab-indicator" wx:if="{{activeTab === item.value}}"></view>
+    </view>
+  </view>
+
+  <!-- List -->
+  <view class="reg-list">
+    <view class="reg-card" wx:for="{{filteredList}}" wx:key="id">
+      <view class="reg-top">
+        <view class="reg-left">
+          <view class="avatar-circle avatar-{{item.gender === 'female' ? 'female' : 'male'}}">
+            <text class="avatar-letter">{{item.student_name.charAt(0)}}</text>
+          </view>
+          <view class="reg-main">
+            <view class="name-row">
+              <text class="student-name">{{item.student_name}}</text>
+              <view class="status-tag status-{{item.status}}">
+                <view class="status-indicator"></view>
+                <text class="status-tag-text">{{item.status === 'enrolled' ? '已报名' : item.status === 'paid' ? '已缴费' : '已入学'}}</text>
+              </view>
+            </view>
+            <text class="reg-meta">{{item.subject}} · {{item.age}}岁 · 报名码 {{item.code}}</text>
+            <text class="reg-parent">{{item.parent_name}} {{item.parent_phone}}</text>
+            <text class="reg-date">{{item.created_at}}</text>
+          </view>
+        </view>
+        <view class="reg-actions">
+          <view class="action-btn" bindtap="showActions" data-id="{{item.id}}" wx:if="{{item.status !== 'admitted'}}">
+            <text class="action-text">操作</text>
+          </view>
+          <view class="action-btn action-btn-register" bindtap="oneClickRegister" data-id="{{item.id}}" wx:if="{{item.status === 'enrolled' && !item.user_id}}">
+            <image class="action-icon" src="/svg/icon-enrollment.svg" mode="aspectFit"/>
+            <text class="action-text-action">注册</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="reg-class" wx:if="{{item.class_name}}">
+        <view class="class-icon-wrapper">
+          <image class="class-icon" src="/svg/icon-class.svg" mode="aspectFit"/>
+        </view>
+        <text class="class-value">{{item.class_name}}</text>
+      </view>
+    </view>
+
+    <!-- Empty - styled, no emoji -->
+    <view class="empty" wx:if="{{filteredList.length === 0}}">
+      <view class="empty-circle">
+        <image class="empty-icon" src="/svg/icon-enrollment.svg" mode="aspectFit"/>
+      </view>
+      <text class="empty-text">暂无报名记录</text>
+    </view>
+  </view>
+
+  <!-- Action Sheet -->
+  <view class="sheet-mask" wx:if="{{showActionSheet}}" bindtap="closeActionSheet"></view>
+  <view class="action-sheet" wx:if="{{showActionSheet}}">
+    <view class="sheet-handle"></view>
+    <view class="sheet-header">
+      <view class="sheet-avatar avatar-{{currentReg.gender === 'female' ? 'female' : 'male'}}">
+        <text class="sheet-avatar-letter">{{currentReg.student_name ? currentReg.student_name.charAt(0) : ''}}</text>
+      </view>
+      <view class="sheet-title-group">
+        <text class="sheet-title">{{currentReg.student_name}}</text>
+        <text class="sheet-subtitle">{{currentReg.subject}} · 报名码 {{currentReg.code}}</text>
+      </view>
+    </view>
+    <view class="sheet-options">
+      <view class="sheet-option" bindtap="markPaid" wx:if="{{currentReg.status === 'enrolled'}}">
+        <view class="option-icon icon-box-paid">
+          <view class="option-dot"></view>
+        </view>
+        <view class="option-content">
+          <text class="option-text">标记为已缴费</text>
+          <text class="option-desc">确认家长已完成缴费</text>
+        </view>
+        <text class="option-arrow">›</text>
+      </view>
+      <view class="sheet-option" bindtap="markAdmitted" wx:if="{{currentReg.status === 'paid'}}">
+        <view class="option-icon icon-box-admitted">
+          <view class="option-dot"></view>
+        </view>
+        <view class="option-content">
+          <text class="option-text">标记为已入学</text>
+          <text class="option-desc">选择班级并自动创建账号</text>
+        </view>
+        <text class="option-arrow">›</text>
+      </view>
+    </view>
+    <view class="sheet-cancel" bindtap="closeActionSheet">取消</view>
+  </view>
+
+  <!-- Class Picker -->
+  <view class="sheet-mask" wx:if="{{showClassPicker}}" bindtap="closeClassPicker"></view>
+  <view class="class-picker" wx:if="{{showClassPicker}}">
+    <view class="sheet-handle"></view>
+    <view class="picker-header">
+      <text class="picker-title">选择班级</text>
+      <text class="picker-desc">为 {{currentReg.student_name}} 分配班级，入学后自动创建登录账号</text>
+    </view>
+    <scroll-view scroll-y class="class-list">
+      <view class="class-item" wx:for="{{classes}}" wx:key="id" bindtap="selectClass" data-id="{{item.id}}">
+        <view class="class-info">
+          <text class="class-name">{{item.name}}</text>
+          <text class="class-meta">{{item.course_name}} · {{item.teacher_name}}</text>
+          <text class="class-meta">{{item.schedule}}</text>
+        </view>
+        <view class="class-cap">
+          <text class="cap-text">{{item.current_students}}/{{item.capacity}}</text>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="picker-cancel" bindtap="closeClassPicker">取消</view>
+  </view>
+</view>

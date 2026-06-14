@@ -1,0 +1,153 @@
+/* Admin Course Edit Page - Soft UI Style */
+
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #EDE9FE 0%, #F3F0FE 20%, #F8FAFC 45%);
+  padding: 20rpx 24rpx 40rpx;
+}
+
+/* ============================================
+   FORM SECTION
+   ============================================ */
+.form-section {
+  background: #ffffff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2px 8px -2px rgba(124, 58, 237, 0.08), 0 4px 12px -4px rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.form-group:last-child {
+  border-bottom: none;
+}
+
+.form-group.textarea-group {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-group.switch-group {
+  justify-content: space-between;
+}
+
+.form-label {
+  width: 160rpx;
+  font-size: 28rpx;
+  color: #0F172A;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.form-label.required::before {
+  content: '*';
+  color: #DC2626;
+  margin-right: 6rpx;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #0F172A;
+  text-align: right;
+}
+
+.form-placeholder {
+  color: #94A3B8;
+}
+
+.form-picker {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.picker-text {
+  font-size: 28rpx;
+  color: #0F172A;
+  font-weight: 500;
+}
+
+.picker-text.placeholder {
+  color: #94A3B8;
+  font-weight: 400;
+}
+
+.picker-arrow {
+  font-size: 32rpx;
+  color: #CBD5E1;
+  margin-left: 8rpx;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 200rpx;
+  font-size: 28rpx;
+  color: #0F172A;
+  margin-top: 16rpx;
+  line-height: 1.6;
+}
+
+/* ============================================
+   BUTTON SECTION
+   ============================================ */
+.btn-section {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+  padding: 0;
+}
+
+.btn-cancel {
+  flex: 1;
+  background: #FFFFFF;
+  color: #64748B;
+  border: 1px solid #E2E8F0;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.04);
+  transition: all 200ms ease;
+}
+
+.btn-cancel:active {
+  background: #F8FAFC;
+  transform: scale(0.98);
+}
+
+.btn-submit {
+  flex: 1;
+  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  box-shadow: 0 4px 12px -4px rgba(124, 58, 237, 0.4);
+  transition: all 200ms ease;
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px -4px rgba(124, 58, 237, 0.3);
+}
+
+.btn-submit[disabled] {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.5) 0%, rgba(139, 92, 246, 0.5) 100%);
+  box-shadow: none;
+}
+
+/* ============================================
+   STAGGER ANIMATION DELAYS
+   ============================================ */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }

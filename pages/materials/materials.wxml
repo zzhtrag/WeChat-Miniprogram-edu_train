@@ -1,0 +1,24 @@
+<view class="page-container">
+  <view class="material-list" wx:if="{{materials.length > 0}}">
+    <view class="material-card" wx:for="{{materials}}" wx:key="id" bindtap="previewMaterial" data-item="{{item}}">
+      <view class="material-icon-wrap">
+        <text class="material-type-icon">{{item.file_type === 'pdf' ? '📕' : item.file_type === 'pptx' || item.file_type === 'ppt' ? '📊' : item.file_type === 'docx' || item.file_type === 'doc' ? '📄' : '📎'}}</text>
+      </view>
+      <view class="material-info">
+        <text class="material-title">{{item.title}}</text>
+        <view class="material-meta">
+          <text class="meta-tag">{{item.category_label}}</text>
+          <text class="meta-dot">·</text>
+          <text class="meta-text">{{item.teacher_name}}老师分享</text>
+        </view>
+        <text class="material-size">{{item.file_size_str}} · {{item.file_name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:else>
+    <view class="empty-icon">📂</view>
+    <text class="empty-title">暂无共享资料</text>
+    <text class="empty-desc">教师分享资料后将在此显示</text>
+  </view>
+</view>

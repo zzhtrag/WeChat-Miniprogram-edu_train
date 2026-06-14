@@ -1,0 +1,69 @@
+<view class="container">
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <block wx:if="{{!loading && courseInfo}}">
+    <!-- 课程信息 -->
+    <view class="info-card">
+      <view class="course-name">{{courseInfo.name}}</view>
+      <view class="detail-grid">
+        <view class="detail-item">
+          <text class="detail-label">科目</text>
+          <text class="detail-value">{{courseInfo.subject || '-'}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">关联班级</text>
+          <text class="detail-value">{{classes.length}}个</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">总排课</text>
+          <text class="detail-value">{{schedules.length}}次</text>
+        </view>
+      </view>
+      <view class="course-desc" wx:if="{{courseInfo.description}}">
+        <text class="desc-label">课程简介</text>
+        <text class="desc-text">{{courseInfo.description}}</text>
+      </view>
+    </view>
+
+    <!-- 关联班级 -->
+    <view class="section">
+      <view class="section-title">关联班级</view>
+      <view class="empty-tips" wx:if="{{classes.length === 0}}">
+        <text>暂无关联班级</text>
+      </view>
+      <view class="class-list" wx:else>
+        <view class="class-item" wx:for="{{classes}}" wx:key="id"
+          bindtap="viewClass" data-id="{{item.id}}">
+          <view class="class-name-row">
+            <text class="class-name">{{item.name}}</text>
+            <view class="status-tag {{item.status}}">{{item.status === 'active' ? '进行中' : '已结束'}}</view>
+          </view>
+          <view class="class-meta">
+            <text>学员：{{item.studentCount || 0}}人</text>
+            <text wx:if="{{item.room}}">教室：{{item.room}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 近期排课 -->
+    <view class="section">
+      <view class="section-title">近期排课</view>
+      <view class="empty-tips" wx:if="{{schedules.length === 0}}">
+        <text>暂无排课</text>
+      </view>
+      <view class="schedule-list" wx:else>
+        <view class="schedule-item" wx:for="{{schedules}}" wx:key="id">
+          <view class="schedule-date">{{item.date}}</view>
+          <view class="schedule-info">
+            <text class="schedule-time">{{item.start_time}} - {{item.end_time}}</text>
+            <text class="schedule-class">{{item.class_name}}</text>
+          </view>
+          <view class="schedule-status {{item.status}}">{{item.status === 'completed' ? '已完成' : item.status === 'cancelled' ? '已取消' : '待上课'}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
